@@ -53,4 +53,4 @@ dkms.conf
 
 #pasta do make
 cmake-build-debug
-.idea/
+.idea

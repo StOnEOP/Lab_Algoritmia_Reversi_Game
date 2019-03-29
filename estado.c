@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "estado.h"
 
-ESTADO grelha_inicial (ESTADO e, char peca, char mod){
+ESTADO grelha_inicial (ESTADO e, char peca, char modo){
     e.grelha [3][4] = VALOR_O;
     e.grelha [4][3] = VALOR_O;
     e.grelha [3][3] = VALOR_X;

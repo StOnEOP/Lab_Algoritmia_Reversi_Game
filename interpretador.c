@@ -18,16 +18,16 @@ ESTADO interpretar (ESTADO e, char *linha) {
 
     n = sscanf(linha, "%s", cmd);
 
-    switch (toupper(inha[0])) {
+    switch (toupper(linha[0])) { // nao deveria ser linha[n]?
         case 'N' :
             n = sscanf(linha, "%s %s", cmd, peca);
             switch (toupper(peca[0])) {
                 case 'X' :
-                    e = grelha_inicial(e, Valor_X, '0');
+                    e = grelha_inicial(e, VALOR_X, '0');
                     break;
                 case 'O' :
                     e = grelha_inicial(e, VALOR_O, '0');
-                    breka;
+                    break;
                 default:
                     printf("Tem de escolher a peça que quer jogar: X ou O\n");
             }
@@ -38,7 +38,7 @@ ESTADO interpretar (ESTADO e, char *linha) {
             printf("Ler um jogo do fcheiro:%s\n",ficheiro);
             break;
         case 'E':
-            n=sscanf(linha,"%s %s",cmd,ficheiro);
+            n =sscanf(linha,"%s %s",cmd,ficheiro);
             printf("Ler um jogo do ficheiro:%s\n", ficheiro);
             break;
         case 'J':

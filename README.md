@@ -1,12 +1,12 @@
-# Projeto-LA
+# Projeto de Laboratorios de Algoritmia
 
-###Criar Reversi, Laboratorios de Algoritmia, LCC, Uminho 18/19
+###  LCC - Uminho 18/19
 
 
-##Grupo 12
+### Grupo 12
 
-**Pedro Faria** - A72640
+##### **Pedro Faria** - A72640
 
-**André Sousa** - A87999
+##### **André Sousa** - A87999
 
-**João Nunes** -  AXXXXX
+##### **João Nunes** - AXXXXX

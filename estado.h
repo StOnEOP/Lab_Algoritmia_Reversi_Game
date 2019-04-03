@@ -27,7 +27,7 @@ typedef struct estado {
     char modo; // modo em que se está a jogar! 0-> manual, 1-> contra computador
 } ESTADO;
 
-ESTADO grelha_inicial (ESTADO e, char peca, char mod)
+ESTADO gInicial (ESTADO e, char peca, char mod)
 void printa(ESTADO);
 
 

@@ -23,10 +23,10 @@ ESTADO interpretar (ESTADO e, char *linha) {
             n = sscanf(linha, "%s %s", cmd, peca);
             switch (toupper(peca[0])) {
                 case 'X' :
-                    e = grelha_inicial(e, VALOR_X, '0');
+                    e = gInicial(e, VALOR_X, '0');
                     break;
                 case 'O' :
-                    e = grelha_inicial(e, VALOR_O, '0');
+                    e = gInicial(e, VALOR_O, '0');
                     break;
                 default:
                     printf("Tem de escolher a peça que quer jogar: X ou O\n");

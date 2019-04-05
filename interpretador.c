@@ -14,7 +14,7 @@ ESTADO interpretar (ESTADO e, char *linha) {
     char cmd[MAX_BUF];
     char ficheiro[MAX_BUF];
     char peca[MAX_BUF];
-    int lin, col; char n;
+    int lin, col,n;
 
     n = sscanf(linha, "%s", cmd);
 

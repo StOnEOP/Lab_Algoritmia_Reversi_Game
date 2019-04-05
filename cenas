@@ -1,0 +1,8 @@
+o undo nao tem de ter historico
+
+nao é preciso guardar o tabuleiro inicial, apenas se for pedido pelo user
+
+nao temos de guardar o estado do tabuleiro a nao ser que seja pedido
+
+
+fazer comentario a TUDO, o que faz, o que recebe  e o que retorna

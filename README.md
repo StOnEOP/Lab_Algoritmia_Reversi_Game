@@ -9,4 +9,4 @@
 
 ##### **André Sousa** - A87999
 
-##### **João Nunes** - AXXXXX
+##### **João Nunes** - A87972

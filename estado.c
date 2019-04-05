@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "estado.h"
 
-ESTADO gInicial(ESTADO e, char peca, char modo){
+ESTADO grelha_inicial (ESTADO e, char peca, char modo){
     e.grelha [3][4] = VALOR_O;
     e.grelha [4][3] = VALOR_O;
     e.grelha [3][3] = VALOR_X;
@@ -15,7 +15,8 @@ ESTADO gInicial(ESTADO e, char peca, char modo){
 }
 
 // exemplo de uma função para imprimir o estado (Tabuleiro)
-void printa(ESTADO e){
+void printa(ESTADO e)
+{
     printf("\n 1 2 3 4 5 6 7 8\n");
 
     char c = ' ';

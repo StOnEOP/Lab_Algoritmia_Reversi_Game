@@ -8,6 +8,8 @@
 //
 #include "estado.h"
 #include "interpretador.h"
+//
+#include "faria.h"
 
 ESTADO interpretar (ESTADO e, char *linha) {
 
@@ -18,15 +20,15 @@ ESTADO interpretar (ESTADO e, char *linha) {
 
     n = sscanf(linha, "%s", cmd);
 
-    switch (toupper(linha[0])) { // nao deveria ser linha[n]?
+    switch (toupper(linha[0])) {
         case 'N' :
             n = sscanf(linha, "%s %s", cmd, peca);
             switch (toupper(peca[0])) {
                 case 'X' :
-                    e = gInicial(e, VALOR_X, '0');
+                    e = gInicial(e, VALOR_X, 'M');
                     break;
                 case 'O' :
-                    e = gInicial(e, VALOR_O, '0');
+                    e = gInicial(e, VALOR_O, 'M');
                     break;
                 default:
                     printf("Tem de escolher a peça que quer jogar: X ou O\n");
@@ -39,7 +41,8 @@ ESTADO interpretar (ESTADO e, char *linha) {
             break;
         case 'E':
             n =sscanf(linha,"%s %s",cmd,ficheiro);
-            printf("Ler um jogo do ficheiro:%s\n", ficheiro);
+            printf("Gravar um jogo no ficheiro:%s\n", ficheiro);
+            save(e,ficheiro); // recebe o estado atual do jogo e um nome de ficheiro e cria esse ficheiro {FARIA.C}
             break;
         case 'J':
             n= sscanf(linha, "%s %d %d", cmd, &lin, &col);

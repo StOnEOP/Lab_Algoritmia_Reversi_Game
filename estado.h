@@ -24,10 +24,10 @@ Estrutura que armazena o estado do jogo
 typedef struct estado {
     VALOR peca; // peça do jogador que vai jogar!
     VALOR grelha[8][8];
-    char modo; // modo em que se está a jogar! 0-> manual, 1-> contra computador
+    char modo; // modo em que se está a jogar! M-> manual, A-> contra computador
 } ESTADO;
 
-ESTADO gInicial(ESTADO e, char peca, char mod);
+ESTADO gInicial(ESTADO e, char peca, char modo);
 void printa(ESTADO);
 
 

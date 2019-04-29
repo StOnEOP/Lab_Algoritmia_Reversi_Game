@@ -29,11 +29,20 @@ void save(ESTADO e,char ficheiro[MAX_BUF]){ // recebe 1 estado e 1 nome de fiche
     fclose(file);
 }
 
-
-
 char valorToChar(VALOR p){ // converte da variavel VALOR, para 1 char
     if (p == VALOR_O) return 'O';
     if (p == VALOR_X) return 'X';
     if (p == VAZIA)   return '-';
     else printf("ERROR: valorToChar INVALIDO!! ");
+}
+
+void score(ESTADO e){    // diz a pontuação atual de cada jogador
+    int o=0,x=0;
+    for(int i=0;i<8;i++) {   // muda linha
+        for (int j = 0; j < 8; j++) { // muda coluna
+            if (e.grelha[i][j] == VALOR_X) x++;
+            if (e.grelha[i][j] == VALOR_O) o++;
+        }
+    }
+    printf("X -> %d \nO -> %d",x,o);
 }

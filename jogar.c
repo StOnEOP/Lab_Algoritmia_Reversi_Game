@@ -20,9 +20,9 @@ void jogar(ESTADO e,int l,int c){ // verifica se a jogada é valida e joga-a
     if ((jogadaValida(e,linha,coluna) == 0) || e.grelha[linha][coluna] != VAZIA) printf("Jogada Invalida\n");
 
     else {
-        if (e.peca == VALOR_O) e.grelha[linha][coluna] = VALOR_O; // caso a peça de jogo seja O por um O no local
-        else e.grelha[linha][coluna] = VALOR_X;                     // caso contrario por um X no local
-        virarPecas(e,linha,coluna);
+        printf("\nbreak1\n"); // TESTE
+        e.grelha[linha][coluna] = e.peca;   // poe 1 peça no local
+        //virarPecas(e,linha,coluna);
     }
 
 }
@@ -31,7 +31,8 @@ int jogadaValida(ESTADO e, int linha, int coluna){ // 1 == verdade 0== falso
     if (linha >7 || linha < 0 || coluna >7 || coluna <0) return 0; // se o local for fora do tabuleiro a jogada não é valida
         // verifica se há outra peça igual a da jogada horizontalmente, verticalmente e em ambas as diagonais, caso 1 delas exista a jogada é valida, logo retorna True
     else if ((checkLinha(e,linha,coluna) == 1) || (checkColuna(e,linha,coluna) == 1)
-            || (checkDiagDir(e,linha,coluna) == 1) || (checkDiagEsq(e,linha,coluna) == 1)) return 1;
+            || (checkDiagDir(e,linha,coluna) == 1) || (checkDiagEsq(e,linha,coluna) == 1)) {printf("valida é verdade\n");return 1;} //TESTE
+         else {printf("NAO E VALIDA \n");return 0;}// caso nenhuma das funçoes anteriores dê verdade, significa que a nao há jogadas validas
 }
 
 int checkLinha(ESTADO e,int linha,int coluna){ // 1 == True, 0== False
@@ -130,6 +131,4 @@ int checkDiagEsq(ESTADO e,int linha, int coluna){ // verifica se há uma jogada 
     return 0;
 }
 
-void virarPecas(ESTADO e,int linha,int coluna){
-
-}
+//void virarPecas(ESTADO e,int linha,int coluna){}

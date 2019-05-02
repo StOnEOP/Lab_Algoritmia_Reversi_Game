@@ -4,7 +4,9 @@
 
 #ifndef LA_FARIA_H
 #define LA_FARIA_H
+
 void save(ESTADO e,char ficheiro[MAX_BUF]);
 char valorToChar(VALOR p);
 void score(ESTADO e);
+
 #endif //LA_FARIA_H

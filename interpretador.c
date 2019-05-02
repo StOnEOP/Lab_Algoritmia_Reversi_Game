@@ -10,6 +10,7 @@
 #include "interpretador.h"
 //
 #include "faria.h"
+#include "jogar.h"
 
 ESTADO interpretar (ESTADO e, char *linha) {
 
@@ -48,6 +49,7 @@ ESTADO interpretar (ESTADO e, char *linha) {
             n= sscanf(linha, "%s %d %d", cmd, &lin, &col);
             printf("Num de parametros lidos:%d\n",n);
             printf("Jogar na posição lina: %d e coluna: %d\n",lin,col);
+            jogar(e,lin,col);
             break;
         case 'S':
             break;

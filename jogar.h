@@ -5,7 +5,7 @@
 #ifndef LA_JOGAR_H
 #define LA_JOGAR_H
 
-void jogar(ESTADO e,int l,int c);
+void jogar(ESTADO *e,int l,int c);
 int jogadaValida(ESTADO e, int linha, int coluna);
 //void virarPecas(ESTADO e,int linha,int coluna)
 int checkLinha(ESTADO e,int linha,int coluna);

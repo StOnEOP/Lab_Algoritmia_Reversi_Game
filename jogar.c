@@ -12,16 +12,16 @@
 #include "faria.h"
 #include "jogar.h"
 
-void jogar(ESTADO e,int l,int c){ // verifica se a jogada é valida e joga-a
+void jogar(ESTADO *e,int l,int c){ // verifica se a jogada é valida e joga-a
     int linha  = l-1;
     int coluna = c-1;
     int reg = 0;
     // verificar se a jogada é valida e se o local selecionado está vazio
-    if ((jogadaValida(e,linha,coluna) == 0) || e.grelha[linha][coluna] != VAZIA) printf("Jogada Invalida\n");
+    if ((jogadaValida(*e,linha,coluna) == 0) || e->grelha[linha][coluna] != VAZIA) printf("Jogada Invalida\n");
 
     else {
         printf("\nbreak1\n"); // TESTE
-        e.grelha[linha][coluna] = e.peca;   // poe 1 peça no local
+        e->grelha[linha][coluna] = e->peca;   // poe 1 peça no local
         //virarPecas(e,linha,coluna);
     }
 
@@ -43,9 +43,10 @@ int checkLinha(ESTADO e,int linha,int coluna){ // 1 == True, 0== False
     // Vamos procurar se a linha é valida apartir da posiçao dada, logo iremos correr a mesma 2 vezes
     while (l > 0){
         l--;
-        if (e.grelha[l][coluna] == VAZIA ) break; // se encontrar 1 local vazio antes de 1 inverso e 1 peça nao é valido logo salta fora
-        if (e.grelha[l][coluna] == inverso) i = 1;
+        if (e.grelha[l][coluna] == VAZIA ) return 0; // se encontrar 1 local vazio antes de 1 inverso e 1 peça nao é valido logo salta fora
+        if (e.grelha[l][coluna] == inverso) i = 1; // e se a 1a peça for X e a 2a O ? ele ira dar falso positivo
         if (e.grelha[l][coluna] == e.peca) reg = 1;
+        if (reg == 1 && i == 0) return 0;
         if (reg ==1 && i==1) return 1; // fucionará?
     }
     l = linha; reg = i = 0;

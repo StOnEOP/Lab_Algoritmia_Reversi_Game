@@ -17,8 +17,7 @@ void jogar(ESTADO e,int l,int c){ // verifica se a jogada é valida e joga-a
     int coluna = c-1;
     int reg = 0;
     // verificar se a jogada é valida e se o local selecionado está vazio
-    if ((jogadaValida(e,linha,coluna) == 0) || e.grelha[linha][coluna] != VAZIA) printf("Jogada Invalida\n");
-
+    if ((jogadaValida(e, linha, coluna) == 0) || e.grelha[linha][coluna] != VAZIA);
     else {
         printf("\nbreak1\n"); // TESTE
         e.grelha[linha][coluna] = e.peca;   // poe 1 peça no local

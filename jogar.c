@@ -38,23 +38,24 @@ int jogadaValida(ESTADO e, int linha, int coluna){ // 1 == verdade 0== falso
 int checkLinha(ESTADO e,int linha,int coluna){ // 1 == True, 0== False
     int l = linha; int reg = 0; int i = 0;
     VALOR inverso; // vamos crirar 1 variavel com o inverso da nossa peca de jogo de forma a confirmar que a jogada é valida
-    if(e.peca == VALOR_X) inverso = VALOR_O;
-    else inverso = VALOR_X;
+    inverso = inverte(e);
     // Vamos procurar se a linha é valida apartir da posiçao dada, logo iremos correr a mesma 2 vezes
-    while (l > 0){
-        l--;
-        if (e.grelha[l][coluna] == VAZIA ) return 0; // se encontrar 1 local vazio antes de 1 inverso e 1 peça nao é valido logo salta fora
-        if (e.grelha[l][coluna] == inverso) i = 1; // e se a 1a peça for X e a 2a O ? ele ira dar falso positivo
-        if (e.grelha[l][coluna] == e.peca) reg = 1;
-        if (reg == 1 && i == 0) return 0;
-        if (reg ==1 && i==1) return 1; // fucionará?
+    if ((e.grelha[l-1][coluna] == VAZIA) || (e.grelha[l-1][coluna] == e.peca)) return 0;
+    else{   reg=1;
+            l--;
+            while(l>0){
+              if e.grelha[l][coluna] == inverso i=1
+          }
+    if (i==1 && reg ==1) return 1;
     }
+
     l = linha; reg = i = 0;
     while (l < 7){
         l++;
-        if (e.grelha[l][coluna] == VAZIA ) break; // se encontrar 1 local vazio antes de 1 inverso e 1 peça nao é valido logo salta fora
+        if (e.grelha[l][coluna] == VAZIA ) return 0; // se encontrar 1 local vazio antes de 1 inverso e 1 peça nao é valido logo salta fora
         if (e.grelha[l][coluna] == inverso) i = 1;
         if (e.grelha[l][coluna] == e.peca) reg = 1;
+        if (reg == 1 && i == 0) return 0;
         if (reg ==1 && i==1) return 1; // fucionará?
     }
     return 0;

@@ -14,4 +14,4 @@ void interpretador(ESTADO e);
 
 void print_prompt(ESTADO e);
 
-#endif //PROJ_INTERPRETADOR_H
+#endif

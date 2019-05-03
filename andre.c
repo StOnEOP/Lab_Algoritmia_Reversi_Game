@@ -1,34 +1,27 @@
 //
-// Created by pja on 28/02/2019.
+// Created by André Sousa on 2019-05-03.
 //
+
+#include "andre.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
 #include "estado.h"
+#include "interpretador.h"
+#include "faria.h"
+#include "jogar.h"
 
-ESTADO gInicial (ESTADO e, char peca, char modo){
-    for(int x=0;x<8;x++)
-        for(int y=0;y<8;y++){
-            e.grelha[x][y] = VAZIA;
-        }
-    e.grelha [3][4] = VALOR_O;
-    e.grelha [4][3] = VALOR_O;
-    e.grelha [3][3] = VALOR_X;
-    e.grelha [4][4] = VALOR_X;
-    e.peca = peca;    // aqui e.peca é char? mas na def de estado é Valor, envio 1 valor para 1 char?
-    e.modo = modo;
-    return e;
-}
-
-
-void printa(ESTADO e){
+void pontos(ESTADO *e) {
     printf("\n\t1 2 3 4 5 6 7 8\n"
            "\t________________\n\n");
 
     char c = ' ';
 
     for (int i = 0; i < 8; i++) {
-        printf("%d|\t",(i+1));        // imprime a label á esquerda
+        printf("%d|\t", (i + 1));        // imprime a label á esquerda
         for (int j = 0; j < 8; j++) {
-            switch (e.grelha[i][j]) {
+            switch (e->grelha[i][j]) {
                 case VALOR_O: {
                     c = 'O';
                     break;
@@ -41,6 +34,9 @@ void printa(ESTADO e){
                     c = '-';
                     break;
                 }
+                case VALIDA: {
+                    c = '.';
+                }
 
             }
             printf("%c ", c);
@@ -49,8 +45,4 @@ void printa(ESTADO e){
         printf("\n");
     }
     printf("\n");
-
 }
-
-
-

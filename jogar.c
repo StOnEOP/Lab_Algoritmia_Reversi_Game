@@ -12,16 +12,16 @@
 #include "faria.h"
 #include "jogar.h"
 
-void jogar(ESTADO e,int l,int c){ // verifica se a jogada é valida e joga-a
+void jogar(ESTADO *e,int l,int c){ // verifica se a jogada é valida e joga-a
     int linha  = l-1;
     int coluna = c-1;
     int reg = 0;
     // verificar se a jogada é valida e se o local selecionado está vazio
-    if ((jogadaValida(e,linha,coluna) == 0) || e.grelha[linha][coluna] != VAZIA) printf("Jogada Invalida\n");
+    if ((jogadaValida(*e,linha,coluna) == 0) || e->grelha[linha][coluna] != VAZIA) printf("Jogada Invalida\n");
 
     else {
         printf("\nbreak1\n"); // TESTE
-        e.grelha[linha][coluna] = e.peca;   // poe 1 peça no local
+        e->grelha[linha][coluna] = e->peca;   // poe 1 peça no local
         //virarPecas(e,linha,coluna);
     }
 
@@ -129,6 +129,7 @@ int checkDiagEsq(ESTADO e,int linha, int coluna){ // verifica se há uma jogada 
         if (reg ==1 && i==1) return 1; // fucionará?
     }
     return 0;
-}
+
+
 
 //void virarPecas(ESTADO e,int linha,int coluna){}

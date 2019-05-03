@@ -1,9 +1,16 @@
+//
+// Created by Pedro Faria - A72640 on 29/03/2019.
+//
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+//
 #include "estado.h"
 #include "interpretador.h"
+//
+#include "faria.h"
+#include "jogar.h"
 
 ESTADO interpretar (ESTADO e, char *linha) {
 
@@ -12,24 +19,20 @@ ESTADO interpretar (ESTADO e, char *linha) {
     char peca[MAX_BUF];
     int lin, col,n;
 
-    
-
     n = sscanf(linha, "%s", cmd);
 
     switch (toupper(linha[0])) {
         case 'N' :
-
             n = sscanf(linha, "%s %s", cmd, peca);
             switch (toupper(peca[0])) {
                 case 'X' :
-                    e = gInicial(e, VALOR_X, 'O');
+                    e = gInicial(e, VALOR_X, 'M');
                     break;
                 case 'O' :
-                    e = gInicial(e, VALOR_O, 'O');
+                    e = gInicial(e, VALOR_O, 'M');
                     break;
                 default:
                     printf("Tem de escolher a peça que quer jogar: X ou O\n");
-
             }
             break;
         case 'L':
@@ -39,21 +42,16 @@ ESTADO interpretar (ESTADO e, char *linha) {
             break;
         case 'E':
             n =sscanf(linha,"%s %s",cmd,ficheiro);
-            printf("Ler um jogo do ficheiro:%s\n", ficheiro);
+            printf("Gravar um jogo no ficheiro:%s\n", ficheiro);
+            save(e,ficheiro); // recebe o estado atual do jogo e um nome de ficheiro e cria esse ficheiro {FARIA.C}
             break;
         case 'J':
             n= sscanf(linha, "%s %d %d", cmd, &lin, &col);
-
-
-
-
             printf("Num de parametros lidos:%d\n",n);
-            printf("Jogar na posição linha: %d e coluna: %d\n",lin,col);
-
-
+            printf("Jogar na posição lina: %d e coluna: %d\n",lin,col);
+            jogar(e,lin,col);
             break;
         case 'S':
-
             break;
         case 'U':
             break;
@@ -89,41 +87,5 @@ void interpretador(ESTADO e){
     while (fgets(linha,MAX_BUF,stdin)){
         e= interpretar(e,linha);
         print_prompt(e);
-    }
-}
-
-void jogadaSvalidaS(ESTADO e){
-    int x,y;
-    for(x=0;x<8;x++)
-        for(y=0;y<8;y++){
-            if(e.grelha[x][y]==VAZIA){ evalida(e);
-
-            }
-        }
-
-}
-
-void evalida(ESTADO e){
-
-
-
-}
-
-
-
-void jogadas(int x,int y,ESTADO e) {
-    if (e.grelha[x][y] == VALIDA){
-
-        e.grelha[x][y]= e.peca;
-    }
-
-}
-
-char oposta(ESTADO e){
-    if(e.peca == VALOR_X){
-        return VALOR_O;
-        
-    }else if(e.peca == VALOR_O){
-        return VALOR_X;
     }
 }

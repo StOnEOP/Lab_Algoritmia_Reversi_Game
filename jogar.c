@@ -35,32 +35,45 @@ int jogadaValida(ESTADO e, int linha, int coluna){ // 1 == verdade 0== falso
          else {printf("NAO E VALIDA \n");return 0;}// caso nenhuma das funçoes anteriores dê verdade, significa que a nao há jogadas validas
 }
 
-int checkLinha(ESTADO e,int linha,int coluna){ // 1 == True, 0== False
-    int l = linha; int reg = 0; int i = 0;
-    VALOR inverso; // vamos crirar 1 variavel com o inverso da nossa peca de jogo de forma a confirmar que a jogada é valida
-    inverso = inverte(e);
-    // Vamos procurar se a linha é valida apartir da posiçao dada, logo iremos correr a mesma 2 vezes
-    if ((e.grelha[l-1][coluna] == VAZIA) || (e.grelha[l-1][coluna] == e.peca)) return 0;
-    else{   reg=1;
-            l--;
-            while(l>0){
-              if e.grelha[l][coluna] == inverso i=1
-          }
-    if (i==1 && reg ==1) return 1;
-    }
-
-    l = linha; reg = i = 0;
-    while (l < 7){
-        l++;
-        if (e.grelha[l][coluna] == VAZIA ) return 0; // se encontrar 1 local vazio antes de 1 inverso e 1 peça nao é valido logo salta fora
-        if (e.grelha[l][coluna] == inverso) i = 1;
-        if (e.grelha[l][coluna] == e.peca) reg = 1;
-        if (reg == 1 && i == 0) return 0;
-        if (reg ==1 && i==1) return 1; // fucionará?
-    }
-    return 0;
+int checkLinha(ESTADO e,int linha,int coluna) { // 1 == True, 0== False
+    int l = linha;
+    if (validaHdir(e, l, coluna) == 1 || validaHesq(e, l, coluna) == 1) return 1;
+    else return 0;
 }
 
+int validaHesq(ESTADO e,int l,int coluna) {
+
+    int res = 0;
+    VALOR inverso; // vamos crirar 1 variavel com o inverso da nossa peca de jogo de forma a confirmar que a jogada é valida
+    inverso = inverte(e);
+    // Vamos procurar se a linha é valida apartir da posiçao dada, logo iremos correr a mesma para a esquerda (l--)
+    if ((e.grelha[l - 1][coluna == VAZIA]) || (e.grelha[l - 1][coluna] == e.peca)) return 0;
+    else if (e.grelha[l - 1][coluna] == inverso) {
+        while (l > 0 || e.grelha[l][coluna] != e.peca) {
+            l--;
+            if (e.grelha[l][coluna] == e.peca) res = 1;
+        }
+    }
+    if (res == 1) return 1;
+    else return 0;
+}
+
+int validaHdir(ESTADO e,int l,int coluna) {
+
+    int res = 0;
+    VALOR inverso; // vamos crirar 1 variavel com o inverso da nossa peca de jogo de forma a confirmar que a jogada é valida
+    inverso = inverte(e);
+    // Vamos procurar se a linha é valida apartir da posiçao dada, logo iremos correr a mesma para a esquerda (l--)
+    if ((e.grelha[l + 1][coluna == VAZIA]) || (e.grelha[l + 1][coluna] == e.peca)) return 0;
+    else if (e.grelha[l + 1][coluna] == inverso) {
+        while (l > 0 || e.grelha[l][coluna] != e.peca) {
+            l++;
+            if (e.grelha[l][coluna] == e.peca) res = 1;
+        }
+    }
+    if (res == 1) return 1;
+    else return 0;
+}
 int checkColuna(ESTADO e,int linha, int coluna){ // verifica se há uma jogada valida na coluna
     int c = coluna; int reg = 0; int i = 0;
     VALOR inverso; // vamos crirar 1 variavel com o inverso da nossa peca de jogo de forma a confirmar que a jogada é valida

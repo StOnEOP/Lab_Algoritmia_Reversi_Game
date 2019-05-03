@@ -11,7 +11,6 @@
 //
 #include "faria.h"
 #include "jogar.h"
-#include "andre.h"
 
 ESTADO interpretar (ESTADO e, char *linha) {
 
@@ -53,7 +52,7 @@ ESTADO interpretar (ESTADO e, char *linha) {
             jogar(&e,lin,col);
             break;
         case 'S':
-            pontos(&e);
+            pontos(e);
             break;
         case 'U':
             break;

@@ -5,10 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-//
 #include "estado.h"
 #include "interpretador.h"
-//
 #include "faria.h"
 #include "jogar.h"
 
@@ -107,29 +105,37 @@ int checkDiagDir(ESTADO e,int linha, int coluna){ // verifica se há uma jogada 
     return 0;
 }
 
-int checkDiagEsq(ESTADO e,int linha, int coluna){ // verifica se há uma jogada valida na Diagonal direita
-    int c = coluna;int l = linha; int reg = 0; int i = 0;
+int checkDiagEsq(ESTADO e,int linha, int coluna) { // verifica se há uma jogada valida na Diagonal direita
+    int c = coluna;
+    int l = linha;
+    int reg = 0;
+    int i = 0;
     VALOR inverso; // vamos crirar 1 variavel com o inverso da nossa peca de jogo de forma a confirmar que a jogada é valida
-    if(e.peca == VALOR_X) inverso = VALOR_O;
+    if (e.peca == VALOR_X) inverso = VALOR_O;
     else inverso = VALOR_X;
     // Vamos procurar se a linha é valida apartir da posiçao dada, logo iremos correr a mesma 2 vezes
-    while ((c < 7) || (l>0)){
-        l--; c++;
-        if (e.grelha[l][c] == VAZIA ) break; // se encontrar 1 local vazio antes de 1 inverso e 1 peça nao é valido logo salta fora
+    while ((c < 7) || (l > 0)) {
+        l--;
+        c++;
+        if (e.grelha[l][c] == VAZIA)
+            break; // se encontrar 1 local vazio antes de 1 inverso e 1 peça nao é valido logo salta fora
         if (e.grelha[l][c] == inverso) i = 1;
         if (e.grelha[l][c] == e.peca) reg = 1;
-        if (reg ==1 && i==1) return 1; // fucionará?
+        if (reg == 1 && i == 1) return 1; // fucionará?
     }
-    c = coluna; l = linha;  reg = i = 0;
-    while ((c > 0) || (l < 7)){
-        l++; c--;
-        if (e.grelha[l][c] == VAZIA ) break; // se encontrar 1 local vazio antes de 1 inverso e 1 peça nao é valido logo salta fora
+    c = coluna;
+    l = linha;
+    reg = i = 0;
+    while ((c > 0) || (l < 7)) {
+        l++;
+        c--;
+        if (e.grelha[l][c] == VAZIA)
+            break; // se encontrar 1 local vazio antes de 1 inverso e 1 peça nao é valido logo salta fora
         if (e.grelha[l][c] == inverso) i = 1;
         if (e.grelha[l][c] == e.peca) reg = 1;
-        if (reg ==1 && i==1) return 1; // fucionará?
+        if (reg == 1 && i == 1) return 1; // fucionará?
     }
     return 0;
 
 
-
-//void virarPecas(ESTADO e,int linha,int coluna){}
+}//void virarPecas(ESTADO e,int linha,int coluna){}

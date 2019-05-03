@@ -4,5 +4,9 @@
 
 #ifndef LA_ANDRE_H
 #define LA_ANDRE_H
-void printaS(ESTADO *e);
+
+#include "estado.h"
+
+void pontos(ESTADO e);
+
 #endif //LA_ANDRE_H

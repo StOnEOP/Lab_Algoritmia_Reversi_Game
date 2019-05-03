@@ -2,7 +2,7 @@
 // Created by André Sousa on 2019-05-03.
 //
 
-#include "andre.h"
+#include "Andre.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,18 +10,17 @@
 #include "estado.h"
 #include "interpretador.h"
 #include "faria.h"
-#include "jogar.h"
 
-void pontos(ESTADO *e) {
+void pontos(ESTADO e){
     printf("\n\t1 2 3 4 5 6 7 8\n"
            "\t________________\n\n");
 
     char c = ' ';
 
     for (int i = 0; i < 8; i++) {
-        printf("%d|\t", (i + 1));        // imprime a label á esquerda
+        printf("%d|\t",(i+1));        // imprime a label á esquerda
         for (int j = 0; j < 8; j++) {
-            switch (e->grelha[i][j]) {
+            switch (e.grelha[i][j]) {
                 case VALOR_O: {
                     c = 'O';
                     break;
@@ -45,4 +44,5 @@ void pontos(ESTADO *e) {
         printf("\n");
     }
     printf("\n");
+
 }

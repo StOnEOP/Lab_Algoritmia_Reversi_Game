@@ -10,7 +10,7 @@
 #include "estado.h"
 #include "interpretador.h"
 //
-#include "faria.h"
+#include "etc.h"
 
 void save(ESTADO e,char ficheiro[MAX_BUF]){ // recebe 1 estado e 1 nome de ficheiro e cria esse ficheiro
 

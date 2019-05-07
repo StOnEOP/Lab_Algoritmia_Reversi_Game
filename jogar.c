@@ -9,9 +9,9 @@
 #include "estado.h"
 #include "interpretador.h"
 //
-#include "faria.h"
+#include "etc.h"
 #include "jogar.h"
-#include "listas.h"
+#include "historico.h"
 
 void jogar(ESTADO *e,int l,int c){ // verifica se a jogada é valida e joga-a
     int linha  = l-1;   //Arrays começam em zero

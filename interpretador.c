@@ -9,8 +9,9 @@
 #include "estado.h"
 #include "interpretador.h"
 //
-#include "faria.h"
+#include "etc.h"
 #include "jogar.h"
+#include "historico.h"
 
 ESTADO interpretar (ESTADO e, char *linha) {
 
@@ -54,6 +55,8 @@ ESTADO interpretar (ESTADO e, char *linha) {
         case 'S':
             break;
         case 'U':
+            printf("Desfazendo ultima jogada\n");
+            undoJogada(&e,top);
             break;
         case 'H':
             break;

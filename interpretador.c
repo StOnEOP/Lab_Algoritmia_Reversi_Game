@@ -12,6 +12,8 @@
 #include "etc.h"
 #include "jogar.h"
 #include "historico.h"
+#include "sugest.h"
+#include "undo.h"
 
 ESTADO interpretar (ESTADO e, char *linha) {
 
@@ -53,6 +55,8 @@ ESTADO interpretar (ESTADO e, char *linha) {
             jogar(&e,lin,col);
             break;
         case 'S':
+            printf("Sugestão de jogadas\n");
+            sugestaoJogada(e);
             break;
         case 'U':
             printf("Desfazendo ultima jogada\n");

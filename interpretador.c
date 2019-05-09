@@ -9,15 +9,18 @@
 #include "estado.h"
 #include "interpretador.h"
 //
-#include "faria.h"
+#include "etc.h"
 #include "jogar.h"
+#include "historico.h"
+#include "sugest.h"
+#include "undo.h"
 
 ESTADO interpretar (ESTADO e, char *linha) {
 
     char cmd[MAX_BUF];
     char ficheiro[MAX_BUF];
     char peca[MAX_BUF];
-    int lin, col,n, nivel;
+    int lin, col,n;
 
     n = sscanf(linha, "%s", cmd);
 
@@ -34,6 +37,7 @@ ESTADO interpretar (ESTADO e, char *linha) {
                 default:
                     printf("Tem de escolher a peça que quer jogar: X ou O\n");
             }
+            e.modo='M';
             break;
         case 'L':
             n = sscanf(linha,"%s %s", cmd, ficheiro);//falta fazer o Fopen e ler o ficheiro
@@ -46,29 +50,26 @@ ESTADO interpretar (ESTADO e, char *linha) {
             save(e,ficheiro); // recebe o estado atual do jogo e um nome de ficheiro e cria esse ficheiro {FARIA.C}
             break;
         case 'J':
-            n= sscanf(linha, "%s %d %d\n", cmd, &lin, &col);
+            n= sscanf(linha, "%s %d %d", cmd, &lin, &col);
             printf("Num de parametros lidos:%d\n",n);
             printf("Jogar na posição lina: %d e coluna: %d\n",lin,col);
-            jogar(&e,lin,col);
+            jogar(e,lin,col);
             break;
         case 'S':
+            printf("Sugestão de jogadas\n");
+            sugestaoJogada(e);
             break;
         case 'U':
+            printf("Desfazendo ultima jogada\n");
+            undoJogada(e,top);
             break;
         case 'H':
-            n= sscanf (linha, "%s, %s\n", cmd, ficheiro);
-            printf ("As jogadas possiveis sao;");
-            //ajudajogada(lligadavalidas);
             break;
         case 'A':
-            n=sscanf (linha, "%s, %s, %d, %s\n",cmd, peca, nivel, ficheiro);
-            printf("Está agora a jogar contra o computador");
-            if ((toupper(peca[0]) == 'X') && (nivel >=1 && nivel <=3)) e = gInicial(e, VALOR_X, 'A');
-            else e = gInicial(e, VALOR_O, 'A');
+
+            e.modo='A';
             break;
         case 'Q':
-            n=sscanf (linha, "%s", cmd);
-            printf ("Obrigado por jogar");
             exit(0);
         default:
             printf("Comando Invalido!\n");

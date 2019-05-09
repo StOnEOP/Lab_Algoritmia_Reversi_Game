@@ -10,92 +10,117 @@
 #include "faria.h"
 #include "jogar.h"
 
-void jogar(ESTADO *e,int l,int c){ // verifica se a jogada é valida e joga-a
-    int linha  = l-1;
-    int coluna = c-1;
-    int reg = 0;
+void limpavalidas(ESTADO *e){
+    for(int i=0;i<8;i++) {
+        for (int j = 0; j < 8; j++) {
+            if(e->grelha[i][j]==VALIDA){
+                e->grelha[i][j]=VAZIA;
+            }
+        }
+    }
+
+}
+
+void jogar(ESTADO *e,int linha,int coluna){ // verifica se a jogada é valida e joga-a
     // verificar se a jogada é valida e se o local selecionado está vazio
-    if ((jogadaValida(*e,linha,coluna) == 0) || e->grelha[linha][coluna] != VAZIA) printf("Jogada Invalida\n");
-
-    else {
-        printf("\nbreak1\n"); // TESTE
-        e->grelha[linha][coluna] = e->peca;   // poe 1 peça no local
-        //virarPecas(e,linha,coluna);
+    if ((jogadaValida(e,linha,coluna) == 0) || e->grelha[linha-1][coluna-1] ==VALOR_X||e->grelha[linha-1][coluna-1]==VALOR_O) {
+        printf("Jogada Invalida\n");
+    }else if(e->grelha[linha-1][coluna-1]==VALIDA){
+        e->grelha[linha-1][coluna-1] = e->peca;
+        //virarpeças
     }
+    limpavalidas(e);
 
 }
 
-int jogadaValida(ESTADO e, int linha, int coluna){ // 1 == verdade 0== falso
-    if (linha >7 || linha < 0 || coluna >7 || coluna <0) return 0; // se o local for fora do tabuleiro a jogada não é valida
-        // verifica se há outra peça igual a da jogada horizontalmente, verticalmente e em ambas as diagonais, caso 1 delas exista a jogada é valida, logo retorna True
-    else if ((checkLinha(e,linha,coluna) == 1) ) {printf("valida é verdade\n");return 1;} //TESTE
-         else {printf("NAO E VALIDA \n");return 0;}// caso nenhuma das funçoes anteriores dê verdade, significa que a nao há jogadas validas
-}
+int jogadaValida(ESTADO *e, int linha, int coluna){
+    int r=0;
+    for(int i=0;i<8;i++) {
+        for (int j = 0; j < 8; j++) {
 
-int checkLinha(ESTADO e,int linha,int coluna) { // 1 == True, 0== False
-    int l = linha;
-    if (validaHdir(e, l, coluna) == 1 || validaHesq(e, l, coluna) == 1) return 1;
-    else return 0;
-}
-
-int validaHesq(ESTADO e,int l,int coluna) {
-
-    int res = 0;
-    VALOR inverso; // vamos crirar 1 variavel com o inverso da nossa peca de jogo de forma a confirmar que a jogada é valida
-    inverso = inverte(e);
-    // Vamos procurar se a linha é valida apartir da posiçao dada, logo iremos correr a mesma para a esquerda (l--)
-    if (e.grelha[l - 1][coluna] == inverso) { // se tiver uma peça do adversario a jogada podera ser valida
-        printf("entramos no validaHesq\n");
-        while (l > 0 || e.grelha[l][coluna] != e.peca) { // enquanto estivermos dentro do tabuleiro e nao encontrarmos uma peça igual a nossa
-            l--;
-            if (e.grelha[l][coluna] == e.peca) res = 1; // se encontramos uma peça igual a nossa, a jogada é valida, logo res=1
+            checkLinha(&e, i, j);
+            checkColuna(&e, i, j);
+            checkDiagEsq(&e, i, j);
+            checkDiagDir(&e, i, j);
         }
     }
-    if (res == 1) return 1;
-    else return 0;
+    if(e->grelha[linha-1][coluna-1]==VALIDA){
+        r=1;
+    }
+    return r;
 }
+/*VALOR oposto(VALOR v){
+    if(v==VALOR_X){
+        return VALOR_O;
+    }else if(v==VALOR_O){
+        return VALOR_X;
+    }
+}*/
 
-int validaHdir(ESTADO e,int l,int coluna) {
+int checkLinha(ESTADO *e,int linha,int coluna){
+    int p = 0; int l=linha; int c =coluna; int c2=coluna-2;
+    if(e->grelha[linha-1][coluna]== inverte(*e)){
+        while(e->grelha[linha-1][c]==inverte(*e) || coluna < 8 ){
+            ++c;
+            p=1;
 
-    int res = 0;
-    VALOR inverso; // vamos crirar 1 variavel com o inverso da nossa peca de jogo de forma a confirmar que a jogada é valida
-    inverso = inverte(e);
-    // Vamos procurar se a linha é valida apartir da posiçao dada, logo iremos correr a mesma para a esquerda (l--)
-    if ((e.grelha[l + 1][coluna == VAZIA]) || (e.grelha[l + 1][coluna] == e.peca)) return 0;
-    else if (e.grelha[l + 1][coluna] == inverso) {
-        while (l > 0 || e.grelha[l][coluna] != e.peca) {
-            l++;
-            if (e.grelha[l][coluna] == e.peca) res = 1;
+            if(p){
+                e->grelha[linha][coluna]=VALIDA;
+
+
         }
+
+        }
+
+    }else if(e->grelha[linha-1][coluna-2]== inverte(*e)){
+        while(e->grelha[linha-1][c2]==inverte(*e) || coluna > 0 ){
+            --c2;
+            p=1;
+
+            if(p){
+                e->grelha[linha][coluna]=VALIDA;
+
+
+             }
+
+        }
+
     }
-    if (res == 1) return 1;
-    else return 0;
-}
-int checkColuna(ESTADO e,int linha, int coluna){ // verifica se há uma jogada valida na coluna
-    int c = coluna; int reg = 0; int i = 0;
-    VALOR inverso; // vamos crirar 1 variavel com o inverso da nossa peca de jogo de forma a confirmar que a jogada é valida
-    if(e.peca == VALOR_X) inverso = VALOR_O;
-    else inverso = VALOR_X;
-    // Vamos procurar se a linha é valida apartir da posiçao dada, logo iremos correr a mesma 2 vezes
-    while (c > 0){
-        c--;
-        if (e.grelha[linha][c] == VAZIA ) break; // se encontrar 1 local vazio antes de 1 inverso e 1 peça nao é valido logo salta fora
-        if (e.grelha[linha][c] == inverso) i = 1;
-        if (e.grelha[linha][c] == e.peca) reg = 1;
-        if (reg ==1 && i==1) return 1; // fucionará?
-    }
-    c = coluna; reg = i = 0;
-    while (c < 7){
-        c++;
-        if (e.grelha[linha][c] == VAZIA ) break; // se encontrar 1 local vazio antes de 1 inverso e 1 peça nao é valido logo salta fora
-        if (e.grelha[linha][c] == inverso) i = 1;
-        if (e.grelha[linha][c] == e.peca) reg = 1;
-        if (reg ==1 && i==1) return 1; // fucionará?
-    }
-    return 0;
+
 }
 
-int checkDiagDir(ESTADO e,int linha, int coluna){ // verifica se há uma jogada valida na Diagonal direita
+int checkColuna(ESTADO *e,int linha, int coluna) {
+    int p = 0; int l=linha; int c =coluna; int l2 =linha-2;
+    if(e->grelha[linha-1][coluna]== inverte(*e)){
+        while(e->grelha[l][coluna-1]==inverte(*e)||linha < 8 || coluna < 8 ){
+            ++l;
+            p=1;
+            if(p){
+                e->grelha[linha][coluna]=VALIDA;
+            }
+
+
+        }
+
+
+    }else if(e->grelha[linha-2][coluna-1]== inverte(*e)){
+        while(e->grelha[l2][coluna-1]!=e->peca||linha >0|| coluna > 0 ){
+            --l2;
+            p=1;
+            if(p){
+                e->grelha[linha][coluna]=VALIDA;
+            }
+
+
+        }
+
+
+    }
+
+}
+
+
+int checkDiagDir(ESTADO *e,int linha, int coluna){ // verifica se há uma jogada valida na Diagonal direita
     int c = coluna;int l = linha; int reg = 0; int i = 0;
     VALOR inverso; // vamos crirar 1 variavel com o inverso da nossa peca de jogo de forma a confirmar que a jogada é valida
     if(e.peca == VALOR_X) inverso = VALOR_O;
@@ -119,7 +144,7 @@ int checkDiagDir(ESTADO e,int linha, int coluna){ // verifica se há uma jogada 
     return 0;
 }
 
-int checkDiagEsq(ESTADO e,int linha, int coluna) { // verifica se há uma jogada valida na Diagonal direita
+int checkDiagEsq(ESTADO *e,int linha, int coluna) { // verifica se há uma jogada valida na Diagonal direita
     int c = coluna;
     int l = linha;
     int reg = 0;

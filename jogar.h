@@ -6,13 +6,15 @@
 #define LA_JOGAR_H
 
 void jogar(ESTADO *e,int l,int c);
-int jogadaValida(ESTADO e, int linha, int coluna);
+int jogadaValida(ESTADO *e, int linha, int coluna);
 //void virarPecas(ESTADO e,int linha,int coluna)
-int checkLinha(ESTADO e,int linha,int coluna);
+int checkLinha(ESTADO *e,int linha,int coluna);
 int validaHesq(ESTADO e,int l,int coluna);
 int validaHdir(ESTADO e,int l,int coluna);
-int checkColuna(ESTADO e,int linha, int coluna);
-int checkDiagDir(ESTADO e,int linha, int coluna);
-int checkDiagEsq(ESTADO e,int linha, int coluna);
+int checkColuna(ESTADO *e,int linha, int coluna);
+int checkDiagDir(ESTADO *e,int linha, int coluna);
+int checkDiagEsq(ESTADO *e,int linha, int coluna);
+void limpavalidas(ESTADO *e);
+//VALOR oposta(VALOR v);
 
 #endif //LA_JOGAR_H

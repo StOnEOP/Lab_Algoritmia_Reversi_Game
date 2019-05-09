@@ -58,7 +58,7 @@ void jogadaValida(ESTADO *e,int linha,int coluna){
 int checkLinha(ESTADO *e,int linha,int coluna){
     int p = 0;int r=0; int l=linha; int c =coluna; int c2=coluna-2;
     if(e->grelha[linha-1][coluna]== inverte(e)){
-        while(e->grelha[linha-1][c]==inverte(e) || coluna < 8 ){
+        while(e->grelha[linha-1][c]!=e->peca || coluna < 8 ){
             ++c;
             p=1;
 
@@ -72,7 +72,7 @@ int checkLinha(ESTADO *e,int linha,int coluna){
         }
 
     }else if(e->grelha[linha-1][coluna-2]== inverte(e)){
-        while(e->grelha[linha-1][c2]==inverte(e) || coluna > 0 ){
+        while(e->grelha[linha-1][c2]!=e->peca || coluna > 0 ){
             --c2;
             r=1;
 
@@ -93,7 +93,7 @@ int checkLinha(ESTADO *e,int linha,int coluna){
 int checkColuna(ESTADO *e,int linha, int coluna) {
     int p = 0;int r=0; int l=linha; int c =coluna; int l2 =linha-2;
     if(e->grelha[linha][coluna-1]== inverte(e)){
-        while(e->grelha[l][coluna-1]==inverte(e)||linha < 8 || coluna < 8 ){
+        while(e->grelha[l][coluna-1]!=e->peca||linha < 8 || coluna < 8 ){
             ++l;
             p=1;
 
@@ -128,18 +128,21 @@ int checkDiagDir(ESTADO *e,int linha, int coluna){ // verifica se há uma jogada
             ++c;
             --l;
             p=1;
-            if(p){
-                e->grelha[linha-1][coluna-1]=VALIDA;
-            }
+
         }
+        if(e->grelha[l][c]==e->peca&& p==1){
+            e->grelha[linha-1][coluna-1]=VALIDA;
+        }
+
     }else if(e->grelha[linha-2][coluna-2]==inverte(e)){
-        while(e->grelha[l2][c2]){
-            --c;
-            ++l;
+        while(e->grelha[l2][c2]!=e->peca||c>0||l<8){
+            --c2;
+            ++l2;
             r=1;
-            if(r){
-                e->grelha[linha-1][coluna-1]=VALIDA;
-            }
+
+        }
+        if(e->grelha[l2][c2]==e->peca && r==1){
+            e->grelha[linha-1][coluna-1]=VALIDA;
         }
     }
 

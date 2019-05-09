@@ -13,7 +13,7 @@
 #include "jogar.h"
 #include "historico.h"
 
-void jogar(ESTADO *e,int l,int c){ // verifica se a jogada é valida e joga-a
+void jogar(ESTADO e,int l,int c){ // verifica se a jogada é valida e joga-a
     int linha  = l-1;   //Arrays começam em zero
     int coluna = c-1;
     if (jogadaValida(e,linha,coluna) == 1){ // se a jogada for valida

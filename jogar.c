@@ -30,4 +30,33 @@ int jogadaValida(ESTADO e, int linha, int coluna){ // 1 == verdade 0== falso
          else {printf("NAO E VALIDA \n");return 0;}// caso nenhuma das funçoes anteriores dê verdade, significa que a nao há jogadas validas
 }
 
-//void virarPecas(ESTADO e,int linha,int coluna){}
+/*void virarPecas(ESTADO e,int linha,int coluna){
+ *
+ *  if (jogadaValida (ESTADO e, int linha, int coluna)){
+ *      while ((linha <=7 && linha > 0 && coluna <=7 && coluna >=0) && (e.peca!=(e.grelha[linha][coluna++])) && (e.grelha[linha][coluna++] != VAZIA)) { // Inverte tudo na horizontal
+ *          e.grelha[linha][coluna]=e.peca;
+ *          }
+ *      while ((linha <=7 && linha > 0 && coluna <=7 && coluna >=0) && (e.peca!=(e.grelha[linha][coluna--])) && (e.grelha[linha][coluna++] != VAZIA)) { // Inverte tudo na horizontal
+ *          e.grelha[linha][coluna]=e.peca;
+ *          }
+ *      while ((linha <=7 && linha > 0 && coluna <=7 && coluna >=0) && (e.peca!=(e.grelha [linha++] [coluna])) && (e.grelha[linha][coluna++] != VAZIA)){  // Inverte tudo na horizontal
+ *          e.grelha[linha][coluna]=e.peca;
+ *          }
+ *      while ((linha <=7 && linha > 0 && coluna <=7 && coluna >=0) && (e.peca!=(e.grelha [linha--] [coluna])) && (e.grelha[linha][coluna++] != VAZIA)){ // Inverte tudo na horizontal
+ *          e.grelha[linha][coluna]=e.peca;
+ *          }
+ *      while ((linha <=7 && linha > 0 && coluna <=7 && coluna >=0) && (e.peca!=(e.grelha [linha++] [coluna++])) && (e.grelha[linha][coluna++] != VAZIA)){
+ *          e.grelha[linha][coluna]=e.peca;
+ *          }
+ *      while ((linha <=7 && linha > 0 && coluna <=7 && coluna >=0) && (e.peca!=(e.grelha [linha--] [coluna--])) && (e.grelha[linha][coluna++] != VAZIA)){
+ *          e.grelha[linha][coluna]=e.peca;
+ *          }
+ *      while ((linha <=7 && linha > 0 && coluna <=7 && coluna >=0) && (e.peca!=(e.grelha [linha++] [coluna--])) && (e.grelha[linha][coluna++] != VAZIA)){
+ *          e.grelha[linha][coluna]=e.peca;
+ *          }
+ *      while ((linha <=7 && linha > 0 && coluna <=7 && coluna >=0) && (e.peca!=(e.grelha [linha--] [coluna++])) && (e.grelha[linha][coluna++] != VAZIA)){
+ *          e.grelha[linha][coluna]=e.peca;
+ *          }
+ *  }
+ *}
+ */

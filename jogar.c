@@ -18,6 +18,7 @@ ESTADO jogar(ESTADO e,int linha,int coluna) {
         e.grelha[linha][coluna] = e.peca;
         e=virapecas(e,linha,coluna);
     } else printf("Jogada Invalida\n");
+    e.peca=inverte(e.peca);
     return e;
 
 
@@ -227,4 +228,5 @@ ESTADO virapecas(ESTADO e,int linha , int coluna){
     return e;
 
 }
+
 

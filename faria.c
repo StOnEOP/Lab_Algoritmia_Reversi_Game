@@ -46,8 +46,3 @@ void score(ESTADO e){    // diz a pontuação atual de cada jogador
     }
     printf("X -> %d \nO -> %d",x,o);
 }
-
-VALOR inverte(VALOR p){
-    if (p == VALOR_X) return VALOR_O;
-    if (p == VALOR_O) return VALOR_X;
-}

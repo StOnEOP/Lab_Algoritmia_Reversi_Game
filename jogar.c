@@ -10,206 +10,221 @@
 #include "faria.h"
 #include "jogar.h"
 
-void limpavalidas(ESTADO *e){
-    for(int i=0;i<8;i++) {
-        for (int j = 0; j < 8; j++) {
-            if(e->grelha[i][j]==VALIDA){
-                e->grelha[i][j]=VAZIA;
+
+
+ESTADO jogar(ESTADO e,int linha,int coluna) {
+
+    if(jogadaValida(e,linha,coluna)) {
+        e.grelha[linha][coluna] = e.peca;
+        e=virapecas(e,linha,coluna);
+    } else printf("Jogada Invalida\n");
+    return e;
+
+
+}
+
+int jogadaValida(ESTADO e, int linha,int coluna){
+    if(linha>=0 && linha <8 && coluna >=0 && coluna < 8 && e.grelha[linha][coluna]==VAZIA && check(e,linha,coluna)){
+        return 1;
+    }else return 0;
+}
+
+int check(ESTADO e,int linha,int coluna){
+    int r=0;
+    r = checkLinhadir(e, linha, coluna) + checkLinhaesq(e,linha,coluna) + checkColunabaixo(e, linha, coluna) + checkColunacima(e,linha, coluna) + checkDiagDirbaixo(e, linha, coluna) + checkDiagDirCima(e, linha,coluna)+checkDiagEsqbaixo(e,linha,coluna) + checkDiagEsqcima(e,linha,coluna);
+
+    return r;
+}
+
+int checkLinhadir(ESTADO e,int linha,int coluna) {
+    int c;
+    if (e.grelha[linha][coluna + 1] == inverte(e.peca)) {
+        for(c=coluna+2;c<8;c++){
+            if(e.grelha[linha][c]==e.peca){
+                return 1;
+            }
+
+
+        }
+
+    }
+    return 0;
+}
+
+int checkLinhaesq(ESTADO e,int linha,int coluna){
+    int c;
+    if(e.grelha[linha][coluna-1]== inverte(e.peca)){
+        for(c=coluna-2;c>=0;c--){
+            if(e.grelha[linha][c]){
+                return 1;
+            }
+
+
+
+        }
+
+
+    }
+    return 0;
+
+}
+
+int checkColunabaixo(ESTADO e,int linha, int coluna) {
+    int l;
+    if (e.grelha[linha + 1][coluna] == inverte(e.peca)) {
+        for (l = linha - 2; l < 8; l++) {
+            if (e.grelha[l][coluna] == e.peca) {
+                return 1;
+
+
+            }
+
+
+        }
+        return 0;
+    }
+}
+
+int checkColunacima(ESTADO e,int linha, int coluna){
+        int l;
+        if(e.grelha[linha-1][coluna]== inverte(e.peca)) {
+            for(l=linha-2;l>=0;l--) {
+                if(e.grelha[l][coluna]==e.peca){
+                    return 1;
+                }
+
+
+            }
+
+        }
+    return 0;
+}
+
+
+int checkDiagDirbaixo(ESTADO e,int linha, int coluna) {
+    int l,c;
+
+    if (e.grelha[linha + 1][coluna + 1] == inverte(e.peca)) {
+        for(l=linha+2,c=coluna+2;l<8, c<8;l++,c++){
+            if(e.grelha[l][c]==e.peca){
+                return 1;
+            }
+
+        }
+
+
+    }
+    return 0;
+}
+int checkDiagDirCima(ESTADO e,int linha, int coluna) {
+    int c,l;
+    if (e.grelha[linha -1][coluna +1] == inverte(e.peca)) {
+        for(l=linha-2,c=coluna+2;l>=0,c<8;l--,c++) {
+            if(e.grelha[l][c]==e.peca){
+                return 1;
+            }
+
+        }
+        return 0;
+
+
+    }
+}
+
+
+int checkDiagEsqbaixo(ESTADO e,int linha, int coluna) {
+    int l,c;
+    if (e.grelha[linha + 1][coluna - 1] == inverte(e.peca)) {
+        for(l=linha+2,c=coluna-2;l < 8,c>=0;l++,c--) {
+            if(e.grelha[l][c]){
+                return 1;
+            }
+        }
+
+    }
+    return 0;
+}
+int checkDiagEsqcima(ESTADO e,int linha, int coluna) {
+    int l,c;
+    if (e.grelha[linha - 1][coluna - 1] == inverte(e.peca)) {
+        for(l=linha-2,c=coluna-2;l--,c--;l>=0,c>=0){
+            if(e.grelha[l][c]==e.peca){
+                return 1;
             }
         }
     }
-
+    return 0;
 }
 
-void jogar(ESTADO *e,int linha,int coluna){ // verifica se a jogada é valida e joga-a
-    // verificar se a jogada é valida e se o local selecionado está vazio
-    limpavalidas(e);
-    check(e,linha,coluna);
-    if (e->grelha[linha-1][coluna-1] == VALIDA) {
-        e->grelha[linha-1][coluna-1] = e->peca;
-    }else printf("Jogada Invalida\n");
-
-
-
-
-
-}
-void check(ESTADO *e,int linha,int coluna){
-    checkLinha(e, linha, coluna);
-    checkColuna(e, linha, coluna);
-    checkDiagEsq(e, linha, coluna);
-    checkDiagDir(e, linha, coluna);
+VALOR inverte(VALOR p){
+    if (p == VALOR_X) return VALOR_O;
+    if (p == VALOR_O) return VALOR_X;
 }
 
-void jogadaValida(ESTADO *e,int linha,int coluna){
-    check(e,linha,coluna);
-
-
-
-}
-/*VALOR oposto(VALOR v){
-    if(v==VALOR_X){
-        return VALOR_O;
-    }else if(v==VALOR_O){
-        return VALOR_X;
-    }
-}*/
-
-int checkLinha(ESTADO *e,int linha,int coluna){
-    int p = 0;int r=0; int l=linha; int c =coluna; int c2=coluna-2;
-    if(e->grelha[linha-1][coluna]== inverte(e)){
-        while(e->grelha[linha-1][c]!=e->peca || coluna < 8 ){
-            ++c;
-            p=1;
-
-
-
-
-        }
-            if(e->grelha[linha-1][c]==e->peca && p==1){
-                e->grelha[linha-1][coluna-1]=VALIDA;
-
-        }
-
-    }else if(e->grelha[linha-1][coluna-2]== inverte(e)){
-        while(e->grelha[linha-1][c2]!=e->peca || coluna > 0 ){
-            --c2;
-            r=1;
-
-
-
-        }
-
-        if(e->grelha[linha-1][c2]==e->peca&&r==1){
-            e->grelha[linha-1][coluna-1]=VALIDA;
-
-
-        }
-
-    }
-
-}
-
-int checkColuna(ESTADO *e,int linha, int coluna) {
-    int p = 0;int r=0; int l=linha; int c =coluna; int l2 =linha-2;
-    if(e->grelha[linha][coluna-1]== inverte(e)){
-        while(e->grelha[l][coluna-1]!=e->peca||linha < 8 || coluna < 8 ){
-            ++l;
-            p=1;
-
-
-        }
-        if(e->grelha[l][coluna-1]==e->peca&&p==1){
-            e->grelha[linha-1][coluna-1]=VALIDA;
-        }
-
-
-    }else if(e->grelha[linha-2][coluna-1]== inverte(e)){
-        while(e->grelha[l2][coluna-1]!=e->peca||linha >0|| coluna > 0 ){
-            --l2;
-            r=1;
-
-
-        }
-        if(e->grelha[l2][coluna-1]== e->peca && r==1){
-            e->grelha[linha-1][coluna-1]=VALIDA;
-        }
-
-
-    }
-
-}
-
-
-int checkDiagDir(ESTADO *e,int linha, int coluna){ // verifica se há uma jogada valida na Diagonal direita
-    int c = coluna;int l = linha; int p = 0; int r=0;int c2=coluna-2; int l2=linha-2;
-    if(e->grelha[linha][coluna]==inverte(e)){
-        while(e->grelha[c][l]!=e->peca || c < 8||l > 0){
-            ++c;
-            --l;
-            p=1;
-
-        }
-        if(e->grelha[l][c]==e->peca&& p==1){
-            e->grelha[linha-1][coluna-1]=VALIDA;
-        }
-
-    }else if(e->grelha[linha-2][coluna-2]==inverte(e)){
-        while(e->grelha[l2][c2]!=e->peca||c>0||l<8){
-            --c2;
-            ++l2;
-            r=1;
-
-        }
-        if(e->grelha[l2][c2]==e->peca && r==1){
-            e->grelha[linha-1][coluna-1]=VALIDA;
-        }
-    }
-
-
-}
-
-int checkDiagEsq(ESTADO *e,int linha, int coluna) { // verifica se há uma jogada valida na Diagonal direita
-    int c = coluna-2;int l = linha;int c2 =coluna;int l2=linha-2; int r = 0; int p = 0;
-    if(e->grelha[linha][coluna-2]==inverte(e)){
-        while(e->grelha[l][c] !=e->peca || l>0||c>0){
-            --c;
-            --l;
-            p=1;
-        }
-        if(e->grelha[l][c]==e->peca&&p==1){
-            e->grelha[linha-1][coluna-1]=VALIDA;
-        }
-    }else if(e->grelha[linha-2][coluna]==inverte(e)){
-        while(e->grelha[l2][c2]!=e->peca||l2<8||c2<8){
-            ++l2;
-            ++c2;
-            r=1;
-
-        }
-        if(e->grelha[l2][c2]==e->peca&&r==1){
-            e->grelha[linha-1][coluna-1]=VALIDA;
-        }
-
-    }
-
-
-
-}//void virarPecas(ESTADO e,int linha,int coluna){}
-
-void pontos(ESTADO e){
-    printf("\n\t1 2 3 4 5 6 7 8\n"
-           "\t________________\n\n");
-
-    char c = ' ';
-
-
-    for (int i = 0; i < 8; i++) {
-        printf("%d|\t",(i+1));        // imprime a label á esquerda
-        for (int j = 0; j < 8; j++) {
-            switch (e.grelha[i][j]) {
-                case VALOR_O: {
-                    c = 'O';
-                    break;
-                }
-                case VALOR_X: {
-                    c = 'X';
-                    break;
-                }
-                case VAZIA: {
-                    c = '-';
-                    break;
-                }
-                case VALIDA: {
-                    c = '.';
-                }
+ESTADO virapecas(ESTADO e,int linha , int coluna){
+    int l ,c ;
+    if (checkLinhadir(e,linha,coluna)){//fazer para os outros checks
+        for(c=coluna+1;e.grelha[linha][c]!=e.peca;c++){
+            if(e.grelha[linha][c]==inverte(e.peca)){
+                e.grelha[linha][c]=e.peca;
 
             }
-            printf("%c ", c);
 
         }
-        printf("\n");
+
     }
-    printf("\n");
+    if(checkLinhaesq(e,linha,coluna)){
+        for(c=coluna-1;e.grelha[linha][c]!=e.peca;c--){
+            if(e.grelha[linha][c]==inverte(e.peca)) {
+                e.grelha[linha][c] = e.peca;
+            }
+        }
+    }
+    if(checkColunacima(e,linha,coluna)){
+        for(l=linha-1;e.grelha[l][coluna]!=e.peca;l--){
+            if(e.grelha[l][coluna]==inverte(e.peca)){
+                e.grelha[l][coluna]= e.peca;
+            }
+        }
+    }
+    if(checkColunabaixo(e,linha,coluna)){
+        for(l=linha+1;e.grelha[l][coluna]!=e.peca;l++) {
+            if (e.grelha[l][coluna] == inverte(e.peca)) {
+                e.grelha[l][coluna] = e.peca;
+            }
+        }
+    }
+    if(checkDiagDirCima(e,linha,coluna)){
+        for(l=linha-1,c=coluna+1;e.grelha[l][c]!=e.peca;l--,c++){
+            if(e.grelha[l][c]==inverte(e.peca)){
+                e.grelha[l][c]=e.peca;
+            }
+        }
+    }
+    if(checkDiagDirbaixo(e,linha,coluna)){
+        for(l=linha+1,c=coluna+1;e.grelha[l][c]!=e.peca;l++,c++){
+            if(e.grelha[l][c]==inverte(e.peca)){
+                e.grelha[l][c]=e.peca;
+            }
+        }
+    }
+    if(checkDiagEsqcima(e,linha,coluna)){
+        for(l=linha-1,c=coluna-1;e.grelha[l][c]!=e.peca;l--,c--){
+            if(e.grelha[l][c]==inverte(e.peca)){
+                e.grelha[l][c]=e.peca;
+            }
+        }
+
+    }
+    if(checkDiagEsqbaixo(e,linha,coluna)){
+        for(l=linha+1,c=coluna-1;e.grelha[l][c]!=e.peca;l++,c--){
+            if(e.grelha[l][c]==inverte(e.peca)){
+                e.grelha[l][c]=e.peca;
+            }
+        }
+    }
+    
+    return e;
 
 }
+

@@ -10,7 +10,7 @@ Definição do estado i.e. tabuleiro. Representação matricial do tabuleiro.
 
 
 
-typedef enum {VAZIA, VALOR_X, VALOR_O,VALIDA} VALOR;
+typedef enum {VAZIA, VALOR_X, VALOR_O} VALOR;
 
 /**
 Estrutura que armazena o estado do jogo

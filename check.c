@@ -117,7 +117,7 @@ int checkDiagEsqbaixo(ESTADO e,int linha, int coluna) {
 int checkDiagEsqcima(ESTADO e,int linha, int coluna) {
     int l,c;
     if (e.grelha[linha - 1][coluna - 1] == inverte(e)) {
-        for(l=linha-2,c=coluna-2;l--,c--;l>=0,c>=0){
+        for(l=linha-2,c=coluna-2;l>=0,c>=0;l--,c--){
             if(e.grelha[l][c]==e.peca){
                 return 1;
             }

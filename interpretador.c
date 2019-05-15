@@ -60,11 +60,11 @@ ESTADO interpretar (ESTADO e, char *linha) {
             break;
         case 'S':
             printf("Sugestão de jogadas\n");
-            sugestaoJogada(e);
+            e=sugestaoJogada(e);
             break;
         case 'U':
             printf("Desfazendo ultima jogada\n");
-            undoJogada(e,top);
+            undoJogada(e);
             break;
         case 'H':
             break;

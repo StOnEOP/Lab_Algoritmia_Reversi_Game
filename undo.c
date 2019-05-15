@@ -22,17 +22,17 @@ void undoJogada(ESTADO e){
     while(i>0){ // temos sempre de tirar 2 jogadas, pois as jogadas do oponente contam
         linha = top->linha;
         coluna = top->coluna;
-        desvirarPecas(e,linha, coluna);
+        //desvirarPecas(e,linha, coluna);
         rmUltimaJogada();
         i--;
     }
 }
 
-void desvirarPecas(ESTADO e,int linha, int coluna){
+/*void desvirarPecas(ESTADO e,int linha, int coluna){
     VALOR pos =e.grelha[linha][coluna];
     undoH(pos,linha,coluna);
     undoV(pos,linha,coluna);
     undoDdir(pos,linha,coluna); // \ -> Diagonal direita
     undoDesq(pos,linha,coluna); // / -> Diagonal esquerda
 
-}
+}*/

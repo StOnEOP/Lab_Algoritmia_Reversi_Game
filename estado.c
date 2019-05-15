@@ -41,6 +41,10 @@ void printa(ESTADO e){
                     c = '-';
                     break;
                 }
+                case VALIDA:{ // adicionado caso seja valida
+                    c= '.';
+                    break;
+                }
             }
             printf("%c ", c);
 

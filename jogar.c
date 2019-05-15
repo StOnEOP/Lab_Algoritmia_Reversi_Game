@@ -12,6 +12,7 @@
 #include "etc.h"
 #include "jogar.h"
 #include "historico.h"
+#include "check.h"
 
 
 

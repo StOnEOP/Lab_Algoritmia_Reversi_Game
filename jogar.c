@@ -13,21 +13,223 @@
 #include "jogar.h"
 #include "historico.h"
 
-void jogar(ESTADO e,int l,int c){ // verifica se a jogada é valida e joga-a
-    int linha  = l-1;   //Arrays começam em zero
-    int coluna = c-1;
-    if (jogadaValida(e,linha,coluna) == 1){ // se a jogada for valida
-        virarPecas(linha,coluna); // vira as peças em todas as direções possiveis ///tens discuçao sobre esta funçao no GitHub///
-        addHjogada(linha,coluna); // adiciona essa jogada ao historico { Lista ligada}
+
+
+ESTADO jogar(ESTADO e,int linha,int coluna) {
+
+    if(jogadaValida(e,linha,coluna)) {
+        e.grelha[linha][coluna] = e.peca;
+        e=virapecas(e,linha,coluna);
+    } else printf("Jogada Invalida\n");
+    e.peca=inverte(e.peca);
+    return e;
+
+
+}
+
+int jogadaValida(ESTADO e, int linha,int coluna){
+    if(linha>=0 && linha <8 && coluna >=0 && coluna < 8 && e.grelha[linha][coluna]==VAZIA && check(e,linha,coluna)){
+        return 1;
+    }else return 0;
+}
+
+int check(ESTADO e,int linha,int coluna){
+    int r=0;
+    r = checkLinhadir(e, linha, coluna) + checkLinhaesq(e,linha,coluna) + checkColunabaixo(e, linha, coluna) + checkColunacima(e,linha, coluna) + checkDiagDirbaixo(e, linha, coluna) + checkDiagDirCima(e, linha,coluna)+checkDiagEsqbaixo(e,linha,coluna) + checkDiagEsqcima(e,linha,coluna);
+
+    return r;
+}
+
+int checkLinhadir(ESTADO e,int linha,int coluna) {
+    int c;
+    if (e.grelha[linha][coluna + 1] == inverte(e.peca)) {
+        for(c=coluna+2;c<8;c++){
+            if(e.grelha[linha][c]==e.peca){
+                return 1;
+            }
+
+
+        }
+
     }
-    else printf("ERRO jogar()\n");          // TESTE
+    return 0;
 }
 
-int jogadaValida(ESTADO e, int linha, int coluna){ // 1 == verdade 0== falso
-    if (linha >7 || linha < 0 || coluna >7 || coluna <0) return 0; // se o local for fora do tabuleiro a jogada não é valida
-        // verifica se há outra peça igual a da jogada horizontalmente, verticalmente e em ambas as diagonais, caso 1 delas exista a jogada é valida, logo retorna True
-    else if ((checkHorizontal(e,linha,coluna) == 1) ) {printf("valida é verdade\n");return 1;} //TESTE
-         else {printf("NAO E VALIDA \n");return 0;}// caso nenhuma das funçoes anteriores dê verdade, significa que a nao há jogadas validas
+int checkLinhaesq(ESTADO e,int linha,int coluna){
+    int c;
+    if(e.grelha[linha][coluna-1]== inverte(e.peca)){
+        for(c=coluna-2;c>=0;c--){
+            if(e.grelha[linha][c]){
+                return 1;
+            }
+
+
+
+        }
+
+
+    }
+    return 0;
+
 }
 
-//void virarPecas(ESTADO e,int linha,int coluna){}
+int checkColunabaixo(ESTADO e,int linha, int coluna) {
+    int l;
+    if (e.grelha[linha + 1][coluna] == inverte(e.peca)) {
+        for (l = linha - 2; l < 8; l++) {
+            if (e.grelha[l][coluna] == e.peca) {
+                return 1;
+
+
+            }
+
+
+        }
+        return 0;
+    }
+}
+
+int checkColunacima(ESTADO e,int linha, int coluna){
+        int l;
+        if(e.grelha[linha-1][coluna]== inverte(e.peca)) {
+            for(l=linha-2;l>=0;l--) {
+                if(e.grelha[l][coluna]==e.peca){
+                    return 1;
+                }
+
+
+            }
+
+        }
+    return 0;
+}
+
+
+int checkDiagDirbaixo(ESTADO e,int linha, int coluna) {
+    int l,c;
+
+    if (e.grelha[linha + 1][coluna + 1] == inverte(e.peca)) {
+        for(l=linha+2,c=coluna+2;l<8, c<8;l++,c++){
+            if(e.grelha[l][c]==e.peca){
+                return 1;
+            }
+
+        }
+
+
+    }
+    return 0;
+}
+int checkDiagDirCima(ESTADO e,int linha, int coluna) {
+    int c,l;
+    if (e.grelha[linha -1][coluna +1] == inverte(e.peca)) {
+        for(l=linha-2,c=coluna+2;l>=0,c<8;l--,c++) {
+            if(e.grelha[l][c]==e.peca){
+                return 1;
+            }
+
+        }
+        return 0;
+
+
+    }
+}
+
+
+int checkDiagEsqbaixo(ESTADO e,int linha, int coluna) {
+    int l,c;
+    if (e.grelha[linha + 1][coluna - 1] == inverte(e.peca)) {
+        for(l=linha+2,c=coluna-2;l < 8,c>=0;l++,c--) {
+            if(e.grelha[l][c]){
+                return 1;
+            }
+        }
+
+    }
+    return 0;
+}
+int checkDiagEsqcima(ESTADO e,int linha, int coluna) {
+    int l,c;
+    if (e.grelha[linha - 1][coluna - 1] == inverte(e.peca)) {
+        for(l=linha-2,c=coluna-2;l--,c--;l>=0,c>=0){
+            if(e.grelha[l][c]==e.peca){
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+VALOR inverte(VALOR p){
+    if (p == VALOR_X) return VALOR_O;
+    if (p == VALOR_O) return VALOR_X;
+}
+
+ESTADO virapecas(ESTADO e,int linha , int coluna){
+    int l ,c ;
+    if (checkLinhadir(e,linha,coluna)){//fazer para os outros checks
+        for(c=coluna+1;e.grelha[linha][c]!=e.peca;c++){
+            if(e.grelha[linha][c]==inverte(e.peca)){
+                e.grelha[linha][c]=e.peca;
+
+            }
+
+        }
+
+    }
+    if(checkLinhaesq(e,linha,coluna)){
+        for(c=coluna-1;e.grelha[linha][c]!=e.peca;c--){
+            if(e.grelha[linha][c]==inverte(e.peca)) {
+                e.grelha[linha][c] = e.peca;
+            }
+        }
+    }
+    if(checkColunacima(e,linha,coluna)){
+        for(l=linha-1;e.grelha[l][coluna]!=e.peca;l--){
+            if(e.grelha[l][coluna]==inverte(e.peca)){
+                e.grelha[l][coluna]= e.peca;
+            }
+        }
+    }
+    if(checkColunabaixo(e,linha,coluna)){
+        for(l=linha+1;e.grelha[l][coluna]!=e.peca;l++) {
+            if (e.grelha[l][coluna] == inverte(e.peca)) {
+                e.grelha[l][coluna] = e.peca;
+            }
+        }
+    }
+    if(checkDiagDirCima(e,linha,coluna)){
+        for(l=linha-1,c=coluna+1;e.grelha[l][c]!=e.peca;l--,c++){
+            if(e.grelha[l][c]==inverte(e.peca)){
+                e.grelha[l][c]=e.peca;
+            }
+        }
+    }
+    if(checkDiagDirbaixo(e,linha,coluna)){
+        for(l=linha+1,c=coluna+1;e.grelha[l][c]!=e.peca;l++,c++){
+            if(e.grelha[l][c]==inverte(e.peca)){
+                e.grelha[l][c]=e.peca;
+            }
+        }
+    }
+    if(checkDiagEsqcima(e,linha,coluna)){
+        for(l=linha-1,c=coluna-1;e.grelha[l][c]!=e.peca;l--,c--){
+            if(e.grelha[l][c]==inverte(e.peca)){
+                e.grelha[l][c]=e.peca;
+            }
+        }
+
+    }
+    if(checkDiagEsqbaixo(e,linha,coluna)){
+        for(l=linha+1,c=coluna-1;e.grelha[l][c]!=e.peca;l++,c--){
+            if(e.grelha[l][c]==inverte(e.peca)){
+                e.grelha[l][c]=e.peca;
+            }
+        }
+    }
+
+    return e;
+
+}
+
+

@@ -7,11 +7,12 @@
 struct Historico{
     int linha;
     int coluna;
+    char peca;
     struct Historico* prox;
 
 };
 struct  Historico* top;
 
-void addHjogada(int linha,int coluna);
+void addHjogada(VALOR peca,int linha,int coluna);
 void rmUltimaJogada();
 #endif //LA_HISTORICO_H

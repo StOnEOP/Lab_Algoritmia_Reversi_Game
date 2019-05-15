@@ -13,50 +13,89 @@
 #include "jogar.h"
 #include "historico.h"
 
-void jogar(ESTADO e,int l,int c){ // verifica se a jogada é valida e joga-a
-    int linha  = l-1;   //Arrays começam em zero
-    int coluna = c-1;
-    if (jogadaValida(e,linha,coluna) == 1){ // se a jogada for valida
-        virarPecas(linha,coluna); // vira as peças em todas as direções possiveis ///tens discuçao sobre esta funçao no GitHub///
-        addHjogada(linha,coluna); // adiciona essa jogada ao historico { Lista ligada}
+
+
+ESTADO jogar(ESTADO e,int linha,int coluna) {
+    //if (isOver == 1) printf("Jogo Terminado\n"); // se jã nao houver jogadas possiveis
+    /*else*/ if(jogadaValida(e,linha,coluna)) {
+            e.grelha[linha][coluna] = e.peca;
+            e=virapecas(e,linha,coluna);
+            addHjogada(e.peca,linha,coluna);
+            e.peca=inverte(e);
+         } else printf("Jogada Invalida\n");
+
+        return e;
+
+
+}
+
+int jogadaValida(ESTADO e, int linha,int coluna){
+    if(linha>=0 && linha <8 && coluna >=0 && coluna < 8 && e.grelha[linha][coluna]==VAZIA && check(e,linha,coluna) != 0){
+        return 1;
+    }else return 0;
+}
+
+
+ESTADO virapecas(ESTADO e,int linha , int coluna){
+    int l ,c ;
+    if (checkLinhadir(e,linha,coluna)){//fazer para os outros checks
+        for(c=coluna+1;e.grelha[linha][c]!=e.peca;c++){
+            if(e.grelha[linha][c]==inverte(e)){
+                e.grelha[linha][c]=e.peca;
+            }
+        }
     }
-    else printf("ERRO jogar()\n");          // TESTE
+    if(checkLinhaesq(e,linha,coluna)){
+        for(c=coluna-1;e.grelha[linha][c]!=e.peca;c--){
+            if(e.grelha[linha][c]==inverte(e)) {
+                e.grelha[linha][c] = e.peca;
+            }
+        }
+    }
+    if(checkColunacima(e,linha,coluna)){
+        for(l=linha-1;e.grelha[l][coluna]!=e.peca;l--){
+            if(e.grelha[l][coluna]==inverte(e)){
+                e.grelha[l][coluna]= e.peca;
+            }
+        }
+    }
+    if(checkColunabaixo(e,linha,coluna)){
+        for(l=linha+1;e.grelha[l][coluna]!=e.peca;l++) {
+            if (e.grelha[l][coluna] == inverte(e)) {
+                e.grelha[l][coluna] = e.peca;
+            }
+        }
+    }
+    if(checkDiagDirCima(e,linha,coluna)){
+        for(l=linha-1,c=coluna+1;e.grelha[l][c]!=e.peca;l--,c++){
+            if(e.grelha[l][c]==inverte(e)){
+                e.grelha[l][c]=e.peca;
+            }
+        }
+    }
+    if(checkDiagDirbaixo(e,linha,coluna)){
+        for(l=linha+1,c=coluna+1;e.grelha[l][c]!=e.peca;l++,c++){
+            if(e.grelha[l][c]==inverte(e)){
+                e.grelha[l][c]=e.peca;
+            }
+        }
+    }
+    if(checkDiagEsqcima(e,linha,coluna)){
+        for(l=linha-1,c=coluna-1;e.grelha[l][c]!=e.peca;l--,c--){
+            if(e.grelha[l][c]==inverte(e)){
+                e.grelha[l][c]=e.peca;
+            }
+        }
+
+    }
+    if(checkDiagEsqbaixo(e,linha,coluna)){
+        for(l=linha+1,c=coluna-1;e.grelha[l][c]!=e.peca;l++,c--){
+            if(e.grelha[l][c]==inverte(e)){
+                e.grelha[l][c]=e.peca;
+            }
+        }
+    }
+    return e;
 }
 
-int jogadaValida(ESTADO e, int linha, int coluna){ // 1 == verdade 0== falso
-    if (linha >7 || linha < 0 || coluna >7 || coluna <0) return 0; // se o local for fora do tabuleiro a jogada não é valida
-        // verifica se há outra peça igual a da jogada horizontalmente, verticalmente e em ambas as diagonais, caso 1 delas exista a jogada é valida, logo retorna True
-    else if ((checkHorizontal(e,linha,coluna) == 1) ) {printf("valida é verdade\n");return 1;} //TESTE
-         else {printf("NAO E VALIDA \n");return 0;}// caso nenhuma das funçoes anteriores dê verdade, significa que a nao há jogadas validas
-}
 
-/*void virarPecas(ESTADO e,int linha,int coluna){
- *
- *  if (jogadaValida (ESTADO e, int linha, int coluna)){
- *      while ((linha <=7 && linha > 0 && coluna <=7 && coluna >=0) && (e.peca!=(e.grelha[linha][coluna++])) && (e.grelha[linha][coluna++] != VAZIA)) { // Inverte tudo na horizontal
- *          e.grelha[linha][coluna]=e.peca;
- *          }
- *      while ((linha <=7 && linha > 0 && coluna <=7 && coluna >=0) && (e.peca!=(e.grelha[linha][coluna--])) && (e.grelha[linha][coluna++] != VAZIA)) { // Inverte tudo na horizontal
- *          e.grelha[linha][coluna]=e.peca;
- *          }
- *      while ((linha <=7 && linha > 0 && coluna <=7 && coluna >=0) && (e.peca!=(e.grelha [linha++] [coluna])) && (e.grelha[linha][coluna++] != VAZIA)){  // Inverte tudo na horizontal
- *          e.grelha[linha][coluna]=e.peca;
- *          }
- *      while ((linha <=7 && linha > 0 && coluna <=7 && coluna >=0) && (e.peca!=(e.grelha [linha--] [coluna])) && (e.grelha[linha][coluna++] != VAZIA)){ // Inverte tudo na horizontal
- *          e.grelha[linha][coluna]=e.peca;
- *          }
- *      while ((linha <=7 && linha > 0 && coluna <=7 && coluna >=0) && (e.peca!=(e.grelha [linha++] [coluna++])) && (e.grelha[linha][coluna++] != VAZIA)){
- *          e.grelha[linha][coluna]=e.peca;
- *          }
- *      while ((linha <=7 && linha > 0 && coluna <=7 && coluna >=0) && (e.peca!=(e.grelha [linha--] [coluna--])) && (e.grelha[linha][coluna++] != VAZIA)){
- *          e.grelha[linha][coluna]=e.peca;
- *          }
- *      while ((linha <=7 && linha > 0 && coluna <=7 && coluna >=0) && (e.peca!=(e.grelha [linha++] [coluna--])) && (e.grelha[linha][coluna++] != VAZIA)){
- *          e.grelha[linha][coluna]=e.peca;
- *          }
- *      while ((linha <=7 && linha > 0 && coluna <=7 && coluna >=0) && (e.peca!=(e.grelha [linha--] [coluna++])) && (e.grelha[linha][coluna++] != VAZIA)){
- *          e.grelha[linha][coluna]=e.peca;
- *          }
- *  }
- *}
- */

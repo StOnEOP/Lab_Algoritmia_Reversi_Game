@@ -4,7 +4,11 @@
 #include <stdio.h>
 #include "estado.h"
 
-ESTADO gInicial(ESTADO e, char peca, char modo){
+ESTADO gInicial (ESTADO e, char peca, char modo){
+    for(int x=0;x<8;x++)
+        for(int y=0;y<8;y++){
+            e.grelha[x][y] = VAZIA;
+        }
     e.grelha [3][4] = VALOR_O;
     e.grelha [4][3] = VALOR_O;
     e.grelha [3][3] = VALOR_X;
@@ -35,6 +39,10 @@ void printa(ESTADO e){
                 }
                 case VAZIA: {
                     c = '-';
+                    break;
+                }
+                case VALIDA:{ // adicionado caso seja valida
+                    c= '.';
                     break;
                 }
             }

@@ -6,6 +6,6 @@
 int main(){
     ESTADO e = {0};
     printf("Para começar a jogar use o cmand: N <peça> \n");
-    interpretador (e);
+    interpretador(e);
     return 0;
 }

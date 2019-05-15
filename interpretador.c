@@ -51,17 +51,20 @@ ESTADO interpretar (ESTADO e, char *linha) {
             break;
         case 'J':
             n= sscanf(linha, "%s %d %d", cmd, &lin, &col);
+            lin--;
+            col--;
+            e= jogar(e,lin,col);
             printf("Num de parametros lidos:%d\n",n);
             printf("Jogar na posição lina: %d e coluna: %d\n",lin,col);
-            jogar(e,lin,col);
+
             break;
         case 'S':
             printf("Sugestão de jogadas\n");
-            sugestaoJogada(e);
+            e=sugestaoJogada(e);
             break;
         case 'U':
             printf("Desfazendo ultima jogada\n");
-            undoJogada(e,top);
+            undoJogada(e);
             break;
         case 'H':
             break;

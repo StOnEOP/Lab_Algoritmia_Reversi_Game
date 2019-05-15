@@ -40,7 +40,10 @@ ESTADO checkVal(ESTADO e,int linha,int coluna){
     e= checkVDiagEsqbaixo(e,linha,coluna);e= checkVDiagEsqcima(e,linha,coluna);
     return e;
 }
-
+/*
+ * TODO:
+ * por o checkVal a funcionar, talvez um problema de tipos?
+ */
 ESTADO checkVLinhaesq(ESTADO e,int linha,int coluna){ // verifica a linha á esquerda e devolve a pontuaçao da jogada
     int c;
     if (e.grelha[linha][coluna+1] == VAZIA){ // como procura a esquerda, á direita tera de ter Vazia

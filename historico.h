@@ -7,6 +7,7 @@
 struct Historico{
     int linha;
     int coluna;
+    char peca;
     struct Historico* prox;
 
 };

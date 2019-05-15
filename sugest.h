@@ -4,6 +4,6 @@
 
 #ifndef LA_SUGEST_H
 #define LA_SUGEST_H
-sugestaoJogada(ESTADO e);
+void sugestaoJogada(ESTADO e);
 
 #endif //LA_SUGEST_H

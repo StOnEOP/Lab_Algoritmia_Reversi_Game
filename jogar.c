@@ -16,13 +16,14 @@
 
 
 ESTADO jogar(ESTADO e,int linha,int coluna) {
-
-    if(jogadaValida(e,linha,coluna)) {
-        e.grelha[linha][coluna] = e.peca;
-        e=virapecas(e,linha,coluna);
-    } else printf("Jogada Invalida\n");
-    e.peca=inverte(e.peca);
-    return e;
+    //if (isOver == 1) printf("Jogo Terminado\n"); // se jã nao houver jogadas possiveis
+    else if(jogadaValida(e,linha,coluna)) {
+            e.grelha[linha][coluna] = e.peca;
+            e=virapecas(e,linha,coluna);
+            addHjogada(e.peca,linha,coluna);
+         } else printf("Jogada Invalida\n");
+        e.peca=inverte(e.peca);
+        return e;
 
 
 }

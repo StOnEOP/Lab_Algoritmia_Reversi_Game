@@ -14,7 +14,7 @@
 #include "historico.h"
 #include "sugest.h"
 
-sugestaoJogada(ESTADO e){ // recebe 1 estado que ja contem as jogadas validas e imprime um ponto onde elas se encontram
+void sugestaoJogada(ESTADO e){ // recebe 1 estado que ja contem as jogadas validas e imprime um ponto onde elas se encontram
     // imprime a tabela valida
 printf("\n\t1 2 3 4 5 6 7 8\n"
        "\t________________\n\n");

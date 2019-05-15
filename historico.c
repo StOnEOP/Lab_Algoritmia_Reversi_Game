@@ -16,13 +16,14 @@
 #include <malloc.h>
 
 
-void addHjogada(int linha,int coluna){ // adiciona 1 jogada ao historico
+void addHjogada(VALOR peca,int linha,int coluna){ // adiciona 1 jogada ao historico
     struct Historico* temp;
     temp = (struct Historico*)malloc(sizeof(struct Historico));
 
     if (!temp) printf("\nHistorico cheio\n");
     temp->linha = linha;
     temp->coluna= coluna;
+    temp->peca = valorToChar(peca);
     temp->prox =top;
 }
 

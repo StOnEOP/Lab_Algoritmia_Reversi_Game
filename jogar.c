@@ -35,8 +35,9 @@ int jogadaValida(ESTADO e, int linha,int coluna){
 
 int check(ESTADO e,int linha,int coluna){
     int r=0;
-    r = checkLinhadir(e, linha, coluna) + checkLinhaesq(e,linha,coluna) + checkColunabaixo(e, linha, coluna) + checkColunacima(e,linha, coluna) + checkDiagDirbaixo(e, linha, coluna) + checkDiagDirCima(e, linha,coluna)+checkDiagEsqbaixo(e,linha,coluna) + checkDiagEsqcima(e,linha,coluna);
-
+    r = checkLinhadir(e, linha, coluna) + checkLinhaesq(e,linha,coluna) + checkColunabaixo(e, linha, coluna) +
+            checkColunacima(e,linha, coluna) + checkDiagDirbaixo(e, linha, coluna) + checkDiagDirCima(e, linha,coluna)
+            +checkDiagEsqbaixo(e,linha,coluna) + checkDiagEsqcima(e,linha,coluna);
     return r;
 }
 
@@ -62,12 +63,7 @@ int checkLinhaesq(ESTADO e,int linha,int coluna){
             if(e.grelha[linha][c]){
                 return 1;
             }
-
-
-
         }
-
-
     }
     return 0;
 
@@ -79,11 +75,7 @@ int checkColunabaixo(ESTADO e,int linha, int coluna) {
         for (l = linha - 2; l < 8; l++) {
             if (e.grelha[l][coluna] == e.peca) {
                 return 1;
-
-
             }
-
-
         }
         return 0;
     }
@@ -96,10 +88,7 @@ int checkColunacima(ESTADO e,int linha, int coluna){
                 if(e.grelha[l][coluna]==e.peca){
                     return 1;
                 }
-
-
             }
-
         }
     return 0;
 }
@@ -113,13 +102,11 @@ int checkDiagDirbaixo(ESTADO e,int linha, int coluna) {
             if(e.grelha[l][c]==e.peca){
                 return 1;
             }
-
         }
-
-
     }
     return 0;
 }
+
 int checkDiagDirCima(ESTADO e,int linha, int coluna) {
     int c,l;
     if (e.grelha[linha -1][coluna +1] == inverte(e.peca)) {
@@ -127,14 +114,10 @@ int checkDiagDirCima(ESTADO e,int linha, int coluna) {
             if(e.grelha[l][c]==e.peca){
                 return 1;
             }
-
         }
         return 0;
-
-
     }
 }
-
 
 int checkDiagEsqbaixo(ESTADO e,int linha, int coluna) {
     int l,c;
@@ -144,10 +127,10 @@ int checkDiagEsqbaixo(ESTADO e,int linha, int coluna) {
                 return 1;
             }
         }
-
     }
     return 0;
 }
+
 int checkDiagEsqcima(ESTADO e,int linha, int coluna) {
     int l,c;
     if (e.grelha[linha - 1][coluna - 1] == inverte(e.peca)) {
@@ -160,22 +143,14 @@ int checkDiagEsqcima(ESTADO e,int linha, int coluna) {
     return 0;
 }
 
-VALOR inverte(VALOR p){
-    if (p == VALOR_X) return VALOR_O;
-    if (p == VALOR_O) return VALOR_X;
-}
-
 ESTADO virapecas(ESTADO e,int linha , int coluna){
     int l ,c ;
     if (checkLinhadir(e,linha,coluna)){//fazer para os outros checks
         for(c=coluna+1;e.grelha[linha][c]!=e.peca;c++){
             if(e.grelha[linha][c]==inverte(e.peca)){
                 e.grelha[linha][c]=e.peca;
-
             }
-
         }
-
     }
     if(checkLinhaesq(e,linha,coluna)){
         for(c=coluna-1;e.grelha[linha][c]!=e.peca;c--){
@@ -227,9 +202,7 @@ ESTADO virapecas(ESTADO e,int linha , int coluna){
             }
         }
     }
-
     return e;
-
 }
 
 

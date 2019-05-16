@@ -15,10 +15,11 @@
 #include "validas.h"
 #include "etc.h"
 
+
 void bot(ESTADO e, char peca,int nivel){
     VALOR pecaBot = charToValor(peca);
-    while (isOver != 1){                //enquanto nao se chegar ao fim do jogo, ie, já nao ha mais jogadas
-        while (jogadasValidas != 0) {   //enquanto houver jogadas validas para a peça atual
+    while (isOver(e) != 1){                //enquanto nao se chegar ao fim do jogo, ie, já nao ha mais jogadas
+        while (validasJogada(e) != 0) {   //enquanto houver jogadas validas para a peça atual
             if e.peca
         }
     }

@@ -9,4 +9,6 @@
 void score(ESTADO e);
 VALOR inverte(VALOR p);
 
+VALOR charToValor(char c);
+char valorToChar(VALOR p);
 #endif //LA_ETC_H

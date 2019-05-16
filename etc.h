@@ -7,6 +7,6 @@
 
 
 void score(ESTADO e);
-VALOR inverte(ESTADO e);
+VALOR inverte(VALOR p);
 
 #endif //LA_ETC_H

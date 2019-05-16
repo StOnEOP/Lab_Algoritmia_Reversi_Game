@@ -41,7 +41,7 @@ ESTADO retiraValida(ESTADO e){ // recebe 1 estado, e devolve esse estado com vaz
 ESTADO checkVal(ESTADO e,int linha,int coluna){
     e =checkVLinhadir(e, linha, coluna); e= checkVLinhaesq(e,linha,coluna);e = checkVColunabaixo(e, linha, coluna);
     e =checkVColunacima(e,linha, coluna);e= checkVDiagDirbaixo(e, linha, coluna);e= checkVDiagDirCima(e, linha,coluna);
-    e= checkVDiagEsqbaixo(e,linha,coluna);e= checkVDiagEsqcima(e,linha,coluna);
+    e= checkVDiagEsqbaixo(e,linha,coluna);printf("CHAMADA EM CHECKVAL pre VDIAGESQCIMA\n");e= checkVDiagEsqcima(e,linha,coluna);
     return e;
 }
 /*
@@ -104,24 +104,29 @@ ESTADO checkVColunacima(ESTADO e,int linha,int coluna){ // verifica a coluna par
 ESTADO checkVDiagDirbaixo(ESTADO e,int linha, int coluna) {
     int l,c;
     if (e.grelha[linha - 1][coluna -1] == VAZIA) {
-        for(l=linha+2;l<8;l++){
-            for(c=coluna+2;c<8;c++) {
+        for(l=linha+1;l<8;l++){
+            for(c=coluna+1;c<8;c++) {
                 if (e.grelha[l][c] == e.peca) {
                     e.grelha[linha - 1][coluna - 1] = VALIDA;
+                    printf("V_Ddir_baixo\n");
                 }
             }
         }
     }
     return e;
 }
-
+/*
+ * TODO:
+ * dir cim ainda tem bugs.
+ */
 ESTADO checkVDiagDirCima(ESTADO e,int linha, int coluna) {
     int c,l;
-    if (e.grelha[linha +1][coluna +1] == VAZIA) {
-        for(l=linha-2;l>=0;l--) {
-            for(c=coluna-2;c>=0;c--) {
+    if (e.grelha[linha +1][coluna -1] == VAZIA) {
+        for(l=linha-1;l>=0;l--) {
+            for(c=coluna+1;c<8;c++) {
                 if (e.grelha[l][c] == e.peca) {
-                    e.grelha[linha + 1][coluna + 1] = VALIDA;
+                    e.grelha[linha + 1][coluna - 1] = VALIDA;
+                    printf("V_Ddir_Cima\n");
                 }
             }
         }
@@ -132,10 +137,11 @@ ESTADO checkVDiagDirCima(ESTADO e,int linha, int coluna) {
 ESTADO checkVDiagEsqbaixo(ESTADO e,int linha, int coluna) {
     int l,c;
     if (e.grelha[linha - 1][coluna + 1] == VAZIA) {
-        for(l=linha+2;l < 8;l++) {
-            for(c=coluna-2;c>=0;c--) {
+        for(l=linha+1;l < 8;l++) {
+            for(c=coluna-1;c>=0;c--) {
                 if (e.grelha[l][c]) {
                     e.grelha[linha - 1][coluna + 1] = VALIDA;
+                    printf("V_Desq_Baixo\n");
                 }
             }
         }
@@ -145,11 +151,12 @@ ESTADO checkVDiagEsqbaixo(ESTADO e,int linha, int coluna) {
 
 ESTADO checkVDiagEsqcima(ESTADO e,int linha, int coluna) {
     int l,c;
-    if (e.grelha[linha + 1][coluna - 1] == VAZIA) {
-        for(l=linha-2;l>=0;l--){
-            for(c=coluna+2;c<8;c--) {
+    if (e.grelha[linha + 1][coluna + 1] == VAZIA) {
+        for(l=linha-1;l>=0;l--){
+            for(c=coluna-1;c>=0;c--) {
                 if (e.grelha[l][c] == e.peca) {
-                    e.grelha[linha + 1][coluna - 1] = VALIDA;
+                    e.grelha[linha + 1][coluna + 1] = VALIDA;
+                    printf("V_Desq_cima\n");
                 }
             }
         }

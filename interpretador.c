@@ -74,7 +74,9 @@ ESTADO interpretar (ESTADO e, char *linha) {
         case 'A':
             n= sscanf(linha, "%s %s %d", cmd, peca,&e.nivel); // recebe comando,  a peça do bot, e o nivel (lin é 1 inteiro)
             e.modo='A';
-            e=bot(e,peca);
+            if (e.nivel >= 1 && e.nivel <=3){
+                e=bot(e,peca);
+            }
             break;
         case 'Q':
             exit(0);

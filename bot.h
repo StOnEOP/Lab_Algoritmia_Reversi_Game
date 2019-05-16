@@ -4,7 +4,7 @@
 
 #ifndef LA_BOT_H
 #define LA_BOT_H
-ESTADO bot(ESTADO e, char peca,int nivel);
-ESTADO jogaBot (ESTADO e,int nivel);
-void selectJogada (ESTADO e, int* bLinha, int* bColuna,int nivel);
+ESTADO bot(ESTADO e, char peca);
+ESTADO jogaBot (ESTADO e);
+void selectJogada (ESTADO e, int* bLinha, int* bColuna);
 #endif //LA_BOT_H

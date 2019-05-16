@@ -9,10 +9,10 @@ ESTADO gInicial (ESTADO e, char peca, char modo){
         for(int y=0;y<8;y++){
             e.grelha[x][y] = VAZIA;
         }
-    e.grelha [3][4] = VALOR_O;
-    e.grelha [4][3] = VALOR_O;
-    e.grelha [3][3] = VALOR_X;
-    e.grelha [4][4] = VALOR_X;
+    e.grelha [3][4] = VALOR_X;
+    e.grelha [4][3] = VALOR_X;
+    e.grelha [3][3] = VALOR_O;
+    e.grelha [4][4] = VALOR_O;
     e.peca = peca;    // aqui e.peca é char? mas na def de estado é Valor, envio 1 valor para 1 char?
     e.modo = modo;
     return e;

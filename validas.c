@@ -138,7 +138,7 @@ ESTADO checkVDiagEsqbaixo(ESTADO e,int linha, int coluna) {
     if (e.grelha[linha - 1][coluna + 1] == VAZIA) {
         for(l=linha+1;l < 8;l++) {
             for(c=coluna-1;c>=0;c--) {
-                if (e.grelha[l][c]) {
+                if (e.grelha[l][c] == e.peca) {
                     e.grelha[linha - 1][coluna + 1] = VALIDA;
                     printf("V_Desq_Baixo\n");
                 }

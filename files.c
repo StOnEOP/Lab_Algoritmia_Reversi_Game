@@ -32,17 +32,23 @@ void save(ESTADO e,char ficheiro[MAX_BUF]){ // recebe 1 estado e 1 nome de fiche
 
 void load(ESTADO e,char ficheiro[MAX_BUF]){
     FILE *file;
-    char c[9];
+    char k;
+    int i,j;
 
     file =fopen(ficheiro,"r");
-    fscanf(file,"%c %c\n",e.modo,charToValor(e.peca));
-    while(fgets(c, sizeof(c),file)) {
-        for (int i = 0; i < 8; i++) {   // muda linha
-            for (int j = 0; j < 8; j++) { // muda coluna
-                e.grelha[i][j] = charToValor(c);
+    fscanf(file,"%c %c\n",&e.modo,&k);
+    printf("antes e.peca=\t");
+    e.peca=charToValor(k);                  // muda o tipo do k
+        for (i = 0; i < 8; i++) {   // muda linha
+            for (j = 0; j < 8; j++) { // muda coluna
+                fscanf(file, "%c", &k);
+                printf("antes e.grelha\t");
+                e.grelha[i][j] = valorToChar(k);
             }
+            fscanf(file, "%c\n", &k);
+            printf("antes e.grelha barran\n");
+            e.grelha[i][k] = valorToChar(k);
         }
-    }
 }
 
 VALOR charToValor(char c){ // converte 1 char em Valor

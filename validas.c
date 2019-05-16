@@ -16,10 +16,14 @@
 
 ESTADO validasJogada(ESTADO e) { // recebe 1 estado e devolve um estado com jogadas validas
     // corre a funçao á procura de peças
-    int i,j;
+    int i,j; VALOR inversa =inverte(e);
     for (i = 0; i < 8; i++) {
+        printf("Validas Linha %d\t",i);
+        printa(e);
         for (j = 0; j < 8; j++){
-            if(e.grelha[i][j]==inverte(e)){ // procura peças inversa a nossa, ie locais onde sera possivel jogar
+            printf("Validas Coluna %d\n",j);
+            if(e.grelha[i][j]==inversa){ // procura peças inversa a nossa, ie locais onde sera possivel jogar
+                printf("Validas precheckVal\n");
                 e=checkVal(e,i,j); // dado 1 estado, e coordenadas, poe todas as jogadas validas como sendo VALIDA
             }
         }
@@ -43,25 +47,28 @@ ESTADO checkVal(ESTADO e,int linha,int coluna){
 /*
  * TODO:
  * por o checkVal a funcionar, talvez um problema de tipos?
+ * os checkV nao funcionam caso se esteja nas bordas do tabuleiro
  */
-ESTADO checkVLinhaesq(ESTADO e,int linha,int coluna){ // verifica a linha á esquerda e devolve a pontuaçao da jogada
+ESTADO checkVLinhaesq(ESTADO e,int linha,int coluna){ // verifica a linha á esquerda
     int c;
     if (e.grelha[linha][coluna+1] == VAZIA){ // como procura a esquerda, á direita tera de ter Vazia
         for(c=coluna-1;c>=0;c--){
             if (e.grelha[linha][c]==e.peca) {
                 e.grelha[linha][coluna + 1] = VALIDA; //caso encontre torna a Vazia em Valida
+                printf("V_LINHA_ESQ\n");
             }
         }
     }
     return e;
 }
 
-ESTADO checkVLinhadir(ESTADO e, int linha, int coluna){ // verifica a linha á esquerda e devolve a pontuaçao da jogada
+ESTADO checkVLinhadir(ESTADO e,int linha, int coluna){ // verifica a linha á direita
     int c;
     if (e.grelha[linha][coluna-1] == VAZIA){ // como procura a direita, á esquerda tera de ter Vazia
-        for(c=coluna+1;c>=0;c++){
+        for(c=coluna+1;c<8;c++){
             if (e.grelha[linha][c]==e.peca) {
                 e.grelha[linha][coluna - 1] = VALIDA; //caso encontre torna a Vazia em Valida
+                printf("V_LINHA_DIR\n");
             }
         }
     }
@@ -72,8 +79,9 @@ ESTADO checkVColunabaixo(ESTADO e,int linha,int coluna){ // verifica a coluna pa
     int l;
     if (e.grelha[linha-1][coluna] == VAZIA){ // como procura para baixo, a cima tera de ter Vazia
         for(l=linha+1;l<8;l++){
-            if (e.grelha[linha][l]==e.peca) {
-                e.grelha[linha][coluna + 1] = VALIDA; //caso encontre torna a Vazia em Valida
+            if (e.grelha[l][coluna]==e.peca) {
+                e.grelha[linha-1][coluna] = VALIDA; //caso encontre torna a Vazia em Valida
+                printf("V_COL_Baixo\n");
             }
         }
     }
@@ -84,8 +92,9 @@ ESTADO checkVColunacima(ESTADO e,int linha,int coluna){ // verifica a coluna par
     int l;
     if (e.grelha[linha+1][coluna] == VAZIA){    // como procura para cima, a baixo tera de ter Vazia
         for(l=linha-1;l>=0;l--){            // procura apartir da peça
-            if (e.grelha[linha][l]==e.peca) {
-                e.grelha[linha][coluna + 1] = VALIDA; //caso encontre torna a Vazia em Valida
+            if (e.grelha[l][coluna]==e.peca) {
+                e.grelha[linha+1][coluna] = VALIDA; //caso encontre torna a Vazia em Valida
+                printf("V_COL_CIMA\n");
             }
         }
     }

@@ -1,5 +1,5 @@
 //
-// Created by  Pedro Faria - A72640 02/05/2019.
+// Created by pedro on 02/05/2019.
 //
 
 #ifndef LA_JOGAR_H

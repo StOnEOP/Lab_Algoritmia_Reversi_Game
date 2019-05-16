@@ -30,7 +30,7 @@ void save(ESTADO e,char ficheiro[MAX_BUF]){ // recebe 1 estado e 1 nome de fiche
     fclose(file);
 }
 
-ESTADO load(ESTADO e,char ficheiro[MAX_BUF]){
+ESTADO load(ESTADO e,char ficheiro[MAX_BUF]){ // PROD FINAL
     FILE *file;
     char k,c;
     int i,j;
@@ -38,26 +38,23 @@ ESTADO load(ESTADO e,char ficheiro[MAX_BUF]){
     file =fopen(ficheiro,"r");
     fscanf(file,"%c %c\n",&c,&k);
     e.modo=c;
-    printf("e.peca=\t");
-    e.peca=charToValor(k);                  // muda o tipo do k
+    e.peca=charToValor(k);
     for (i = 0; i <=7; ++i){
         for (j = 0; j < 8; ++j){
             fscanf(file, "%c", &k);
             e.grelha[i][j] = charToValor(k);
         }
         fscanf(file, "%c\n", &k);
-        e.grelha[i][j] = charToValor(k);
     }
     return e;
 }
-    //fclose(file);
-//}
+
 
 VALOR charToValor(char c){ // converte 1 char em Valor
-    if( c =='O')    {printf("ret -O\n");return VALOR_O;}
-    if( c =='X')    {printf("ret -X\n");return VALOR_X;}
-    if( c =='-')    {printf("ret -Vaz\n");return VAZIA;}
-    if( c =='.')    {printf("ret -val\n");return VALIDA;}
+    if( c =='O')    return VALOR_O;
+    if( c =='X')    return VALOR_X;
+    if( c =='-')    return VAZIA;
+    if( c =='.')    return VALIDA;
     else printf("ERRO: charToValor INVALIDO!!\n");
 
 }

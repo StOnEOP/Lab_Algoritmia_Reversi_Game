@@ -3,6 +3,7 @@
 //
 #include <stdio.h>
 #include "estado.h"
+#include "files.h"
 
 ESTADO gInicial (ESTADO e, char peca, char modo){
     for(int x=0;x<8;x++)
@@ -24,7 +25,6 @@ void printa(ESTADO e){
            "\t________________\n\n");
 
     char c = ' ';
-
     for (int i = 0; i < 8; i++) {
         printf("%d|\t",(i+1));        // imprime a label á esquerda
         for (int j = 0; j < 8; j++) {

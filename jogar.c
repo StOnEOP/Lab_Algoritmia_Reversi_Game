@@ -12,16 +12,17 @@
 #include "etc.h"
 #include "jogar.h"
 #include "historico.h"
+#include "check.h"
 
 
 
 ESTADO jogar(ESTADO e,int linha,int coluna) {
     //if (isOver == 1) printf("Jogo Terminado\n"); // se jã nao houver jogadas possiveis
-    /*else*/ if(jogadaValida(e,linha,coluna)) {
-            e.grelha[linha][coluna] = e.peca;
-            e=virapecas(e,linha,coluna);
-            addHjogada(e.peca,linha,coluna);
-            e.peca=inverte(e);
+    /*else*/ if(jogadaValida(e,linha,coluna)) { // se a jogada for valida
+            e.grelha[linha][coluna] = e.peca;   // poe a peça na coordenada selecionada
+            e=virapecas(e,linha,coluna);        // vira as peças apartir da coordenada
+            addHjogada(e.peca,linha,coluna);    // adiciona a jogada ao historico
+            e.peca=inverte(e);                  // inverte a peça para o proximo jogador
          } else printf("Jogada Invalida\n");
 
         return e;
@@ -35,67 +36,8 @@ int jogadaValida(ESTADO e, int linha,int coluna){
     }else return 0;
 }
 
+void fimdojogo(ESTADO e,int linha,coluna){
 
-ESTADO virapecas(ESTADO e,int linha , int coluna){
-    int l ,c ;
-    if (checkLinhadir(e,linha,coluna)){//fazer para os outros checks
-        for(c=coluna+1;e.grelha[linha][c]!=e.peca;c++){
-            if(e.grelha[linha][c]==inverte(e)){
-                e.grelha[linha][c]=e.peca;
-            }
-        }
-    }
-    if(checkLinhaesq(e,linha,coluna)){
-        for(c=coluna-1;e.grelha[linha][c]!=e.peca;c--){
-            if(e.grelha[linha][c]==inverte(e)) {
-                e.grelha[linha][c] = e.peca;
-            }
-        }
-    }
-    if(checkColunacima(e,linha,coluna)){
-        for(l=linha-1;e.grelha[l][coluna]!=e.peca;l--){
-            if(e.grelha[l][coluna]==inverte(e)){
-                e.grelha[l][coluna]= e.peca;
-            }
-        }
-    }
-    if(checkColunabaixo(e,linha,coluna)){
-        for(l=linha+1;e.grelha[l][coluna]!=e.peca;l++) {
-            if (e.grelha[l][coluna] == inverte(e)) {
-                e.grelha[l][coluna] = e.peca;
-            }
-        }
-    }
-    if(checkDiagDirCima(e,linha,coluna)){
-        for(l=linha-1,c=coluna+1;e.grelha[l][c]!=e.peca;l--,c++){
-            if(e.grelha[l][c]==inverte(e)){
-                e.grelha[l][c]=e.peca;
-            }
-        }
-    }
-    if(checkDiagDirbaixo(e,linha,coluna)){
-        for(l=linha+1,c=coluna+1;e.grelha[l][c]!=e.peca;l++,c++){
-            if(e.grelha[l][c]==inverte(e)){
-                e.grelha[l][c]=e.peca;
-            }
-        }
-    }
-    if(checkDiagEsqcima(e,linha,coluna)){
-        for(l=linha-1,c=coluna-1;e.grelha[l][c]!=e.peca;l--,c--){
-            if(e.grelha[l][c]==inverte(e)){
-                e.grelha[l][c]=e.peca;
-            }
-        }
-
-    }
-    if(checkDiagEsqbaixo(e,linha,coluna)){
-        for(l=linha+1,c=coluna-1;e.grelha[l][c]!=e.peca;l++,c--){
-            if(e.grelha[l][c]==inverte(e)){
-                e.grelha[l][c]=e.peca;
-            }
-        }
-    }
-    return e;
 }
 
 

@@ -5,8 +5,7 @@
 #ifndef LA_ETC_H
 #define LA_ETC_H
 
-void save(ESTADO e,char ficheiro[MAX_BUF]);
-char valorToChar(VALOR p);
+
 void score(ESTADO e);
 VALOR inverte(ESTADO e);
 

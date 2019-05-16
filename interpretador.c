@@ -12,8 +12,9 @@
 #include "etc.h"
 #include "jogar.h"
 #include "historico.h"
-#include "sugest.h"
+#include "validas.h"
 #include "undo.h"
+#include "files.h"
 
 ESTADO interpretar (ESTADO e, char *linha) {
 
@@ -40,9 +41,14 @@ ESTADO interpretar (ESTADO e, char *linha) {
             e.modo='M';
             break;
         case 'L':
+            /*
+             * TODO:
+             * Ler o ficheiro
+             */
             n = sscanf(linha,"%s %s", cmd, ficheiro);//falta fazer o Fopen e ler o ficheiro
             printf("Num. de parametros lidos:%d\n",n);
             printf("Ler um jogo do fcheiro:%s\n",ficheiro);
+            load(e,cmd);
             break;
         case 'E':
             n =sscanf(linha,"%s %s",cmd,ficheiro);
@@ -60,7 +66,7 @@ ESTADO interpretar (ESTADO e, char *linha) {
             break;
         case 'S':
             printf("Sugestão de jogadas\n");
-            e=sugestaoJogada(e);
+            e=validasJogada(e);
             break;
         case 'U':
             printf("Desfazendo ultima jogada\n");

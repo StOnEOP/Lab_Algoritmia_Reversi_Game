@@ -3,6 +3,7 @@
 //
 #include <stdio.h>
 #include "estado.h"
+#include "etc.h"
 #include "files.h"
 
 ESTADO gInicial (ESTADO e, char peca, char modo){
@@ -51,6 +52,7 @@ void printa(ESTADO e){
         }
         printf("\n");
     }
+    score(e);
     printf("\n");
 
 }

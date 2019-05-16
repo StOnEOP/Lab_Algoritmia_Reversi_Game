@@ -12,7 +12,10 @@
 #include "files.h"
 #include "etc.h"
 
-
+/*
+ * TODO:
+ * falta adicionar a forma como grava e mais dificilmente como le, dependendo do nivel do bot 0 se MANUAL
+ */
 
 void save(ESTADO e,char ficheiro[MAX_BUF]){ // recebe 1 estado e 1 nome de ficheiro e cria esse ficheiro
 

@@ -23,6 +23,7 @@ ESTADO interpretar (ESTADO e, char *linha) {
     char ficheiro[MAX_BUF];
     char peca[MAX_BUF];
     int lin, col,n;
+    e.nivel=0;
 
     n = sscanf(linha, "%s", cmd);
 
@@ -71,9 +72,9 @@ ESTADO interpretar (ESTADO e, char *linha) {
         case 'H':
             break;
         case 'A':
-            n= sscanf(linha, "%s %s %d", cmd, peca, &lin); // recebe comando,  a peça do bot, e o nivel (lin é 1 inteiro)
+            n= sscanf(linha, "%s %s %d", cmd, peca,&e.nivel); // recebe comando,  a peça do bot, e o nivel (lin é 1 inteiro)
             e.modo='A';
-            bot(e,peca,lin);
+            e=bot(e,peca);
             break;
         case 'Q':
             exit(0);

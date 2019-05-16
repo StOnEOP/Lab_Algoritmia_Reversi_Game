@@ -25,6 +25,7 @@ typedef struct estado {
     VALOR peca; // peça do jogador que vai jogar!
     VALOR grelha[8][8];
     char modo; // modo em que se está a jogar! M-> manual, A-> contra computador
+    int nivel;  //nivel do bot, 0 caso nao exista
 } ESTADO;
 
 ESTADO gInicial(ESTADO e, char peca, char modo);

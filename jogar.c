@@ -36,7 +36,7 @@ int jogadaValida(ESTADO e, int linha,int coluna){
     }else return 0;
 }
 
-void fimdojogo(ESTADO e,int linha,coluna){
+void fimdojogo(ESTADO e,int linha,int coluna){
 
 }
 

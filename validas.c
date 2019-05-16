@@ -46,7 +46,6 @@ ESTADO checkVal(ESTADO e,int linha,int coluna){
 }
 /*
  * TODO:
- * por o checkVal a funcionar, talvez um problema de tipos?
  * os checkV nao funcionam caso se esteja nas bordas do tabuleiro
  */
 ESTADO checkVLinhaesq(ESTADO e,int linha,int coluna){ // verifica a linha á esquerda

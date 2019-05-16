@@ -14,6 +14,7 @@
 #include "historico.h"
 #include "validas.h"
 #include "undo.h"
+#include "files.h"
 
 ESTADO interpretar (ESTADO e, char *linha) {
 
@@ -47,6 +48,7 @@ ESTADO interpretar (ESTADO e, char *linha) {
             n = sscanf(linha,"%s %s", cmd, ficheiro);//falta fazer o Fopen e ler o ficheiro
             printf("Num. de parametros lidos:%d\n",n);
             printf("Ler um jogo do fcheiro:%s\n",ficheiro);
+            load(e,cmd);
             break;
         case 'E':
             n =sscanf(linha,"%s %s",cmd,ficheiro);

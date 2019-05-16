@@ -22,7 +22,7 @@ void score(ESTADO e){    // diz a pontuação atual de cada jogador
             if (e.grelha[i][j] == VALOR_O) o++;
         }
     }
-    printf("X -> %d \nO -> %d",x,o);
+    printf("***SCORE****\n** X -> %d ** \n** O -> %d **\n************",x,o);
 }
 
 VALOR inverte(ESTADO e){

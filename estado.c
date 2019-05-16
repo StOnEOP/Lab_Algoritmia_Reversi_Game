@@ -3,7 +3,7 @@
 //
 #include <stdio.h>
 #include "estado.h"
-
+#include "etc.h"
 ESTADO gInicial (ESTADO e, char peca, char modo){
     for(int x=0;x<8;x++)
         for(int y=0;y<8;y++){
@@ -51,6 +51,7 @@ void printa(ESTADO e){
         }
         printf("\n");
     }
+    score(e);
     printf("\n");
 
 }

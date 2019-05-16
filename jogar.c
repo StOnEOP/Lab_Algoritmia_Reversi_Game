@@ -17,12 +17,13 @@ ESTADO jogar(ESTADO e,int linha,int coluna) {
     if(jogadaValida(e,linha,coluna)) {
         e.grelha[linha][coluna] = e.peca;
         e=virapecas(e,linha,coluna);
+        e.peca=inverte(e.peca);
     } else printf("Jogada Invalida\n");
-    e.peca=inverte(e.peca);
     return e;
 
 
 }
+
 
 int jogadaValida(ESTADO e, int linha,int coluna){
     if(linha>=0 && linha <8 && coluna >=0 && coluna < 8 && e.grelha[linha][coluna]==VAZIA && check(e,linha,coluna)){
@@ -226,6 +227,10 @@ ESTADO virapecas(ESTADO e,int linha , int coluna){
     }
     
     return e;
+
+}
+
+void fimdojogo(ESTADO e,int linha,coluna){
 
 }
 

@@ -41,11 +41,10 @@ ESTADO interpretar (ESTADO e, char *linha) {
             e.modo='M';
             break;
         case 'L':
-
             n = sscanf(linha,"%s %s", cmd, ficheiro);//falta fazer o Fopen e ler o ficheiro
             printf("Num. de parametros lidos:%d\n",n);
             printf("Ler um jogo do fcheiro:%s\n",ficheiro);
-            load(e,cmd);
+            load(e,ficheiro);
             break;
         case 'E':
             n =sscanf(linha,"%s %s",cmd,ficheiro);
@@ -54,12 +53,11 @@ ESTADO interpretar (ESTADO e, char *linha) {
             break;
         case 'J':
             n= sscanf(linha, "%s %d %d", cmd, &lin, &col);
+            printf("Num de parametros lidos:%d\n",n);
+            printf("Jogar na posição lina: %d e coluna: %d\n",lin,col);
             lin--;
             col--;
             e= jogar(e,lin,col);
-            printf("Num de parametros lidos:%d\n",n);
-            printf("Jogar na posição lina: %d e coluna: %d\n",lin,col);
-
             break;
         case 'S':
             printf("Sugestão de jogadas\n");

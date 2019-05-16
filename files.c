@@ -39,21 +39,22 @@ void load(ESTADO e,char ficheiro[MAX_BUF]){
     fscanf(file,"%c %c\n",&e.modo,&k);
     printf("antes e.peca=\t");
     e.peca=charToValor(k);                  // muda o tipo do k
-        for (i = 0; i < 8; i++) {   // muda linha
-            for (j = 0; j < 8; j++) { // muda coluna
+        for (i = 0; i < 8; i++) {           // muda linha
+            for (j = 0; j < 8; j++) {       // muda coluna
                 fscanf(file, "%c", &k);
                 printf("antes e.grelha\t");
-                e.grelha[i][j] = valorToChar(k);
+                e.grelha[i][j] = charToValor(k);
             }
             fscanf(file, "%c\n", &k);
             printf("antes e.grelha barran\n");
-            e.grelha[i][k] = valorToChar(k);
+            e.grelha[i][k] = charToValor(k);
         }
+    fclose(file);
 }
 
 VALOR charToValor(char c){ // converte 1 char em Valor
     if( c =='O') return VALOR_O;
-    if( c =='X') return VALOR_X;
+    if( c =='X' ) return VALOR_X;
     if( c =='-') return VAZIA;
     else printf("ERRO: charToValor INVALIDO!!\n");
 

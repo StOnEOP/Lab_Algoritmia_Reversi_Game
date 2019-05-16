@@ -16,7 +16,7 @@
 
 ESTADO validasJogada(ESTADO e) { // recebe 1 estado e devolve um estado com jogadas validas
     // corre a funçao á procura de peças
-    int i,j; VALOR inversa =inverte(e);
+    int i,j; VALOR inversa =inverte(e.peca);
     for (i = 0; i < 8; i++) {
         printf("Validas Linha %d\t",i);
         printa(e);

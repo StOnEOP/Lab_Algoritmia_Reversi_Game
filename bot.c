@@ -65,6 +65,7 @@ int selectJogada (ESTADO e, int *bLinha, int *bColuna){     // envia 1 estado,e 
                 tmp = checkScore(e,i,j); //guarda o score da mesma numa variavel
                 if (tmp == res){
                     res = aleatorio(tmp,res); //seleciona 1 de forma aleatoria
+//Nao passa a linha e coluna. Logo é melhor quando forem igual fica o res ie, apagar este if
                 }
                 if (tmp>res) {
                     res=tmp;

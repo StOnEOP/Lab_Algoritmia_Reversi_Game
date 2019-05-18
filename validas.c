@@ -42,7 +42,7 @@ ESTADO retiraValida(ESTADO e){ // recebe 1 estado, e devolve esse estado com vaz
 ESTADO checkVal(ESTADO e,int linha,int coluna){
     e =checkVLinhadir(e, linha, coluna); e= checkVLinhaesq(e,linha,coluna);e = checkVColunabaixo(e, linha, coluna);
     e =checkVColunacima(e,linha, coluna);e= checkVDiagDirbaixo(e, linha, coluna);e= checkVDiagDirCima(e, linha,coluna);
-    e= checkVDiagEsqbaixo(e,linha,coluna);printf("CHAMADA EM CHECKVAL pre VDIAGESQCIMA\n");e= checkVDiagEsqcima(e,linha,coluna);
+    e =checkVDiagEsqbaixo(e,linha,coluna);printf("CHAMADA EM CHECKVAL pre VDIAGESQCIMA\n");e= checkVDiagEsqcima(e,linha,coluna);
     return e;
 }
 
@@ -161,7 +161,7 @@ ESTADO checkVDiagEsqcima(ESTADO e,int linha, int coluna) {
 int sugereJogada(ESTADO e){    // como a sugestao imprime dentro da funçao, nao precisa de retornar nada, logo retorna 0 se completada com sucesso e 1 caso contrario
     validasJogada(e);int exit=1;           // poe VALOR VALIDA em todas as jogadas validas
     int linha=-1;int coluna=-1;             // valores para testar se ja foram usados
-    int tmp,r;
+    int tmp,r=0;
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
             if (e.grelha[i][j] == VALIDA){  //se a posiçao for 1 jogada valida

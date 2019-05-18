@@ -17,7 +17,7 @@
 #include "files.h"
 #include "bot.h"
 
-ESTADO interpretar (ESTADO e, char *linha) {
+ESTADO interpretar(ESTADO e, char *linha){
 
     char cmd[MAX_BUF];
     char ficheiro[MAX_BUF];

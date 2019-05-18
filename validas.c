@@ -103,14 +103,12 @@ ESTADO checkVColunacima(ESTADO e,int linha,int coluna){ // verifica a coluna par
 ESTADO checkVDiagDirbaixo(ESTADO e,int linha, int coluna) {
     int l,c;
     if (e.grelha[linha - 1][coluna -1] == VAZIA) {
-        for(l=linha+1;l<8;l++){
-            for(c=coluna+1;c<8;c++) {
+        for(l=linha+1, c=coluna+1;l<8 && c<8;l++, c++) {
                 if (e.grelha[l][c] == e.peca) {
                     e.grelha[linha - 1][coluna - 1] = VALIDA;
                     printf("V_Ddir_baixo\n");
                 }
             }
-        }
     }
     return e;
 }
@@ -119,16 +117,14 @@ ESTADO checkVDiagDirbaixo(ESTADO e,int linha, int coluna) {
  * dir cim ainda tem bugs.
  */
 ESTADO checkVDiagDirCima(ESTADO e,int linha, int coluna) {
-    int c,l;
+    int l,c;
     if (e.grelha[linha +1][coluna -1] == VAZIA) {
-        for(l=linha-2;l>=0;l--) {
-            for(c=coluna+1;c<8;c++) {
+        for(l=linha-1, c=coluna+1;l>=0 && c<8;l--, c++) { //2
                 if (e.grelha[l][c] == e.peca) {
                     e.grelha[linha + 1][coluna - 1] = VALIDA;
                     printf("V_Ddir_Cima\n");
                 }
             }
-        }
     }
     return e;
 }
@@ -136,14 +132,12 @@ ESTADO checkVDiagDirCima(ESTADO e,int linha, int coluna) {
 ESTADO checkVDiagEsqbaixo(ESTADO e,int linha, int coluna) {
     int l,c;
     if (e.grelha[linha - 1][coluna + 1] == VAZIA) {
-        for(l=linha+2;l < 8;l++) {
-            for(c=coluna-1;c>=0;c--) {
+        for(l=linha+1, c=coluna-1;l < 8 && c>=0;l++, c--) { //2
                 if (e.grelha[l][c] == e.peca) {
                     e.grelha[linha - 1][coluna + 1] = VALIDA;
                     printf("V_Desq_Baixo\n");
                 }
             }
-        }
     }
     return e;
 }
@@ -151,14 +145,12 @@ ESTADO checkVDiagEsqbaixo(ESTADO e,int linha, int coluna) {
 ESTADO checkVDiagEsqcima(ESTADO e,int linha, int coluna) {
     int l,c;
     if (e.grelha[linha + 1][coluna + 1] == VAZIA) {
-        for(l=linha-2;l>=0;l--){
-            for(c=coluna-1;c>=0;c--) {
+        for(l=linha-1,c=coluna-1 ;l>=0 && c>=0;l--, c--){//2
                 if (e.grelha[l][c] == e.peca) {
                     e.grelha[linha + 1][coluna + 1] = VALIDA;
                     printf("V_Desq_cima\n");
                 }
             }
-        }
     }
     return e;
 }

@@ -15,7 +15,7 @@ ESTADO gInicial (ESTADO e, char peca, char modo){
     e.grelha [4][3] = VALOR_X;
     e.grelha [3][3] = VALOR_O;
     e.grelha [4][4] = VALOR_O;
-    e.peca = peca;    // aqui e.peca é char? mas na def de estado é Valor, envio 1 valor para 1 char?
+    e.peca = peca;
     e.modo = modo;
     return e;
 }
@@ -44,6 +44,10 @@ void printa(ESTADO e){
                 }
                 case VALIDA:{ // adicionado caso seja valida
                     c= '.';
+                    break;
+                }
+                case SUGESTAO:{ // adicionado caso seja SUGESTAO
+                    c= '?';
                     break;
                 }
             }

@@ -45,7 +45,7 @@ ESTADO jogaBot (ESTADO e){
     return e;
 }
 
-int selectJogada (ESTADO e, int bLinha, int bColuna){     // envia 1 estado, 1 nivel e 2 variaveis, para depois receber coordenadas nessas variaveis
+int selectJogada (ESTADO e, int bLinha, int bColuna){     // envia 1 estado,e 2 variaveis, para depois receber coordenadas nessas variaveis
     /*
      * TODO:
      * procurar de todas as VALIDAS, a que tem melhor score. logo temos de adicionar o score as validas
@@ -53,7 +53,6 @@ int selectJogada (ESTADO e, int bLinha, int bColuna){     // envia 1 estado, 1 n
     int tmp=0;int res=0;
     for (int i = 0; i <8 ; ++i) {
         for (int j = 0; j < ; ++j) {
-            if (check(e,i,j)!=0){ // caso a jogada seja valida
                 tmp = checkScore(e,i,j); //guarda o score da mesma numa variavel
                 if (tmp == res){
                     res = aleatorio(tmp,res); //seleciona 1 de forma aleatoria
@@ -67,13 +66,27 @@ int selectJogada (ESTADO e, int bLinha, int bColuna){     // envia 1 estado, 1 n
             }
 
         }
+    return 0;
     }
 
-return 0;
-}
 
-int checkScore(ESTADO e,int l,int j){ //recebe 1 coordenada e devolve o score da mesma usando minmax
-
+int checkScore(ESTADO e,int i,int j){ //recebe 1 coordenada e devolve o score da mesma usando minmax com o e.nivel
+    int r=0;
+    switch (e.nivel){
+        case 1:
+            r= -(check(e,i,j))                                 // ira escolher sempre o melhor score no pior lugar
+            break;
+        case 2:
+            r= check(e,i,j);                    // melhor jogada sem considerar o peso da posiçao
+            break;
+        case 3:
+            r=(check(e, i, j) * peso[i][j]);    // melhor jogada na melhor posiçao
+            break;
+        case 0:
+            r=(check(e, i, j) * peso[i][j]);    // melhor jogada na melhor posiçao para jogo em modo manual
+            break;
+    }
+    return r;
 }
 
 int aleatorio(int i,int j){

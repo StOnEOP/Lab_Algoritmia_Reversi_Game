@@ -51,12 +51,14 @@ ESTADO interpretar (ESTADO e, char *linha) {
             break;
         case 'E':
             n =sscanf(linha,"%s %s",cmd,ficheiro);
+            retiraValida(e);
             printf("Num. de parametros lidos:%d\n",n);
             printf("Gravar um jogo no ficheiro:%s\n", ficheiro);
             save(e,ficheiro); // recebe o estado atual do jogo e um nome de ficheiro e cria esse ficheiro {FARIA.C}
             break;
         case 'J':
             n= sscanf(linha, "%s %d %d", cmd, &lin, &col);
+            retiraValida(e);
             printf("Num de parametros lidos:%d\n",n);
             printf("Jogar na posição lina: %d e coluna: %d\n",lin,col);
             lin--;
@@ -65,6 +67,7 @@ ESTADO interpretar (ESTADO e, char *linha) {
             break;
         case 'S':
             printf("Sugestão de jogadas\n");
+            retiraValida(e);
             e=validasJogada(e);
             break;
         case 'U':
@@ -72,6 +75,8 @@ ESTADO interpretar (ESTADO e, char *linha) {
             undoJogada(e);
             break;
         case 'H':
+            retiraValida(e);
+            sugereJogada(e);
             break;
         case 'A':
             n= sscanf(linha, "%s %s %d", cmd, peca,&e.nivel); // recebe comando,  a peça do bot, e o nivel

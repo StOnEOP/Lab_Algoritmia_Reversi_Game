@@ -13,6 +13,7 @@
 #include "jogar.h"
 #include "historico.h"
 #include "validas.h"
+#include "bot.h"
 
 ESTADO validasJogada(ESTADO e) { // recebe 1 estado e devolve um estado com jogadas validas
     // corre a funçao á procura de peças
@@ -44,10 +45,7 @@ ESTADO checkVal(ESTADO e,int linha,int coluna){
     e= checkVDiagEsqbaixo(e,linha,coluna);printf("CHAMADA EM CHECKVAL pre VDIAGESQCIMA\n");e= checkVDiagEsqcima(e,linha,coluna);
     return e;
 }
-/*
- * TODO:
- * os checkV nao funcionam caso se esteja nas bordas do tabuleiro
- */
+
 ESTADO checkVLinhaesq(ESTADO e,int linha,int coluna){ // verifica a linha á esquerda
     int c;
     if (e.grelha[linha][coluna+1] == VAZIA){ // como procura a esquerda, á direita tera de ter Vazia
@@ -114,10 +112,7 @@ ESTADO checkVDiagDirbaixo(ESTADO e,int linha, int coluna) {
     }
     return e;
 }
-/*
- * TODO:
- * dir cim ainda tem bugs.
- */
+
 ESTADO checkVDiagDirCima(ESTADO e,int linha, int coluna) {
     int c,l;
     if (e.grelha[linha +1][coluna -1] == VAZIA) {
@@ -161,4 +156,31 @@ ESTADO checkVDiagEsqcima(ESTADO e,int linha, int coluna) {
         }
     }
     return e;
+}
+
+int sugereJogada(ESTADO e){    // como a sugestao imprime dentro da funçao, nao precisa de retornar nada, logo retorna 0 se completada com sucesso e 1 caso contrario
+    validasJogada(e);int exit=1;           // poe VALOR VALIDA em todas as jogadas validas
+    int linha=-1;int coluna=-1;             // valores para testar se ja foram usados
+    int tmp,r;
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            if (e.grelha[i][j] == VALIDA){  //se a posiçao for 1 jogada valida
+                e.grelha[i][j] = VAZIA;     //limpa a VALIDA, para o checkScore funcionar
+                tmp = checkScore(e,i,j);    //poe o valor de checkscore em tmp
+                if (tmp > r){               //se o valor da posiçao atual for maior que o da posiçao guardada
+                    r = tmp;                // guarda esse valor em temp
+                    if (linha >=0) e.grelha[linha][coluna] = VAZIA;    //caso ja tenha guardado uma posiçao anterior limpa a ultima posiçao usada
+                    e.grelha[i][j]= SUGESTAO;           //poe VALOR SUGESTAO na nova posiçao
+                    linha = i;coluna = j;               //guarda o valor da posiçao r
+                }
+            }
+        }
+
+    }
+    if (e.grelha[linha][coluna] = SUGESTAO) {   // se houver 1 sugestao
+        printa(e);                              // imprime o tabuleiro com a sugestao
+        e.grelha[linha][coluna] = VAZIA;        // limpa a sugestao do tabuleiro
+        exit =0;
+    }
+    return exit;
 }

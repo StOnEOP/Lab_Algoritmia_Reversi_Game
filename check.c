@@ -17,13 +17,12 @@
 
 
 int check(ESTADO e,int linha,int coluna){
-    int r=0;
-    VALOR p;
+    int r=0;VALOR p;
     p = inverte(e.peca);
-    r = checkLinhadir(e, linha, coluna,p) + checkLinhaesq(e,linha,coluna,p)
-        + checkColunabaixo(e, linha, coluna,p) + checkColunacima(e,linha, coluna,p)
+    r =   checkLinhadir    (e, linha, coluna,p)   + checkLinhaesq(e,linha,coluna,p)
+        + checkColunabaixo (e, linha, coluna,p)  + checkColunacima(e,linha, coluna,p)
         + checkDiagDirbaixo(e, linha, coluna,p) + checkDiagDirCima(e, linha,coluna,p)
-        + checkDiagEsqbaixo(e, linha, coluna,p) + checkDiagEsqcima(e, linha,coluna,p);
+        + checkDiagEsqbaixo(e, linha, coluna,p)   + checkDiagEsqcima(e,linha,coluna,p);
 
     return r;
 }

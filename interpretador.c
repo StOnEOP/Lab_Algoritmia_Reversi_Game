@@ -41,6 +41,7 @@ ESTADO interpretar (ESTADO e, char *linha) {
                     printf("Tem de escolher a peça que quer jogar: X ou O\n");
             }
             e.modo='M';
+            e.nivel=0;
             break;
         case 'L':
             n = sscanf(linha,"%s %s", cmd, ficheiro);//falta fazer o Fopen e ler o ficheiro
@@ -50,6 +51,7 @@ ESTADO interpretar (ESTADO e, char *linha) {
             break;
         case 'E':
             n =sscanf(linha,"%s %s",cmd,ficheiro);
+            printf("Num. de parametros lidos:%d\n",n);
             printf("Gravar um jogo no ficheiro:%s\n", ficheiro);
             save(e,ficheiro); // recebe o estado atual do jogo e um nome de ficheiro e cria esse ficheiro {FARIA.C}
             break;
@@ -72,14 +74,15 @@ ESTADO interpretar (ESTADO e, char *linha) {
         case 'H':
             break;
         case 'A':
-            n= sscanf(linha, "%s %s %d", cmd, peca,&e.nivel); // recebe comando,  a peça do bot, e o nivel (lin é 1 inteiro)
+            n= sscanf(linha, "%s %s %d", cmd, peca,&e.nivel); // recebe comando,  a peça do bot, e o nivel
+            printf("Num. de parametros lidos:%d\n",n);
             e.modo='A';
             if (e.nivel >= 1 && e.nivel <=3){
-                e=bot(e,peca);
+                e=bot(e,peca[0]);
             }
             break;
         case 'Q':
-            exit(0);
+            exit(EXIT_SUCCESS);
         default:
             printf("Comando Invalido!\n");
     }

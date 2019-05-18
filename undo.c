@@ -19,7 +19,7 @@ void undoJogada(ESTADO e){
     int linha,coluna;
     int i=2;
 // recebe a posiçao da ultima jogada, do topo da stack atençao que terá sempre de se fazer
-    while(i>0){ // temos sempre de tirar 2 jogadas, pois as jogadas do oponente contam
+    while(i>0){ // temos sempre de tirar 1 jogada caso o modo seja M e 2 caso seja A, pois as jogadas do oponente contam
         linha = top->linha;
         coluna = top->coluna;
         //desvirarPecas(e,linha, coluna);

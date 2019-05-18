@@ -17,12 +17,13 @@
 
 
 int check(ESTADO e,int linha,int coluna){
-    int r=0;VALOR p;
+    int r=0;
+    VALOR p;
     p = inverte(e.peca);
     r = checkLinhadir(e, linha, coluna,p) + checkLinhaesq(e,linha,coluna,p)
         + checkColunabaixo(e, linha, coluna,p) + checkColunacima(e,linha, coluna,p)
         + checkDiagDirbaixo(e, linha, coluna,p) + checkDiagDirCima(e, linha,coluna,p)
-        +checkDiagEsqbaixo(e,linha,coluna,p) + checkDiagEsqcima(e,linha,coluna,p);
+        + checkDiagEsqbaixo(e, linha, coluna,p) + checkDiagEsqcima(e, linha,coluna,p);
 
     return r;
 }
@@ -59,8 +60,8 @@ int checkColunabaixo(ESTADO e,int linha, int coluna,VALOR p) {
                 return 1;
             }
         }
-        return 0;
     }
+    return 0;
 }
 
 int checkColunacima(ESTADO e,int linha, int coluna,VALOR p){
@@ -79,7 +80,7 @@ int checkColunacima(ESTADO e,int linha, int coluna,VALOR p){
 int checkDiagDirbaixo(ESTADO e,int linha, int coluna,VALOR p) {
     int l,c;
     if (e.grelha[linha + 1][coluna + 1] == p) {
-        for(l=linha+2,c=coluna+2;l<8, c<8;l++,c++){
+        for(l=linha+2,c=coluna+2; l<8,c<8;l++,c++){
             if(e.grelha[l][c]==e.peca){
                 return 1;
             }
@@ -97,10 +98,8 @@ int checkDiagDirCima(ESTADO e,int linha, int coluna,VALOR p) {
             }
 
         }
-        return 0;
-
-
     }
+    return 0;
 }
 
 

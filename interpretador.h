@@ -11,7 +11,6 @@
 ESTADO interpretar(ESTADO e,char *linha);
 
 void interpretador(ESTADO e);
-void pontos(ESTADO e);
 void print_prompt(ESTADO e);
 
 #endif //PROJ_INTERPRETADOR_H

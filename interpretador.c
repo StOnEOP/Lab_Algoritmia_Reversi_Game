@@ -15,6 +15,7 @@
 #include "validas.h"
 #include "undo.h"
 #include "files.h"
+#include "bot.h"
 
 ESTADO interpretar (ESTADO e, char *linha) {
 
@@ -22,6 +23,7 @@ ESTADO interpretar (ESTADO e, char *linha) {
     char ficheiro[MAX_BUF];
     char peca[MAX_BUF];
     int lin, col,n;
+    e.nivel=0;
 
     n = sscanf(linha, "%s", cmd);
 
@@ -70,8 +72,11 @@ ESTADO interpretar (ESTADO e, char *linha) {
         case 'H':
             break;
         case 'A':
-
+            n= sscanf(linha, "%s %s %d", cmd, peca,&e.nivel); // recebe comando,  a peça do bot, e o nivel (lin é 1 inteiro)
             e.modo='A';
+            if (e.nivel >= 1 && e.nivel <=3){
+                e=bot(e,peca);
+            }
             break;
         case 'Q':
             exit(0);

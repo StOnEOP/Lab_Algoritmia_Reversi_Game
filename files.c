@@ -10,8 +10,12 @@
 #include "interpretador.h"
 //
 #include "files.h"
+#include "etc.h"
 
-
+/*
+ * TODO:
+ * falta adicionar a forma como grava e mais dificilmente como le, dependendo do nivel do bot 0 se MANUAL
+ */
 
 void save(ESTADO e,char ficheiro[MAX_BUF]){ // recebe 1 estado e 1 nome de ficheiro e cria esse ficheiro
 
@@ -30,7 +34,7 @@ void save(ESTADO e,char ficheiro[MAX_BUF]){ // recebe 1 estado e 1 nome de fiche
     fclose(file);
 }
 
-ESTADO load(ESTADO e,char ficheiro[MAX_BUF]){
+ESTADO load(ESTADO e,char ficheiro[MAX_BUF]){ // PROD FINAL
     FILE *file;
     char k,c;
     int i,j;
@@ -38,32 +42,15 @@ ESTADO load(ESTADO e,char ficheiro[MAX_BUF]){
     file =fopen(ficheiro,"r");
     fscanf(file,"%c %c\n",&c,&k);
     e.modo=c;
-    printf("e.peca=\t");
-    e.peca=charToValor(k);                  // muda o tipo do k
+    e.peca=charToValor(k);
     for (i = 0; i <=7; ++i){
         for (j = 0; j < 8; ++j){
             fscanf(file, "%c", &k);
             e.grelha[i][j] = charToValor(k);
         }
         fscanf(file, "%c\n", &k);
-        e.grelha[i][j] = charToValor(k);
     }
     return e;
 }
-    //fclose(file);
-//}
 
-VALOR charToValor(char c){ // converte 1 char em Valor
-    if( c =='O')    {printf("ret -O\n");return VALOR_O;}
-    if( c =='X')    {printf("ret -X\n");return VALOR_X;}
-    if( c =='-')    {printf("ret -Vaz\n");return VAZIA;}
-    if( c =='.')    {printf("ret -val\n");return VALIDA;}
-    else printf("ERRO: charToValor INVALIDO!!\n");
 
-}
-char valorToChar(VALOR p){ // converte da variavel VALOR, para 1 char
-    if (p == VALOR_O) return 'O';
-    if (p == VALOR_X) return 'X';
-    if (p == VAZIA)   return '-';
-    else printf("ERROR: valorToChar INVALIDO!!\n");
-}

@@ -121,7 +121,7 @@ ESTADO checkVDiagDirbaixo(ESTADO e,int linha, int coluna) {
 ESTADO checkVDiagDirCima(ESTADO e,int linha, int coluna) {
     int c,l;
     if (e.grelha[linha +1][coluna -1] == VAZIA) {
-        for(l=linha-1;l>=0;l--) {
+        for(l=linha-2;l>=0;l--) {
             for(c=coluna+1;c<8;c++) {
                 if (e.grelha[l][c] == e.peca) {
                     e.grelha[linha + 1][coluna - 1] = VALIDA;
@@ -136,7 +136,7 @@ ESTADO checkVDiagDirCima(ESTADO e,int linha, int coluna) {
 ESTADO checkVDiagEsqbaixo(ESTADO e,int linha, int coluna) {
     int l,c;
     if (e.grelha[linha - 1][coluna + 1] == VAZIA) {
-        for(l=linha+1;l < 8;l++) {
+        for(l=linha+2;l < 8;l++) {
             for(c=coluna-1;c>=0;c--) {
                 if (e.grelha[l][c] == e.peca) {
                     e.grelha[linha - 1][coluna + 1] = VALIDA;
@@ -151,7 +151,7 @@ ESTADO checkVDiagEsqbaixo(ESTADO e,int linha, int coluna) {
 ESTADO checkVDiagEsqcima(ESTADO e,int linha, int coluna) {
     int l,c;
     if (e.grelha[linha + 1][coluna + 1] == VAZIA) {
-        for(l=linha-1;l>=0;l--){
+        for(l=linha-2;l>=0;l--){
             for(c=coluna-1;c>=0;c--) {
                 if (e.grelha[l][c] == e.peca) {
                     e.grelha[linha + 1][coluna + 1] = VALIDA;

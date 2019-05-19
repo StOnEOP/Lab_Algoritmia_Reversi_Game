@@ -169,7 +169,7 @@ int sugereJogada(ESTADO e){    // como a sugestao imprime dentro da funçao, nao
         }
 
     }
-    if (e.grelha[linha][coluna] = SUGESTAO) {   // se houver 1 sugestao
+    if (e.grelha[linha][coluna] == SUGESTAO) {   // se houver 1 sugestao
         printa(e);                              // imprime o tabuleiro com a sugestao
         e.grelha[linha][coluna] = VAZIA;        // limpa a sugestao do tabuleiro
         exit =0;

@@ -56,7 +56,7 @@ int checkLinhaesq(ESTADO e,int linha,int coluna,VALOR p){
 int checkColunabaixo(ESTADO e,int linha, int coluna,VALOR p) {
     int l;int sc=0;
     if (e.grelha[linha + 1][coluna] == p) {
-        for (l = linha - 2; l < 8; l++) {
+        for (l = linha + 2; l < 8; l++) {
             sc++;
             if (e.grelha[l][coluna] == e.peca) {
                 return sc;

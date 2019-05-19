@@ -17,13 +17,13 @@
 #include "files.h"
 #include "bot.h"
 
-ESTADO interpretar (ESTADO e, char *linha) {
+ESTADO interpretar(ESTADO e, char *linha){
 
     char cmd[MAX_BUF];
     char ficheiro[MAX_BUF];
     char peca[MAX_BUF];
+    char pecaBot[MAX_BUF];
     int lin, col,n;
-    e.nivel=0;
 
     n = sscanf(linha, "%s", cmd);
 
@@ -41,6 +41,7 @@ ESTADO interpretar (ESTADO e, char *linha) {
                     printf("Tem de escolher a peça que quer jogar: X ou O\n");
             }
             e.modo='M';
+            e.nivel=0;
             break;
         case 'L':
             n = sscanf(linha,"%s %s", cmd, ficheiro);//falta fazer o Fopen e ler o ficheiro
@@ -50,19 +51,34 @@ ESTADO interpretar (ESTADO e, char *linha) {
             break;
         case 'E':
             n =sscanf(linha,"%s %s",cmd,ficheiro);
+            retiraValida(e);
+            printf("Num. de parametros lidos:%d\n",n);
             printf("Gravar um jogo no ficheiro:%s\n", ficheiro);
             save(e,ficheiro); // recebe o estado atual do jogo e um nome de ficheiro e cria esse ficheiro {FARIA.C}
             break;
         case 'J':
             n= sscanf(linha, "%s %d %d", cmd, &lin, &col);
+            e=retiraValida(e);
             printf("Num de parametros lidos:%d\n",n);
             printf("Jogar na posição lina: %d e coluna: %d\n",lin,col);
             lin--;
             col--;
+            if (e.modo == 'A' && e.peca == pecaBot[0]){ // se estivermos em modo vsCPU e a peça for a peça do bot ele ira jogar antes do player e nao permite a jogada o player
+                printa(e);
+                printf("\nJogada do Bot\n\n");
+                e=bot(e,pecaBot[0]);
+                break;
+            }
             e= jogar(e,lin,col);
+            if (e.modo == 'A'){                         // caso esteja em modo vsCPU ele
+                printa(e);
+                printf("\nJogada do Bot\n\n");
+                e=bot(e,pecaBot[0]);
+            }
             break;
         case 'S':
             printf("Sugestão de jogadas\n");
+            e=retiraValida(e);
             e=validasJogada(e);
             break;
         case 'U':
@@ -70,16 +86,19 @@ ESTADO interpretar (ESTADO e, char *linha) {
             undoJogada(e);
             break;
         case 'H':
+            e=retiraValida(e);
+            e=sugereJogada(e);
             break;
         case 'A':
-            /*  n= sscanf(linha, "%s %s %d", cmd, peca,&e.nivel); // recebe comando,  a peça do bot, e o nivel (lin é 1 inteiro)
+            n= sscanf(linha, "%s %s %d", cmd, pecaBot,&e.nivel); // recebe comando,  a peça do bot, e o nivel
+            printf("Num. de parametros lidos:%d\n",n);
             e.modo='A';
-          if (e.nivel >= 1 && e.nivel <=3){
-                e=bot(epeca);
+            if (e.nivel >= 1 && e.nivel <=3){
+                e=bot(e,toupper(pecaBot[0]));
             }
-            break;*/
+            break;
         case 'Q':
-            exit(0);
+            exit(EXIT_SUCCESS);
         default:
             printf("Comando Invalido!\n");
     }

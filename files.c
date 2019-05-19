@@ -12,7 +12,6 @@
 #include "files.h"
 #include "etc.h"
 
-
 /*
  * TODO:
  * falta adicionar a forma como le, dependendo do nivel do bot 0 se MANUAL

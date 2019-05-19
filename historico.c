@@ -13,11 +13,7 @@
 #include "jogar.h"
 #include "historico.h"
 //
-
 #include "files.h"
-
-//#include <malloc.h>
-
 
 
 void addHjogada(VALOR peca,int linha,int coluna){ // adiciona 1 jogada ao historico

@@ -27,7 +27,7 @@ int peso[8][8]={
         {-8,-24,-4,-3,-3,-4,-24,-8},
         {99,-8, 8, 6, 6, 8, -8, 99}
 }; // cria a tabela de pesos
-
+int bLinha=-1;int bColuna = -1;
 
 ESTADO bot(ESTADO e, char peca){    //gamestate, peca do bot, nivel do bot
     VALOR pecaBot = charToValor(peca);
@@ -42,16 +42,17 @@ ESTADO bot(ESTADO e, char peca){    //gamestate, peca do bot, nivel do bot
 
 
 ESTADO jogaBot (ESTADO e){
-    int *bLinha; int *bColuna;          //coordenadas para depois receber a jogada do bot
+              //coordenadas para depois receber a jogada do bot
     int linha;int coluna;
-    selectJogada(e,bLinha,bColuna);   // seleciona a jogada dependendo da dificuldade
-    linha = *bLinha; coluna = *bColuna;
+    selectJogada(e,&bLinha,&bColuna);// seleciona a jogada dependendo da dificuldade
+    printf("blinha: %d e bcoluna: %d\n",bLinha,bColuna);
+    linha = bLinha; coluna = bColuna;
     e=jogar(e,linha,coluna);          // joga na coordenada selecionada
     e.peca = inverte(e.peca);           // muda a peça para o proximo jogador
     return e;
 }
 
-int selectJogada (ESTADO e, int *bLinha, int *bColuna){     // envia 1 estado,e 2 variaveis, para depois receber coordenadas nessas variaveis
+int selectJogada (ESTADO e, int *linha, int *coluna){     // envia 1 estado,e 2 variaveis, para depois receber coordenadas nessas variaveis
     /*
      * TODO:
      * procurar de todas as VALIDAS, a que tem melhor score. logo temos de adicionar o score as validas
@@ -67,8 +68,8 @@ int selectJogada (ESTADO e, int *bLinha, int *bColuna){     // envia 1 estado,e 
                 }
                 if (tmp>res) {
                     res=tmp;
-                    *bLinha = i;
-                    *bColuna= j;
+                    linha = i;
+                    coluna= j;
                 }
 
             }

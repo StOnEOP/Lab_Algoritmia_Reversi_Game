@@ -26,7 +26,6 @@ void score(ESTADO e){    // diz a pontuação atual de cada jogador
 }
 
 VALOR inverte(VALOR p){
-    printf("Entrou no inverte\n");
     if (p == VALOR_X) return VALOR_O;
     if (p == VALOR_O) return VALOR_X;
     else printf("ERROR: Inverso nao é possivel\n");

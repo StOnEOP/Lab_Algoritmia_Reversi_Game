@@ -14,7 +14,7 @@
 
 /*
  * TODO:
- * falta adicionar a forma como grava e mais dificilmente como le, dependendo do nivel do bot 0 se MANUAL
+ * falta adicionar a forma como le, dependendo do nivel do bot 0 se MANUAL
  */
 
 void save(ESTADO e,char ficheiro[MAX_BUF]){ // recebe 1 estado e 1 nome de ficheiro e cria esse ficheiro
@@ -23,7 +23,13 @@ void save(ESTADO e,char ficheiro[MAX_BUF]){ // recebe 1 estado e 1 nome de fiche
     char c;
 
     file =fopen(ficheiro,"w"); // abre 1 ficheiro com o nome guardado na variavel ficheiro em modo de escrita
-    fprintf(file,"%c %c\n",e.modo,valorToChar(e.peca)); // imprime as instruçoes para o ficheiro
+    if (e.modo == 'A'){         // caso seja modo de jogo BOT, tera de guardar 3 variaveis, nao 2
+        char k = e.nivel + '0';
+        fprintf(file,"%c %c %c\n",e.modo,valorToChar(e.peca),k);
+    }else fprintf(file,"%c %c\n",e.modo,valorToChar(e.peca)); // imprime as instruçoes para o ficheiro
+
+
+
     for(int i=0;i<8;i++){   // muda linha
         for(int j=0;j<8;j++){ // muda coluna
             c = valorToChar(e.grelha[i][j]);
@@ -38,6 +44,10 @@ ESTADO load(ESTADO e,char ficheiro[MAX_BUF]){ // PROD FINAL
     FILE *file;
     char k,c;
     int i,j;
+    /*
+     * TODO:
+     * Em modo automático (A), após leitura do ficheiro, o próximo jogador a jogar é sempre o humano!
+     */
 
     file =fopen(ficheiro,"r");
     fscanf(file,"%c %c\n",&c,&k);

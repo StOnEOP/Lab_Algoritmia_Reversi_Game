@@ -36,3 +36,13 @@ int jogadaValida(ESTADO e, int linha,int coluna){ //
     }else return 0;
 }
 
+/*
+ * TODO:
+ *  O tabuleiro está completamente preenchido nas suas 64 posições. Ganha quem tiver mais
+peças no tabuleiro
+ Nenhum jogador tem uma jogada válida disponível. Ganho o jogador com mais peças no
+tabuleiro
+ Só há peças no tabuleiro de um jogador. Consequentemente o oponente não tem jogadas
+válidas. O jogador também não pode cercar peças do oponente! Logo o jogo termina e ganha
+este jogador (caso especial da situação anterior).
+ */

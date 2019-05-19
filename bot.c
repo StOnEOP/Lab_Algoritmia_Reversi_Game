@@ -36,6 +36,7 @@ ESTADO bot(ESTADO e, char peca){    //gamestate, peca do bot, nivel do bot
    //     while (validasJogada(e) != 0) {     //enquanto houver jogadas validas para a peça atual
    if (e.peca == pecaBot) {
        e = jogaBot(e);
+       inverte(e.peca);
    }
    return e;
 }
@@ -52,16 +53,16 @@ ESTADO jogaBot (ESTADO e){
     return e;
 }
 
-int selectJogada (ESTADO e, int *linha, int *coluna) {     // envia 1 estado,e 2 variaveis, para depois receber coordenadas nessas variaveis
+int selectJogada (ESTADO e, int linha, int coluna) {     // envia 1 estado,e 2 variaveis, para depois receber coordenadas nessas variaveis
     /*
      * TODO:
      * procurar de todas as VALIDAS, a que tem melhor score. logo temos de adicionar o score as validas
      */
-    int tmp = 0;
+    int tmp = 0; int i,j;
     int res = 0;
     e = validasJogada(e);
-    for (int i = 0; i < 8; ++i) {
-        for (int j = 0; j < 8; ++j) {
+    for (i = 0; i < 8; ++i) {
+        for (j = 0; j < 8; ++j) {
             tmp = checkScore(e, i, j); //guarda o score da mesma numa variavel
             if (tmp >= res) {
                 res = tmp;
@@ -78,7 +79,7 @@ int selectJogada (ESTADO e, int *linha, int *coluna) {     // envia 1 estado,e 2
 
 int checkScore(ESTADO e,int i,int j){ //recebe 1 coordenada e devolve o score da mesma usando minmax com o e.nivel
     int r=0;
-
+    if (e.modo == 'M') e.nivel = 0;
     switch (e.nivel){
         case 1:
             r=  (- (check(e,i,j)) + - (peso[i][j]));    // ira escolher sempre o pior score, pois caso de 30 de score, r devolvera -30, mas caso receba 1, devolvera -1 e -1> -30
@@ -91,14 +92,8 @@ int checkScore(ESTADO e,int i,int j){ //recebe 1 coordenada e devolve o score da
             break;
         case 0:
             r=(check(e, i, j) + peso[i][j]);// melhor jogada na melhor posiçao para jogo em modo manual
-            printf("peso : %d\t",peso[i][j]);
+            //printf("peso : %d\t",peso[i][j]);
             break;
     }
     return r;
-}
-
-int aleatorio(int i,int j){
-    int ran = (rand() % 2); // se rand for par da 0, se for impar da 1
-    if (ran > 0) return i;
-    else return j;
 }

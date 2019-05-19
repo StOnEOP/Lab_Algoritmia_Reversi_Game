@@ -24,7 +24,6 @@ ESTADO interpretar(ESTADO e, char *linha){
     char peca[MAX_BUF];
     char pecaBot[MAX_BUF];
     int lin, col,n;
-    e.nivel=0;
 
     n = sscanf(linha, "%s", cmd);
 
@@ -64,8 +63,14 @@ ESTADO interpretar(ESTADO e, char *linha){
             printf("Jogar na posição lina: %d e coluna: %d\n",lin,col);
             lin--;
             col--;
+            if (e.modo == 'A' && e.peca == pecaBot[0]){ // se estivermos em modo vsCPU e a peça for a peça do bot ele ira jogar antes do player e nao permite a jogada o player
+                printa(e);
+                printf("\nJogada do Bot\n\n");
+                e=bot(e,pecaBot[0]);
+                break;
+            }
             e= jogar(e,lin,col);
-            if (e.modo == 'A'){
+            if (e.modo == 'A'){                         // caso esteja em modo vsCPU ele
                 printa(e);
                 printf("\nJogada do Bot\n\n");
                 e=bot(e,pecaBot[0]);

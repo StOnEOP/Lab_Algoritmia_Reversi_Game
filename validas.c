@@ -19,12 +19,12 @@ ESTADO validasJogada(ESTADO e) { // recebe 1 estado e devolve um estado com joga
     // corre a funçao á procura de peças
     int i,j; VALOR inversa =inverte(e.peca);
     for (i = 0; i < 8; i++) {
-        printf("Validas Linha %d\t",i);
+        //printf("Validas Linha %d\t",i);
         //printa(e);
         for (j = 0; j < 8; j++){
-            printf("Validas Coluna %d\n",j);
+            //printf("Validas Coluna %d\n",j);
             if(e.grelha[i][j]==inversa){ // procura peças inversa a nossa, ie locais onde sera possivel jogar
-                printf("Validas precheckVal\n");
+                //printf("Validas precheckVal\n");
                 e=checkVal(e,i,j); // dado 1 estado, e coordenadas, poe todas as jogadas validas como sendo VALIDA
             }
         }
@@ -52,7 +52,7 @@ ESTADO checkVLinhaesq(ESTADO e,int linha,int coluna){ // verifica a linha á esq
         for(c=coluna-1;c>=0;c--){
             if (e.grelha[linha][c]==e.peca) {
                 e.grelha[linha][coluna + 1] = VALIDA; //caso encontre torna a Vazia em Valida
-                printf("V_LINHA_ESQ\n");
+                //printf("V_LINHA_ESQ\n");
             }
         }
     }
@@ -65,7 +65,7 @@ ESTADO checkVLinhadir(ESTADO e,int linha, int coluna){ // verifica a linha á di
         for(c=coluna+1;c<8;c++){
             if (e.grelha[linha][c]==e.peca) {
                 e.grelha[linha][coluna - 1] = VALIDA; //caso encontre torna a Vazia em Valida
-                printf("V_LINHA_DIR\n");
+                //printf("V_LINHA_DIR\n");
             }
         }
     }
@@ -78,7 +78,7 @@ ESTADO checkVColunabaixo(ESTADO e,int linha,int coluna){ // verifica a coluna pa
         for(l=linha+1;l<8;l++){
             if (e.grelha[l][coluna]==e.peca) {
                 e.grelha[linha-1][coluna] = VALIDA; //caso encontre torna a Vazia em Valida
-                printf("V_COL_Baixo\n");
+                //printf("V_COL_Baixo\n");
             }
         }
     }
@@ -91,7 +91,7 @@ ESTADO checkVColunacima(ESTADO e,int linha,int coluna){ // verifica a coluna par
         for(l=linha-1;l>=0;l--){            // procura apartir da peça
             if (e.grelha[l][coluna]==e.peca) {
                 e.grelha[linha+1][coluna] = VALIDA; //caso encontre torna a Vazia em Valida
-                printf("V_COL_CIMA\n");
+                //printf("V_COL_CIMA\n");
             }
         }
     }
@@ -104,7 +104,7 @@ ESTADO checkVDiagDirbaixo(ESTADO e,int linha, int coluna) {
         for(l=linha+1, c=coluna+1;l<8 && c<8;l++, c++) {
                 if (e.grelha[l][c] == e.peca) {
                     e.grelha[linha - 1][coluna - 1] = VALIDA;
-                    printf("V_Ddir_baixo\n");
+                   // printf("V_Ddir_baixo\n");
                 }
             }
     }
@@ -117,7 +117,7 @@ ESTADO checkVDiagDirCima(ESTADO e,int linha, int coluna) {
         for(l=linha-1, c=coluna+1;l>=0 && c<8;l--, c++) { //2
                 if (e.grelha[l][c] == e.peca) {
                     e.grelha[linha + 1][coluna - 1] = VALIDA;
-                    printf("V_Ddir_Cima\n");
+                   // printf("V_Ddir_Cima\n");
                 }
             }
     }
@@ -130,7 +130,7 @@ ESTADO checkVDiagEsqbaixo(ESTADO e,int linha, int coluna) {
         for(l=linha+1, c=coluna-1;l < 8 && c>=0;l++, c--) { //2
                 if (e.grelha[l][c] == e.peca) {
                     e.grelha[linha - 1][coluna + 1] = VALIDA;
-                    printf("V_Desq_Baixo\n");
+                   // printf("V_Desq_Baixo\n");
                 }
             }
     }
@@ -143,7 +143,7 @@ ESTADO checkVDiagEsqcima(ESTADO e,int linha, int coluna) {
         for(l=linha-1,c=coluna-1 ;l>=0 && c>=0;l--, c--){//2
                 if (e.grelha[l][c] == e.peca) {
                     e.grelha[linha + 1][coluna + 1] = VALIDA;
-                    printf("V_Desq_cima\n");
+                   // printf("V_Desq_cima\n");
                 }
             }
     }
@@ -152,7 +152,6 @@ ESTADO checkVDiagEsqcima(ESTADO e,int linha, int coluna) {
 
 ESTADO sugereJogada(ESTADO e){    // como a sugestao imprime dentro da funçao, nao precisa de retornar nada, logo retorna 0 se completada com sucesso e 1 caso contrario
     e=validasJogada(e);          // poe VALOR VALIDA em todas as jogadas validas
-    printa(e);
     int linha=-1;int coluna=-1;             // valores para testar se ja foram usados
     int tmp,r=-800;                         // r iniciado a 1 valor muito baixo para garantir que caso so encontre 1 jogada, por muito mà que seja seleciona essa
     for (int i = 0; i < 8; ++i) {
@@ -160,7 +159,6 @@ ESTADO sugereJogada(ESTADO e){    // como a sugestao imprime dentro da funçao, 
             if (e.grelha[i][j] == VALIDA){  //se a posiçao for 1 jogada valida
                 e.grelha[i][j] = VAZIA;     //limpa a VALIDA, para o checkScore funcionar
                 tmp = checkScore(e,i,j);    //poe o valor de checkscore em tmp
-                printf("i = %d j = %d tmp = %d\t",i,j,tmp);
                 if (tmp >= r){               //se o valor da posiçao atual for maior que o da posiçao guardada
                     r = tmp;                // guarda esse valor em temp
                     if (linha >=0) e.grelha[linha][coluna] = VAZIA;    //caso ja tenha guardado uma posiçao anterior limpa a ultima posiçao usada
@@ -168,7 +166,6 @@ ESTADO sugereJogada(ESTADO e){    // como a sugestao imprime dentro da funçao, 
                     linha = i;coluna = j;               //guarda o valor da posiçao r
                 }
             }
-            printf("saiu if l%d c%d r%d\n",linha,coluna,r);
         }
 
     }

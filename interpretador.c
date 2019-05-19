@@ -93,6 +93,7 @@ ESTADO interpretar(ESTADO e, char *linha){
             n= sscanf(linha, "%s %s %d", cmd, pecaBot,&e.nivel); // recebe comando,  a peça do bot, e o nivel
             printf("Num. de parametros lidos:%d\n",n);
             e.modo='A';
+            e=gInicial(e, e.peca ,'A');
             if (e.nivel >= 1 && e.nivel <=3){
                 e=bot(e,toupper(pecaBot[0]));
             }

@@ -53,7 +53,7 @@ ESTADO jogaBot (ESTADO e){
     return e;
 }
 
-int selectJogada (ESTADO e, int linha, int coluna) {     // envia 1 estado,e 2 variaveis, para depois receber coordenadas nessas variaveis
+int selectJogada (ESTADO e, int* linha, int* coluna) {     // envia 1 estado,e 2 variaveis, para depois receber coordenadas nessas variaveis
     /*
      * TODO:
      * procurar de todas as VALIDAS, a que tem melhor score. logo temos de adicionar o score as validas
@@ -66,8 +66,8 @@ int selectJogada (ESTADO e, int linha, int coluna) {     // envia 1 estado,e 2 v
             tmp = checkScore(e, i, j); //guarda o score da mesma numa variavel
             if (tmp >= res) {
                 res = tmp;
-                linha = i;
-                coluna = j;
+                *linha = i;
+                *coluna = j;
             }
 
         }

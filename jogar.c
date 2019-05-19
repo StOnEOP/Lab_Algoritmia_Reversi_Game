@@ -13,11 +13,13 @@
 #include "jogar.h"
 #include "historico.h"
 #include "check.h"
+#include "validas.h"
+
 
 
 
 ESTADO jogar(ESTADO e,int linha,int coluna) {
-    //if (isOver == 1) printf("Jogo Terminado\n"); // se jã nao houver jogadas possiveis
+    if (isover) printf("Jogo Terminado\n"); // se jã nao houver jogadas possiveis
     /*else*/ if(jogadaValida(e,linha,coluna)) { // se a jogada for valida
             e.grelha[linha][coluna] = e.peca;   // poe a peça na coordenada selecionada
             e=virapecas(e,linha,coluna);        // vira as peças apartir da coordenada
@@ -34,6 +36,57 @@ int jogadaValida(ESTADO e, int linha,int coluna){ //
     if(linha>=0 && linha <8 && coluna >=0 && coluna < 8 && e.grelha[linha][coluna]==VAZIA && check(e,linha,coluna) != 0){
         return 1;
     }else return 0;
+}
+int isover(ESTADO e){
+    retiraValida(e);
+    validasJogada(e);
+   if(isoversemjogadas(e)||isovervazias(e)){
+       return 1;
+   }else return 0;
+}
+int isovervazias(ESTADO e) {
+    int r=1;
+  for(int i=0;i<8;i++) {
+      for (int j = 0; j < 8; j++) {
+          if (e.grelha[i][j] == VAZIA) {
+              r = 0;
+              break;
+          }
+      }
+  }
+    return r;
+}
+
+int isoversemjogadas(ESTADO e){
+    int r=1;
+    for(int i=0;i<8;i++){
+        for(int j=0;j<8;j++){
+            if(temvalidas(e)){
+                r=0;
+                break;
+
+            }
+
+
+
+        }
+
+    }
+    return r;
+}
+int temvalidas(ESTADO e) {
+    int r = 0;
+    retiraValida(e);
+    validasJogada(e);
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (e.grelha[i][j] == VALIDA) {
+                r++;
+            }
+        }
+
+    }
+    return r;
 }
 
 /*

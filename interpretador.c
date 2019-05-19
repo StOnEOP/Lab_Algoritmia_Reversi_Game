@@ -22,6 +22,7 @@ ESTADO interpretar(ESTADO e, char *linha){
     char cmd[MAX_BUF];
     char ficheiro[MAX_BUF];
     char peca[MAX_BUF];
+    char pecaBot[MAX_BUF];
     int lin, col,n;
     e.nivel=0;
 
@@ -58,16 +59,21 @@ ESTADO interpretar(ESTADO e, char *linha){
             break;
         case 'J':
             n= sscanf(linha, "%s %d %d", cmd, &lin, &col);
-            retiraValida(e);
+            e=retiraValida(e);
             printf("Num de parametros lidos:%d\n",n);
             printf("Jogar na posição lina: %d e coluna: %d\n",lin,col);
             lin--;
             col--;
             e= jogar(e,lin,col);
+            if (e.modo == 'A'){
+                printa(e);
+                printf("\nJogada do Bot\n\n");
+                e=bot(e,pecaBot[0]);
+            }
             break;
         case 'S':
             printf("Sugestão de jogadas\n");
-            retiraValida(e);
+            e=retiraValida(e);
             e=validasJogada(e);
             break;
         case 'U':
@@ -75,15 +81,15 @@ ESTADO interpretar(ESTADO e, char *linha){
             undoJogada(e);
             break;
         case 'H':
-            retiraValida(e);
+            e=retiraValida(e);
             sugereJogada(e);
             break;
         case 'A':
-            n= sscanf(linha, "%s %s %d", cmd, peca,&e.nivel); // recebe comando,  a peça do bot, e o nivel
+            n= sscanf(linha, "%s %s %d", cmd, pecaBot,&e.nivel); // recebe comando,  a peça do bot, e o nivel
             printf("Num. de parametros lidos:%d\n",n);
             e.modo='A';
             if (e.nivel >= 1 && e.nivel <=3){
-                e=bot(e,peca[0]);
+                e=bot(e,pecaBot[0]);
             }
             break;
         case 'Q':

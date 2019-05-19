@@ -28,28 +28,25 @@ int peso[8][8]={
         {99,-8, 8, 6, 6, 8, -8, 99}
 }; // cria a tabela de pesos
 
+
 ESTADO bot(ESTADO e, char peca){    //gamestate, peca do bot, nivel do bot
     VALOR pecaBot = charToValor(peca);
-    VALOR pecaPc = inverte(pecaBot);
     e.peca= VALOR_X;
-    while (isOver(e) != 1) {                //enquanto nao se chegar ao fim do jogo, ie, já nao ha mais jogadas
-        while (validasJogada(e) != 0) {     //enquanto houver jogadas validas para a peça atual
-            if (e.peca == pecaBot) {
-                e = jogaBot(e);
-
-            } else if(e.peca== pecaPc) {
-                e = jogaPlayer(e);
-
-            }
-        }
-    }
-
+   // while (isOver(e) != 1) {                //enquanto nao se chegar ao fim do jogo, ie, já nao ha mais jogadas
+   //     while (validasJogada(e) != 0) {     //enquanto houver jogadas validas para a peça atual
+   if (e.peca == pecaBot) {
+       e = jogaBot(e);
+   }
+   return e;
 }
 
+
 ESTADO jogaBot (ESTADO e){
-    int bLinha; int bColuna;          //coordenadas para depois receber a jogada do bot
-    selectJogada(e,*bLinha,*bColuna);   // seleciona a jogada dependendo da dificuldade
-    e=jogar(e,bLinha,bColuna);          // joga na coordenada selecionada
+    int *bLinha; int *bColuna;          //coordenadas para depois receber a jogada do bot
+    int linha;int coluna;
+    selectJogada(e,bLinha,bColuna);   // seleciona a jogada dependendo da dificuldade
+    linha = *bLinha; coluna = *bColuna;
+    e=jogar(e,linha,coluna);          // joga na coordenada selecionada
     e.peca = inverte(e.peca);           // muda a peça para o proximo jogador
     return e;
 }
@@ -60,8 +57,9 @@ int selectJogada (ESTADO e, int *bLinha, int *bColuna){     // envia 1 estado,e 
      * procurar de todas as VALIDAS, a que tem melhor score. logo temos de adicionar o score as validas
      */
     int tmp=0;int res=0;
+    e=validasJogada(e);
     for (int i = 0; i <8 ; ++i) {
-        for (int j = 0; j < ; ++j) {
+        for (int j = 0; j < 8 ; ++j) {
                 tmp = checkScore(e,i,j); //guarda o score da mesma numa variavel
                 if (tmp == res){
                     res = aleatorio(tmp,res); //seleciona 1 de forma aleatoria
@@ -69,18 +67,20 @@ int selectJogada (ESTADO e, int *bLinha, int *bColuna){     // envia 1 estado,e 
                 }
                 if (tmp>res) {
                     res=tmp;
-                    bLinha = i;
-                    bColuna= j;
+                    *bLinha = i;
+                    *bColuna= j;
                 }
 
             }
         }
+    retiraValida(e);
     return 0;
 }
 
 
 int checkScore(ESTADO e,int i,int j){ //recebe 1 coordenada e devolve o score da mesma usando minmax com o e.nivel
     int r=0;
+
     switch (e.nivel){
         case 1:
             r=  (- (check(e,i,j)) + - (peso[i][j]));    // ira escolher sempre o pior score, pois caso de 30 de score, r devolvera -30, mas caso receba 1, devolvera -1 e -1> -30

@@ -25,6 +25,7 @@ void addHjogada(VALOR peca,int linha,int coluna){ // adiciona 1 jogada ao histor
     temp->coluna= coluna;
     temp->peca = valorToChar(peca);
     temp->prox =top;
+    top=temp;
 }
 
 void rmUltimaJogada(){

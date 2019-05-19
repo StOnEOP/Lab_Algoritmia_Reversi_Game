@@ -66,8 +66,8 @@ int selectJogada (ESTADO e, int linha, int coluna) {     // envia 1 estado,e 2 v
             tmp = checkScore(e, i, j); //guarda o score da mesma numa variavel
             if (tmp >= res) {
                 res = tmp;
-                linha = &i;
-                coluna = &j;
+                linha = i;
+                coluna = j;
             }
 
         }

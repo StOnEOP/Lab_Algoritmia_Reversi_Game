@@ -43,22 +43,35 @@ void save(ESTADO e,char ficheiro[MAX_BUF]){ // recebe 1 estado e 1 nome de fiche
 ESTADO load(ESTADO e,char ficheiro[MAX_BUF]){ // PROD FINAL
     FILE *file;
     char k,c;
-    int i,j;
+    int i,j,n=0;
     /*
      * TODO:
      * Em modo automático (A), após leitura do ficheiro, o próximo jogador a jogar é sempre o humano!
+     * apenas falta devolver a peçaBot e saltar para o proximo jogador
+     *
      */
-
     file =fopen(ficheiro,"r");
-    fscanf(file,"%c %c\n",&c,&k);
+    fscanf(file,"%c",&c);
+    if (c=='A'){
+        fscanf(file,"%c %c %d\n",&c,&k,&n);
+    }else fscanf(file,"%c %c \n",&e.modo,&k);
     e.modo=c;
     e.peca=charToValor(k);
-    for (i = 0; i <=7; ++i){
+    e.nivel = n;
+    /*
+     * TODO:
+     * NAO ESTA A LER O MODO ? tambem nao grava modo nem nivel AI quando feito apartir de 1 load, logo o load nao esta a guardar bem essas variaveis
+     * Idealmente o load teria de ser feito com Fgets, guardar a variavel numa string, remover espaços e por os valores da string no estado. pois de momento apenas aceita
+     * tabuleiros com estaços entre valores
+     */
+
+    for (i = 0; i < 8; ++i){
         for (j = 0; j < 8; ++j){
-            fscanf(file, "%c", &k);
+            fscanf(file,"%c ",&k);
             e.grelha[i][j] = charToValor(k);
         }
-        fscanf(file, "%c\n", &k);
+
+        fscanf(file, "\n",k);
     }
     return e;
 }

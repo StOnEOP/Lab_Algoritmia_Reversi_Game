@@ -94,7 +94,7 @@ ESTADO interpretar(ESTADO e, char *linha){
             printf("Num. de parametros lidos:%d\n",n);
             e.modo='A';
             if (e.nivel >= 1 && e.nivel <=3){
-                e=bot(e,pecaBot[0]);
+                e=bot(e,toupper(pecaBot[0]));
             }
             break;
         case 'Q':

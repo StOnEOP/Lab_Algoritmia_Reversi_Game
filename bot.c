@@ -36,7 +36,7 @@ ESTADO bot(ESTADO e, char peca){    //gamestate, peca do bot, nivel do bot
    //     while (validasJogada(e) != 0) {     //enquanto houver jogadas validas para a peça atual
    if (e.peca == pecaBot) {
        e = jogaBot(e);
-       inverte(e.peca);
+       //inverte(e.peca);
    }
    return e;
 }
@@ -49,7 +49,7 @@ ESTADO jogaBot (ESTADO e){
     printf("blinha: %d e bcoluna: %d\n",bLinha,bColuna);
     linha = bLinha; coluna = bColuna;
     e=jogar(e,linha,coluna);          // joga na coordenada selecionada
-    e.peca = inverte(e.peca);           // muda a peça para o proximo jogador
+    //e.peca = inverte(e.peca);           // muda a peça para o proximo jogador
     return e;
 }
 
@@ -63,17 +63,19 @@ int selectJogada (ESTADO e, int* linha, int* coluna) {     // envia 1 estado,e 2
     e = validasJogada(e);
     for (i = 0; i < 8; ++i) {
         for (j = 0; j < 8; ++j) {
-            tmp = checkScore(e, i, j); //guarda o score da mesma numa variavel
-            if (tmp >= res) {
-                res = tmp;
-                *linha = i;
-                *coluna = j;
+            if (e.grelha[i][j] == VALIDA) {
+                tmp = checkScore(e, i, j); //guarda o score da mesma numa variavel
+                if (tmp >= res) {
+                    res = tmp;
+                    *linha = i;
+                    *coluna = j;
+                }
             }
 
         }
+    }
         retiraValida(e);
         return 0;
-    }
 }
 
 

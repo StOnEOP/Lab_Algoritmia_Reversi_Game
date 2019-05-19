@@ -19,13 +19,13 @@
 
 
 ESTADO jogar(ESTADO e,int linha,int coluna) {
-    if (isover) printf("Jogo Terminado\n"); // se jã nao houver jogadas possiveis
-    /*else*/ if(jogadaValida(e,linha,coluna)) { // se a jogada for valida
+    //if (isover) printf("Jogo Terminado\n"); // se jã nao houver jogadas possiveis
+    //*else*/ if(jogadaValida(e,linha,coluna)) { // se a jogada for valida
             e.grelha[linha][coluna] = e.peca;   // poe a peça na coordenada selecionada
             e=virapecas(e,linha,coluna);        // vira as peças apartir da coordenada
             addHjogada(e.peca,linha,coluna);    // adiciona a jogada ao historico
             e.peca=inverte(e.peca);                  // inverte a peça para o proximo jogador
-         } else printf("Jogada Invalida\n");
+         //} else printf("Jogada Invalida\n");
 
         return e;
 

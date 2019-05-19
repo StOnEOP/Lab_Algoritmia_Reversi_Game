@@ -82,7 +82,7 @@ ESTADO interpretar(ESTADO e, char *linha){
             break;
         case 'H':
             e=retiraValida(e);
-            sugereJogada(e);
+            e=sugereJogada(e);
             break;
         case 'A':
             n= sscanf(linha, "%s %s %d", cmd, pecaBot,&e.nivel); // recebe comando,  a peça do bot, e o nivel

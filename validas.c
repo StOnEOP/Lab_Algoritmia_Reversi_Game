@@ -31,10 +31,10 @@ ESTADO validasJogada(ESTADO e) { // recebe 1 estado e devolve um estado com joga
     }
   return e;
 }
-ESTADO retiraValida(ESTADO e){ // recebe 1 estado, e devolve esse estado com vazia onde antes tinha valida
+ESTADO retiraValida(ESTADO e){ // recebe 1 estado, e devolve esse estado com vazia onde antes tinha valida ou sugestao
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++){
-        if(e.grelha[i][j]==VALIDA) e.grelha[i][j] = VAZIA;
+        if(e.grelha[i][j]==VALIDA || e.grelha[i][j]==SUGESTAO) e.grelha[i][j] = VAZIA;
         }
     }
     return e;
@@ -42,7 +42,7 @@ ESTADO retiraValida(ESTADO e){ // recebe 1 estado, e devolve esse estado com vaz
 ESTADO checkVal(ESTADO e,int linha,int coluna){
     e =checkVLinhadir(e, linha, coluna); e= checkVLinhaesq(e,linha,coluna);e = checkVColunabaixo(e, linha, coluna);
     e =checkVColunacima(e,linha, coluna);e= checkVDiagDirbaixo(e, linha, coluna);e= checkVDiagDirCima(e, linha,coluna);
-    e =checkVDiagEsqbaixo(e,linha,coluna);printf("CHAMADA EM CHECKVAL pre VDIAGESQCIMA\n");e= checkVDiagEsqcima(e,linha,coluna);
+    e =checkVDiagEsqbaixo(e,linha,coluna);e= checkVDiagEsqcima(e,linha,coluna);
     return e;
 }
 
@@ -150,29 +150,31 @@ ESTADO checkVDiagEsqcima(ESTADO e,int linha, int coluna) {
     return e;
 }
 
-int sugereJogada(ESTADO e){    // como a sugestao imprime dentro da funçao, nao precisa de retornar nada, logo retorna 0 se completada com sucesso e 1 caso contrario
-    validasJogada(e);int exit=1;           // poe VALOR VALIDA em todas as jogadas validas
+ESTADO sugereJogada(ESTADO e){    // como a sugestao imprime dentro da funçao, nao precisa de retornar nada, logo retorna 0 se completada com sucesso e 1 caso contrario
+    e=validasJogada(e);          // poe VALOR VALIDA em todas as jogadas validas
+    printa(e);
     int linha=-1;int coluna=-1;             // valores para testar se ja foram usados
-    int tmp,r=0;
+    int tmp,r=-800;                         // r iniciado a 1 valor muito baixo para garantir que caso so encontre 1 jogada, por muito mà que seja seleciona essa
     for (int i = 0; i < 8; ++i) {
         for (int j = 0; j < 8; ++j) {
             if (e.grelha[i][j] == VALIDA){  //se a posiçao for 1 jogada valida
                 e.grelha[i][j] = VAZIA;     //limpa a VALIDA, para o checkScore funcionar
                 tmp = checkScore(e,i,j);    //poe o valor de checkscore em tmp
-                if (tmp > r){               //se o valor da posiçao atual for maior que o da posiçao guardada
+                printf("i = %d j = %d tmp = %d\t",i,j,tmp);
+                if (tmp >= r){               //se o valor da posiçao atual for maior que o da posiçao guardada
                     r = tmp;                // guarda esse valor em temp
                     if (linha >=0) e.grelha[linha][coluna] = VAZIA;    //caso ja tenha guardado uma posiçao anterior limpa a ultima posiçao usada
-                    e.grelha[i][j]= SUGESTAO;           //poe VALOR SUGESTAO na nova posiçao
+                    e.grelha[i][j] = SUGESTAO;           //poe VALOR SUGESTAO na nova posiçao
                     linha = i;coluna = j;               //guarda o valor da posiçao r
                 }
             }
+            printf("saiu if l%d c%d r%d\n",linha,coluna,r);
         }
 
     }
-    if (e.grelha[linha][coluna] == SUGESTAO) {   // se houver 1 sugestao
-        printa(e);                              // imprime o tabuleiro com a sugestao
-        e.grelha[linha][coluna] = VAZIA;        // limpa a sugestao do tabuleiro
-        exit =0;
+    if (e.grelha[linha][coluna] != SUGESTAO) {   // se nao houver 1 sugestao
+        printf("Não existem jogadas válidas\n");
+        abort();
     }
-    return exit;
+    return e;
 }

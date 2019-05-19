@@ -52,30 +52,27 @@ ESTADO jogaBot (ESTADO e){
     return e;
 }
 
-int selectJogada (ESTADO e, int *linha, int *coluna){     // envia 1 estado,e 2 variaveis, para depois receber coordenadas nessas variaveis
+int selectJogada (ESTADO e, int *linha, int *coluna) {     // envia 1 estado,e 2 variaveis, para depois receber coordenadas nessas variaveis
     /*
      * TODO:
      * procurar de todas as VALIDAS, a que tem melhor score. logo temos de adicionar o score as validas
      */
-    int tmp=0;int res=0;
-    e=validasJogada(e);
-    for (int i = 0; i <8 ; ++i) {
-        for (int j = 0; j < 8 ; ++j) {
-                tmp = checkScore(e,i,j); //guarda o score da mesma numa variavel
-                if (tmp == res){
-                    res = aleatorio(tmp,res); //seleciona 1 de forma aleatoria
-//Nao passa a linha e coluna. Logo é melhor quando forem igual fica o res ie, apagar este if
-                }
-                if (tmp>res) {
-                    res=tmp;
-                    linha = i;
-                    coluna= j;
-                }
-
+    int tmp = 0;
+    int res = 0;
+    e = validasJogada(e);
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            tmp = checkScore(e, i, j); //guarda o score da mesma numa variavel
+            if (tmp >= res) {
+                res = tmp;
+                linha = &i;
+                coluna = &j;
             }
+
         }
-    retiraValida(e);
-    return 0;
+        retiraValida(e);
+        return 0;
+    }
 }
 
 
@@ -93,7 +90,8 @@ int checkScore(ESTADO e,int i,int j){ //recebe 1 coordenada e devolve o score da
             r=(check(e, i, j) + peso[i][j]);            // melhor jogada na melhor posiçao
             break;
         case 0:
-            r=(check(e, i, j) + peso[i][j]);            // melhor jogada na melhor posiçao para jogo em modo manual
+            r=(check(e, i, j) + peso[i][j]);// melhor jogada na melhor posiçao para jogo em modo manual
+            printf("peso : %d\t",peso[i][j]);
             break;
     }
     return r;

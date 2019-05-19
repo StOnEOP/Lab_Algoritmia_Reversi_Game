@@ -17,6 +17,6 @@ ESTADO checkVDiagDirCima(ESTADO e,int linha,int coluna);
 ESTADO checkVDiagEsqbaixo(ESTADO e,int linha,int coluna);
 ESTADO checkVDiagEsqcima(ESTADO e,int linha,int coluna);
 
-int sugereJogada(ESTADO e);
+ESTADO sugereJogada(ESTADO e);
 
 #endif //LA_VALIDAS_H

@@ -19,13 +19,13 @@
 
 
 ESTADO jogar(ESTADO e,int linha,int coluna) {
-    //if (isover) printf("Jogo Terminado\n"); // se jã nao houver jogadas possiveis
-    //*else*/ if(jogadaValida(e,linha,coluna)) { // se a jogada for valida
+    if (isover(e)) printf("Jogo Terminado\n"); // se jã nao houver jogadas possiveis
+    /*else*/ if(jogadaValida(e,linha,coluna)) { // se a jogada for valida
             e.grelha[linha][coluna] = e.peca;   // poe a peça na coordenada selecionada
             e=virapecas(e,linha,coluna);        // vira as peças apartir da coordenada
             addHjogada(e.peca,linha,coluna);    // adiciona a jogada ao historico
             e.peca=inverte(e.peca);                  // inverte a peça para o proximo jogador
-         //} else printf("Jogada Invalida\n");
+         } else printf("Jogada Invalida\n");
 
         return e;
 
@@ -38,55 +38,68 @@ int jogadaValida(ESTADO e, int linha,int coluna){ //
     }else return 0;
 }
 int isover(ESTADO e){
-    retiraValida(e);
-    validasJogada(e);
-   if(isoversemjogadas(e)||isovervazias(e)){
-       return 1;
-   }else return 0;
+    e=retiraValida(e);
+    e=validasJogada(e);
+   int r=isovervazias(e)+isoversemjogadas(e);
+    return r;
 }
 int isovervazias(ESTADO e) {
-    int r=1;
+    int cont=0;int r=0;
   for(int i=0;i<8;i++) {
-      for (int j = 0; j < 8; j++) {
-          if (e.grelha[i][j] == VAZIA) {
-              r = 0;
-              break;
-          }
+      for (int j = 0; j < 8 && e.grelha[i][j] !=VAZIA && e.grelha[i][j] != VALIDA; j++){
+          cont++;
       }
+
   }
+
+
+  if(cont==64){
+      r=1;
+  }
+
     return r;
+
 }
 
 int isoversemjogadas(ESTADO e){
-    int r=1;
-    for(int i=0;i<8;i++){
-        for(int j=0;j<8;j++){
-            if(temvalidas(e)){
-                r=0;
-                break;
 
-            }
+    if(temvalidas(e,e.peca)){
+        return 0;
 
 
+            }else return 1;
 
-        }
-
-    }
-    return r;
 }
-int temvalidas(ESTADO e) {
-    int r = 0;
-    retiraValida(e);
-    validasJogada(e);
+
+int temvalidas(ESTADO e,VALOR p) {
+    int r = 0;int t=0;int tot=0;
+    e=retiraValida(e);
+    e=validasJogada(e);
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-            if (e.grelha[i][j] == VALIDA) {
+            if (e.grelha[i][j] == VALIDA){
                 r++;
             }
         }
 
     }
-    return r;
+
+    p=inverte(p);
+    e=retiraValida(e);
+
+    e=validasJogada(e);
+    for(int l=0;l<8;l++){
+        for(int c=0;c<8;c++){
+            if(e.grelha[l][c]==VALIDA){
+               t++;
+            }
+        }
+    }
+
+    tot=r + t;
+
+    return tot;
+
 }
 
 /*

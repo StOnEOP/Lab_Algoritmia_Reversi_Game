@@ -83,7 +83,7 @@ int checkColunacima(ESTADO e,int linha, int coluna,VALOR p){
 int checkDiagDirbaixo(ESTADO e,int linha, int coluna,VALOR p) {
     int l,c;int sc=0;
     if (e.grelha[linha + 1][coluna + 1] == p) {
-        for(l=linha+2,c=coluna+2; l<8,c<8;l++,c++){
+        for(l=linha+2,c=coluna+2; l<8 && c<8;l++,c++){
             sc++;
             if(e.grelha[l][c]==e.peca){
                 return sc;
@@ -96,8 +96,8 @@ int checkDiagDirbaixo(ESTADO e,int linha, int coluna,VALOR p) {
 int checkDiagDirCima(ESTADO e,int linha, int coluna,VALOR p) {
     int c,l;int sc=0;
     if (e.grelha[linha -1][coluna +1] == p) {
-        sc++;
-        for(l=linha-2,c=coluna+2;l>=0,c<8;l--,c++) {
+        for(l=linha-2,c=coluna+2; l>=0  && c<8;l--,c++) {
+            sc++;
             if(e.grelha[l][c]==e.peca){
                 return sc;
             }
@@ -111,7 +111,7 @@ int checkDiagDirCima(ESTADO e,int linha, int coluna,VALOR p) {
 int checkDiagEsqbaixo(ESTADO e,int linha, int coluna,VALOR p) {
     int l,c;int sc=0;
     if (e.grelha[linha + 1][coluna - 1] == p) {
-        for(l=linha+2,c=coluna-2;l < 8,c>=0;l++,c--) {
+        for(l=linha+2,c=coluna-2;l < 8 && c>=0;l++,c--) {
             sc++;
             if(e.grelha[l][c]==e.peca){
                 return sc;
@@ -123,7 +123,7 @@ int checkDiagEsqbaixo(ESTADO e,int linha, int coluna,VALOR p) {
 int checkDiagEsqcima(ESTADO e,int linha, int coluna,VALOR p) {
     int l,c;int sc=0;
     if (e.grelha[linha - 1][coluna - 1] == p) {
-        for(l=linha-2,c=coluna-2;l--,c--;l>=0,c>=0){
+        for(l=linha-2,c=coluna-2;l>=0 && c>=0;l--,c--){
             sc++;
             if(e.grelha[l][c]==e.peca){
                 return sc;

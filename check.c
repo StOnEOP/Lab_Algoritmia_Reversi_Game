@@ -195,3 +195,65 @@ ESTADO virapecas(ESTADO e,int linha , int coluna){
     }
     return e;
 }
+/*ESTADO virapecasinverças(ESTADO e,int linha , int coluna){
+    int l ,c ;
+    VALOR p = inverte(e.peca);
+    if (checkLinhadir(e,linha,coluna,e.peca)){//fazer para os outros checks
+        for(c=coluna+1;e.grelha[linha][c]!=p;c++){
+            if(e.grelha[linha][c]==p){
+                e.grelha[linha][c]=p;
+            }
+        }
+    }
+    if(checkLinhaesq(e,linha,coluna,e.peca)){
+        for(c=coluna-1;e.grelha[linha][c]!=e.peca;c--){
+            if(e.grelha[linha][c]==p) {
+                e.grelha[linha][c] = e.peca;
+            }
+        }
+    }
+    if(checkColunacima(e,linha,coluna,p)){
+        for(l=linha-1;e.grelha[l][coluna]!=e.peca;l--){
+            if(e.grelha[l][coluna]==p){
+                e.grelha[l][coluna]= e.peca;
+            }
+        }
+    }
+    if(checkColunabaixo(e,linha,coluna,p)){
+        for(l=linha+1;e.grelha[l][coluna]!=e.peca;l++) {
+            if (e.grelha[l][coluna] == p) {
+                e.grelha[l][coluna] = e.peca;
+            }
+        }
+    }
+    if(checkDiagDirCima(e,linha,coluna,p)){
+        for(l=linha-1,c=coluna+1;e.grelha[l][c]!=e.peca;l--,c++){
+            if(e.grelha[l][c]==p){
+                e.grelha[l][c]=e.peca;
+            }
+        }
+    }
+    if(checkDiagDirbaixo(e,linha,coluna,p)){
+        for(l=linha+1,c=coluna+1;e.grelha[l][c]!=e.peca;l++,c++){
+            if(e.grelha[l][c]==p){
+                e.grelha[l][c]=e.peca;
+            }
+        }
+    }
+    if(checkDiagEsqcima(e,linha,coluna,p)){
+        for(l=linha-1,c=coluna-1;e.grelha[l][c]!=e.peca;l--,c--){
+            if(e.grelha[l][c]==p){
+                e.grelha[l][c]=e.peca;
+            }
+        }
+
+    }
+    if(checkDiagEsqbaixo(e,linha,coluna,p)){
+        for(l=linha+1,c=coluna-1;e.grelha[l][c]!=e.peca;l++,c--){
+            if(e.grelha[l][c]==p){
+                e.grelha[l][c]=e.peca;
+            }
+        }
+    }
+    return e;
+}*/

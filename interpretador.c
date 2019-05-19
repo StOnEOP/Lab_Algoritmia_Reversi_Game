@@ -9,8 +9,13 @@
 #include "estado.h"
 #include "interpretador.h"
 //
-#include "faria.h"
+#include "etc.h"
 #include "jogar.h"
+#include "historico.h"
+#include "validas.h"
+#include "undo.h"
+#include "files.h"
+#include "bot.h"
 
 ESTADO interpretar (ESTADO e, char *linha) {
 
@@ -18,6 +23,7 @@ ESTADO interpretar (ESTADO e, char *linha) {
     char ficheiro[MAX_BUF];
     char peca[MAX_BUF];
     int lin, col,n;
+    e.nivel=0;
 
     n = sscanf(linha, "%s", cmd);
 
@@ -34,11 +40,13 @@ ESTADO interpretar (ESTADO e, char *linha) {
                 default:
                     printf("Tem de escolher a peça que quer jogar: X ou O\n");
             }
+            e.modo='M';
             break;
         case 'L':
             n = sscanf(linha,"%s %s", cmd, ficheiro);//falta fazer o Fopen e ler o ficheiro
             printf("Num. de parametros lidos:%d\n",n);
             printf("Ler um jogo do fcheiro:%s\n",ficheiro);
+            e=load(e,ficheiro);
             break;
         case 'E':
             n =sscanf(linha,"%s %s",cmd,ficheiro);
@@ -47,21 +55,29 @@ ESTADO interpretar (ESTADO e, char *linha) {
             break;
         case 'J':
             n= sscanf(linha, "%s %d %d", cmd, &lin, &col);
+            printf("Num de parametros lidos:%d\n",n);
+            printf("Jogar na posição lina: %d e coluna: %d\n",lin,col);
             lin--;
             col--;
             e= jogar(e,lin,col);
-            printf("Num de parametros lidos:%d\n",n);
-            printf("Jogar na posição lina: %d e coluna: %d\n",lin,col);
-
             break;
         case 'S':
+            printf("Sugestão de jogadas\n");
+            e=validasJogada(e);
             break;
         case 'U':
+            printf("Desfazendo ultima jogada\n");
+            undoJogada(e);
             break;
         case 'H':
             break;
         case 'A':
-            break;
+            /*  n= sscanf(linha, "%s %s %d", cmd, peca,&e.nivel); // recebe comando,  a peça do bot, e o nivel (lin é 1 inteiro)
+            e.modo='A';
+          if (e.nivel >= 1 && e.nivel <=3){
+                e=bot(epeca);
+            }
+            break;*/
         case 'Q':
             exit(0);
         default:

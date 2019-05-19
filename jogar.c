@@ -5,233 +5,47 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+//
 #include "estado.h"
 #include "interpretador.h"
-#include "faria.h"
+//
+#include "etc.h"
 #include "jogar.h"
+#include "historico.h"
+#include "check.h"
 
 
 
 ESTADO jogar(ESTADO e,int linha,int coluna) {
+    //if (isOver == 1) printf("Jogo Terminado\n"); // se jã nao houver jogadas possiveis
 
-    if(jogadaValida(e,linha,coluna)) {
-        e.grelha[linha][coluna] = e.peca;
-        e=virapecas(e,linha,coluna);
-        e.peca=inverte(e.peca);
-    } else printf("Jogada Invalida\n");
-    return e;
+
+    /*else*/ if(jogadaValida(e,linha,coluna)) { // se a jogada for valida
+            e.grelha[linha][coluna] = e.peca;   // poe a peça na coordenada selecionada
+            e=virapecas(e,linha,coluna);        // vira as peças apartir da coordenada
+            addHjogada(e.peca,linha,coluna);    // adiciona a jogada ao historico
+            e.peca=inverte(e.peca);                  // inverte a peça para o proximo jogador
+
+         } else printf("Jogada Invalida\n");
+
+        return e;
 
 
 }
 
-
-int jogadaValida(ESTADO e, int linha,int coluna){
-    if(linha>=0 && linha <8 && coluna >=0 && coluna < 8 && e.grelha[linha][coluna]==VAZIA && check(e,linha,coluna)){
+int jogadaValida(ESTADO e, int linha,int coluna){ //
+    if(linha>=0 && linha <8 && coluna >=0 && coluna < 8 && e.grelha[linha][coluna]==VAZIA && check(e,linha,coluna) != 0){
         return 1;
     }else return 0;
 }
 
-int check(ESTADO e,int linha,int coluna){
-    int r=0;
-    r = checkLinhadir(e, linha, coluna) + checkLinhaesq(e,linha,coluna) + checkColunabaixo(e, linha, coluna) + checkColunacima(e,linha, coluna) + checkDiagDirbaixo(e, linha, coluna) + checkDiagDirCima(e, linha,coluna)+checkDiagEsqbaixo(e,linha,coluna) + checkDiagEsqcima(e,linha,coluna);
-
-    return r;
-}
-
-int checkLinhadir(ESTADO e,int linha,int coluna) {
-    int c;
-    if (e.grelha[linha][coluna + 1] == inverte(e.peca)) {
-        for(c=coluna+2;c<8;c++){
-            if(e.grelha[linha][c]==e.peca){
-                return 1;
-            }
-
-
-        }
-
-    }
-    return 0;
-}
-
-int checkLinhaesq(ESTADO e,int linha,int coluna){
-    int c;
-    if(e.grelha[linha][coluna-1]== inverte(e.peca)){
-        for(c=coluna-2;c>=0;c--){
-            if(e.grelha[linha][c]){
-                return 1;
-            }
-
-
-
-        }
-
-
-    }
-    return 0;
-
-}
-
-int checkColunabaixo(ESTADO e,int linha, int coluna) {
-    int l;
-    if (e.grelha[linha + 1][coluna] == inverte(e.peca)) {
-        for (l = linha - 2; l < 8; l++) {
-            if (e.grelha[l][coluna] == e.peca) {
-                return 1;
-
-
-            }
-
-
-        }
-        return 0;
-    }
-}
-
-int checkColunacima(ESTADO e,int linha, int coluna){
-        int l;
-        if(e.grelha[linha-1][coluna]== inverte(e.peca)) {
-            for(l=linha-2;l>=0;l--) {
-                if(e.grelha[l][coluna]==e.peca){
-                    return 1;
-                }
-
-
-            }
-
-        }
-    return 0;
-}
-
-
-int checkDiagDirbaixo(ESTADO e,int linha, int coluna) {
-    int l,c;
-
-    if (e.grelha[linha + 1][coluna + 1] == inverte(e.peca)) {
-        for(l=linha+2,c=coluna+2;l<8, c<8;l++,c++){
-            if(e.grelha[l][c]==e.peca){
-                return 1;
-            }
-
-        }
-
-
-    }
-    return 0;
-}
-int checkDiagDirCima(ESTADO e,int linha, int coluna) {
-    int c,l;
-    if (e.grelha[linha -1][coluna +1] == inverte(e.peca)) {
-        for(l=linha-2,c=coluna+2;l>=0,c<8;l--,c++) {
-            if(e.grelha[l][c]==e.peca){
-                return 1;
-            }
-
-        }
-        return 0;
-
-
-    }
-}
-
-
-int checkDiagEsqbaixo(ESTADO e,int linha, int coluna) {
-    int l,c;
-    if (e.grelha[linha + 1][coluna - 1] == inverte(e.peca)) {
-        for(l=linha+2,c=coluna-2;l < 8,c>=0;l++,c--) {
-            if(e.grelha[l][c]){
-                return 1;
-            }
-        }
-
-    }
-    return 0;
-}
-int checkDiagEsqcima(ESTADO e,int linha, int coluna) {
-    int l,c;
-    if (e.grelha[linha - 1][coluna - 1] == inverte(e.peca)) {
-        for(l=linha-2,c=coluna-2;l--,c--;l>=0,c>=0){
-            if(e.grelha[l][c]==e.peca){
-                return 1;
-            }
-        }
-    }
-    return 0;
-}
-
-VALOR inverte(VALOR p){
-    if (p == VALOR_X) return VALOR_O;
-    if (p == VALOR_O) return VALOR_X;
-}
-
-ESTADO virapecas(ESTADO e,int linha , int coluna){
-    int l ,c ;
-    if (checkLinhadir(e,linha,coluna)){//fazer para os outros checks
-        for(c=coluna+1;e.grelha[linha][c]!=e.peca;c++){
-            if(e.grelha[linha][c]==inverte(e.peca)){
-                e.grelha[linha][c]=e.peca;
-
-            }
-
-        }
-
-    }
-    if(checkLinhaesq(e,linha,coluna)){
-        for(c=coluna-1;e.grelha[linha][c]!=e.peca;c--){
-            if(e.grelha[linha][c]==inverte(e.peca)) {
-                e.grelha[linha][c] = e.peca;
-            }
-        }
-    }
-    if(checkColunacima(e,linha,coluna)){
-        for(l=linha-1;e.grelha[l][coluna]!=e.peca;l--){
-            if(e.grelha[l][coluna]==inverte(e.peca)){
-                e.grelha[l][coluna]= e.peca;
-            }
-        }
-    }
-    if(checkColunabaixo(e,linha,coluna)){
-        for(l=linha+1;e.grelha[l][coluna]!=e.peca;l++) {
-            if (e.grelha[l][coluna] == inverte(e.peca)) {
-                e.grelha[l][coluna] = e.peca;
-            }
-        }
-    }
-    if(checkDiagDirCima(e,linha,coluna)){
-        for(l=linha-1,c=coluna+1;e.grelha[l][c]!=e.peca;l--,c++){
-            if(e.grelha[l][c]==inverte(e.peca)){
-                e.grelha[l][c]=e.peca;
-            }
-        }
-    }
-    if(checkDiagDirbaixo(e,linha,coluna)){
-        for(l=linha+1,c=coluna+1;e.grelha[l][c]!=e.peca;l++,c++){
-            if(e.grelha[l][c]==inverte(e.peca)){
-                e.grelha[l][c]=e.peca;
-            }
-        }
-    }
-    if(checkDiagEsqcima(e,linha,coluna)){
-        for(l=linha-1,c=coluna-1;e.grelha[l][c]!=e.peca;l--,c--){
-            if(e.grelha[l][c]==inverte(e.peca)){
-                e.grelha[l][c]=e.peca;
-            }
-        }
-
-    }
-    if(checkDiagEsqbaixo(e,linha,coluna)){
-        for(l=linha+1,c=coluna-1;e.grelha[l][c]!=e.peca;l++,c--){
-            if(e.grelha[l][c]==inverte(e.peca)){
-                e.grelha[l][c]=e.peca;
-            }
-        }
-    }
-    
-    return e;
-
-}
-
-void fimdojogo(ESTADO e,int linha,coluna){
-
-}
-
-
+/*
+ * TODO:
+ *  O tabuleiro está completamente preenchido nas suas 64 posições. Ganha quem tiver mais
+peças no tabuleiro
+ Nenhum jogador tem uma jogada válida disponível. Ganho o jogador com mais peças no
+tabuleiro
+ Só há peças no tabuleiro de um jogador. Consequentemente o oponente não tem jogadas
+válidas. O jogador também não pode cercar peças do oponente! Logo o jogo termina e ganha
+este jogador (caso especial da situação anterior).
+ */

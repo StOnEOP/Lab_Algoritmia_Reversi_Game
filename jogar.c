@@ -33,7 +33,7 @@ ESTADO jogar(ESTADO e,int linha,int coluna) {
 
 }
 
-int jogadaValida(ESTADO e, int linha,int coluna){ //
+int jogadaValida(ESTADO e, int linha,int coluna){ //verifica se a jogada em questao e valida ou nao
     if(linha>=0 && linha <8 && coluna >=0 && coluna < 8 && e.grelha[linha][coluna]==VAZIA && check(e,linha,coluna) != 0){
         return 1;
     }else return 0;

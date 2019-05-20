@@ -23,7 +23,7 @@ ESTADO gInicial (ESTADO e, VALOR peca, char modo){
 
 // exemplo de uma função para imprimir o estado (Tabuleiro)
 void printa(ESTADO e){
-    printf("MODO :%c\tPECA :%c\tNIVEL AI :%d",e.modo,valorToChar(e.peca),e.nivel);
+    printf("MODO :%c\tJOGADOR ATUAL:%c\tNIVEL AI :%d\tPECA AI:%c\t",e.modo,valorToChar(e.peca),e.nivel,valorToChar(e.pecaBot));
     printf("\n\t1 2 3 4 5 6 7 8\n"
            "\t________________\n\n");
 

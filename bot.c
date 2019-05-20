@@ -45,7 +45,7 @@ ESTADO jogaBot (ESTADO e){
               //coordenadas para depois receber a jogada do bot
     int linha;int coluna;
     selectJogada(e,&bLinha,&bColuna);// seleciona a jogada dependendo da dificuldade
-    printf("blinha: %d e bcoluna: %d\n",bLinha,bColuna);
+    printf("COORDENADAS BOT\nLinha:%d\tbcoluna:%d\n",bLinha,bColuna);
     linha = bLinha; coluna = bColuna;
     e=jogar(e,linha,coluna);          // joga na coordenada selecionada
     //e.peca = inverte(e.peca);           // muda a peça para o proximo jogador

@@ -53,8 +53,8 @@ ESTADO load(ESTADO e,char ficheiro[MAX_BUF]){ // PROD FINAL
     if (n =='A'){
         e.modo=n;
         fscanf(file,"%c %d\n",&k,&e.nivel);
-        e.pecaBot= charToValor(k);
-        e.peca =inverte(e.pecaBot);
+        e.peca= charToValor(k);
+        e.pecaBot =inverte(e.peca);
     }else {
         e.modo='M';
         fscanf(file,"%c %c \n",&e.modo,&c);

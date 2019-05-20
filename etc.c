@@ -32,16 +32,23 @@ VALOR inverte(VALOR p){
 }
 
 VALOR charToValor(char c){ // converte 1 char em Valor
-    VALOR ret;
-    if( toupper(c) =='O')    ret = VALOR_O;
-    if( toupper(c) =='X')    ret = VALOR_X;
-    if( c =='-')    ret = VAZIA;
-    if( c =='.')    ret = VALIDA;
-    if( c =='?')    ret = SUGESTAO;
-    else printf("ERRO: charToValor INVALIDO!!\n");
-    return  ret;
-
+    switch (toupper(c)){
+        case 'O' :
+            return VALOR_O;
+        case 'X' :
+            return VALOR_X;
+        case '-' :
+            return VAZIA;
+        case '.' :
+            return  VALIDA;
+        case '?' :
+            return SUGESTAO;
+        default:
+            printf("ERRO chartovalor\t");
+            break;
+    }
 }
+
 char valorToChar(VALOR p){ // converte da variavel VALOR, para 1 char
     if (p == VALOR_O) return 'O';
     if (p == VALOR_X) return 'X';

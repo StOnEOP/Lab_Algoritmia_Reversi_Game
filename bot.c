@@ -35,7 +35,7 @@ ESTADO bot(ESTADO e){    //gamestate, peca do bot, nivel do bot
    //     while (validasJogada(e) != 0) {     //enquanto houver jogadas validas para a peça atual
    if (e.peca == e.pecaBot) {
        e = jogaBot(e);
-       inverte(e.peca);
+       e.peca=inverte(e.peca);
    }
    return e;
 }
@@ -45,10 +45,9 @@ ESTADO jogaBot (ESTADO e){
               //coordenadas para depois receber a jogada do bot
     int linha;int coluna;
     selectJogada(e,&bLinha,&bColuna);// seleciona a jogada dependendo da dificuldade
-    printf("COORDENADAS BOT\nLinha:%d\tbcoluna:%d\n",bLinha,bColuna);
+    printf("COORDENADAS BOT\nLinha:%d\tColuna:%d\n",bLinha+1,bColuna+1);
     linha = bLinha; coluna = bColuna;
     e=jogar(e,linha,coluna);          // joga na coordenada selecionada
-    //e.peca = inverte(e.peca);           // muda a peça para o proximo jogador
     return e;
 }
 

@@ -14,7 +14,10 @@
 #include "historico.h"
 //
 #include "files.h"
-
+/*
+ * TODO:
+ * criar 1 top que contem 1 estado completo, sempre que se joga guarda-se o estado completo, para fazer undo basta 2 ciclos for e e.grelha[i][j] = h.grelha[i][j];
+ */
 
 void addHjogada(VALOR peca,int linha,int coluna){ // adiciona 1 jogada ao historico
     struct Historico* temp;

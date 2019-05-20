@@ -5,6 +5,7 @@
 #include "estado.h"
 #include "etc.h"
 #include "files.h"
+#include "jogar.h"
 
 ESTADO gInicial (ESTADO e, char peca, char modo){
     for(int x=0;x<8;x++)
@@ -57,6 +58,7 @@ void printa(ESTADO e){
         }
         printf("\n");
     }
+    vencedor(e);
     score(e);
     printf("\n");
 

@@ -13,7 +13,6 @@
 #include "jogar.h"
 #include "historico.h"
 #include "validas.h"
-#include "undo.h"
 #include "files.h"
 #include "bot.h"
 
@@ -40,7 +39,6 @@ ESTADO interpretar(ESTADO e, char *linha){
                 default:
                     printf("Tem de escolher a peça que quer jogar: X ou O\n");
             }
-            e.modo='M';
             e.nivel=0;
             break;
         case 'L':
@@ -83,7 +81,7 @@ ESTADO interpretar(ESTADO e, char *linha){
             break;
         case 'U':
             printf("Desfazendo ultima jogada\n");
-            undoJogada(e);
+            e=undoJogada(e);
             break;
         case 'H':
             e=retiraValida(e);
@@ -92,8 +90,7 @@ ESTADO interpretar(ESTADO e, char *linha){
         case 'A':
             n= sscanf(linha, "%s %s %d", cmd, pecaBot,&e.nivel); // recebe comando,  a peça do bot, e o nivel
             printf("Num. de parametros lidos:%d\n",n);
-            e.modo='A';
-            e=gInicial(e, e.peca ,'A');
+            e=gInicial(e, pecaBot[0],'A');
             if (e.nivel >= 1 && e.nivel <=3){
                 e=bot(e,toupper(pecaBot[0]));
             }

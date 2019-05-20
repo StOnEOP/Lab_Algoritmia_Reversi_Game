@@ -5,14 +5,14 @@
 #ifndef LA_HISTORICO_H
 #define LA_HISTORICO_H
 struct Historico{
-    int linha;
-    int coluna;
-    char peca;
+    ESTADO h;
     struct Historico* prox;
 
 };
 struct  Historico* top;
 
-void addHjogada(VALOR peca,int linha,int coluna);
+int addHjogada(ESTADO e;);
 void rmUltimaJogada();
+
+ESTADO undoJogada(ESTADO e);
 #endif //LA_HISTORICO_H

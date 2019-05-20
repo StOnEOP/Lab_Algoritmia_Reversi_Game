@@ -19,18 +19,30 @@
  * criar 1 top que contem 1 estado completo, sempre que se joga guarda-se o estado completo, para fazer undo basta 2 ciclos for e e.grelha[i][j] = h.grelha[i][j];
  */
 
-void addHjogada(VALOR peca,int linha,int coluna){ // adiciona 1 jogada ao historico
+int addHjogada(ESTADO e){ // adiciona 1 jogada ao historico
     struct Historico* temp;
     temp = (struct Historico*)malloc(sizeof(struct Historico));
 
     if (!temp) printf("\nHistorico cheio\n");
-    temp->linha = linha;
-    temp->coluna= coluna;
-    temp->peca = valorToChar(peca);
+    for(int i=0;i<8;i++) {   // muda linha
+        for (int j = 0; j < 8; j++) { // muda coluna
+            temp->h.grelha[i][j] = e.grelha[i][j];
+        }
+    }
     temp->prox =top;
     top=temp;
+    return (EXIT_SUCCESS);
 }
 
+ESTADO undoJogada(ESTADO e) {
+    for(int i=0;i<8;i++) {   // muda linha
+        for (int j = 0; j < 8; j++) { // muda coluna
+            e.grelha[i][j] = top->h.grelha[i][j];
+        }
+    }
+    rmUltimaJogada();
+    return e;
+}
 void rmUltimaJogada(){
 
     struct Historico* temp;

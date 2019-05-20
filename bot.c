@@ -58,7 +58,7 @@ int selectJogada (ESTADO e, int* linha, int* coluna) {     // envia 1 estado,e 2
      * procurar de todas as VALIDAS, a que tem melhor score. logo temos de adicionar o score as validas
      */
     int tmp = 0; int i,j;
-    int res = 0;
+    int res = -2500;
     e = validasJogada(e);
     for (i = 0; i < 8; ++i) {
         for (j = 0; j < 8; ++j) {
@@ -83,7 +83,7 @@ int checkScore(ESTADO e,int i,int j){ //recebe 1 coordenada e devolve o score da
     if (e.modo == 'M') e.nivel = 0;
     switch (e.nivel){
         case 1:
-            r=  (- (check(e,i,j)) + - (peso[i][j]));    // ira escolher sempre o pior score, pois caso de 30 de score, r devolvera -30, mas caso receba 1, devolvera -1 e -1> -30
+            r=   check(e,i,j) - peso[i][j];    // ira escolher sempre o pior score, pois caso de 30 de score, r devolvera -30, mas caso receba 1, devolvera -1 e -1> -30
             break;
         case 2:
             r= check(e,i,j);                            // melhor jogada sem considerar o peso da posiçao

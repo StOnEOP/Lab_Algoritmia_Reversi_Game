@@ -45,7 +45,7 @@ int checkLinhaesq(ESTADO e,int linha,int coluna,VALOR p){//verifica se a jogada 
     if(e.grelha[linha][coluna-1]== p){
         for(c=coluna-2;c>=0;c--){
             sc++;
-            if(e.grelha[linha][c]){
+            if(e.grelha[linha][c] == e.peca){
                 return sc;
             }
         }

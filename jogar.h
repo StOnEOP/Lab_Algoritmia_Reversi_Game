@@ -11,7 +11,7 @@ int jogadaValida (ESTADO, int, int);
 ESTADO virapecas(ESTADO e,int linha , int coluna);
 int isover(ESTADO e);
 int isovervazias(ESTADO e);
-int temvalidas(ESTADO e,VALOR p);
+int temvalidas(ESTADO e);
 int isoversemjogadas(ESTADO e);
 void vencedor(ESTADO e);
 //VALOR oposta(VALOR v);

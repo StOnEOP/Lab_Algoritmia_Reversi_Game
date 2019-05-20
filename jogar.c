@@ -65,7 +65,7 @@ int isovervazias(ESTADO e) {//verifica se o tabuleiro esta completamente preench
 
 int isoversemjogadas(ESTADO e){//vai a funçao temvalidas vereficar se ambos os jogadores tem ou nao jogadas validas
 
-    if(temvalidas(e,e.peca)){//se tiver validas recebe um valor >0 da funçao temvalidas
+    if(temvalidas(e)){//se tiver validas recebe um valor >0 da funçao temvalidas
         return 0;
 
 
@@ -73,7 +73,7 @@ int isoversemjogadas(ESTADO e){//vai a funçao temvalidas vereficar se ambos os 
 
 }
 
-int temvalidas(ESTADO e,VALOR p) {//corre o tabuleiro a procura de jogadas validas
+int temvalidas(ESTADO e) {//corre o tabuleiro a procura de jogadas validas
     int r = 0;int t=0;int tot=0;
     e=retiraValida(e);
     e=validasJogada(e);
@@ -86,7 +86,7 @@ int temvalidas(ESTADO e,VALOR p) {//corre o tabuleiro a procura de jogadas valid
 
     }
 
-    p=inverte(p);
+    e.peca=inverte(e.peca);
     e=retiraValida(e);//troca a peça paera ver se a peça inverça tem ou nao jogadas validas tambem
 
     e=validasJogada(e);

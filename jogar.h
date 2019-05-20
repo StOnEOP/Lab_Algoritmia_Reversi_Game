@@ -13,6 +13,7 @@ int isover(ESTADO e);
 int isovervazias(ESTADO e);
 int temvalidas(ESTADO e,VALOR p);
 int isoversemjogadas(ESTADO e);
+void vencedor(ESTADO e);
 //VALOR oposta(VALOR v);
 
 #endif //LA_JOGAR_H

@@ -19,7 +19,7 @@
 
 
 ESTADO jogar(ESTADO e,int linha,int coluna) {
-    if (isover(e)) printf("Jogo Terminado\n"); // se jã nao houver jogadas possiveis
+    if (isover(e)==0){ // se jã nao houver jogadas possiveis
     /*else*/ if(jogadaValida(e,linha,coluna)) { // se a jogada for valida
             e.grelha[linha][coluna] = e.peca;   // poe a peça na coordenada selecionada
             e=virapecas(e,linha,coluna);        // vira as peças apartir da coordenada
@@ -28,6 +28,7 @@ ESTADO jogar(ESTADO e,int linha,int coluna) {
          } else printf("Jogada Invalida\n");
 
         return e;
+    }
 
 
 }
@@ -41,6 +42,7 @@ int isover(ESTADO e){
     e=retiraValida(e);
     e=validasJogada(e);
    int r=isovervazias(e)+isoversemjogadas(e);
+   e=retiraValida(e);
     return r;
 }
 int isovervazias(ESTADO e) {
@@ -100,6 +102,29 @@ int temvalidas(ESTADO e,VALOR p) {
 
     return tot;
 
+}
+
+void vencedor(ESTADO e){
+    if(isover(e)){
+        int o=0,x=0;
+        for(int i=0;i<8;i++) {   // muda linha
+            for (int j = 0; j < 8; j++) { // muda coluna
+                if (e.grelha[i][j] == VALOR_X) x++;
+                if (e.grelha[i][j] == VALOR_O) o++;
+            }
+        }
+        if(x>o){
+            printf("\n****JOGO TERMINADO****\nO VENCEDOR E JOGADOR X !!!!!\n VENCEU COM X SCORE DE : %d \n",x);
+
+        }else if(x<o){
+            printf("\n****JOGO TERMINADO****\nO VENCEDOR E JOGADOR O !!!!!\n VENCEU COM O SCORE DE : %d \n",o);
+
+        }else if(x==o){
+            printf("\n****JOGO TERMINADO****\nO JOGO ACABOU EMPATADO!!!!!\n AMBOS TIVERAM UM SCORE DE : %d \n",x);
+
+        }
+
+    }
 }
 
 /*

@@ -64,11 +64,13 @@ ESTADO interpretar(ESTADO e, char *linha){
             if (e.modo == 'A' && e.peca == e.pecaBot){ // se estivermos em modo vsCPUo bot
                 printf("\nJogada do Bot\n\n");
                 e=bot(e);
+                break;
             }
-            e= jogar(e,lin,col);
+            e = jogar(e,lin,col);
             if (e.modo == 'A' && e.peca == e.pecaBot){ // se estivermos em modo vsCPUo bot
                 printf("\nJogada do Bot\n\n");
                 e=bot(e);
+                break;
             }
             break;
         case 'S':

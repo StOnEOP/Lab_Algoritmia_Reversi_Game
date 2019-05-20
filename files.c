@@ -71,7 +71,7 @@ ESTADO load(ESTADO e,char ficheiro[MAX_BUF]){ // PROD FINAL
             e.grelha[i][j] = charToValor(k);
         }
 
-        fscanf(file, "\n",k);
+        fscanf(file,"\n",NULL);
     }
     return e;
 }

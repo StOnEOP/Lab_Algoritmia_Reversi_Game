@@ -61,17 +61,14 @@ ESTADO interpretar(ESTADO e, char *linha){
             printf("Jogar na posição lina: %d e coluna: %d\n",lin,col);
             lin--;
             col--;
-            if (e.modo == 'A' && e.peca == pecaBot[0]){ // se estivermos em modo vsCPU e a peça for a peça do bot ele ira jogar antes do player e nao permite a jogada o player
-                printa(e);
+            if (e.modo == 'A' && e.peca == e.pecaBot){ // se estivermos em modo vsCPUo bot
                 printf("\nJogada do Bot\n\n");
-                e=bot(e,pecaBot[0]);
-                break;
+                e=bot(e);
             }
             e= jogar(e,lin,col);
-            if (e.modo == 'A'){                         // caso esteja em modo vsCPU ele
-                printa(e);
+            if (e.modo == 'A' && e.peca == e.pecaBot){ // se estivermos em modo vsCPUo bot
                 printf("\nJogada do Bot\n\n");
-                e=bot(e,pecaBot[0]);
+                e=bot(e);
             }
             break;
         case 'S':
@@ -90,9 +87,10 @@ ESTADO interpretar(ESTADO e, char *linha){
         case 'A':
             n= sscanf(linha, "%s %s %d", cmd, pecaBot,&e.nivel); // recebe comando,  a peça do bot, e o nivel
             printf("Num. de parametros lidos:%d\n",n);
-            e=gInicial(e, pecaBot[0],'A');
+            e.pecaBot = charToValor(pecaBot[0]);
+            e=gInicial(e, VALOR_X,'A');
             if (e.nivel >= 1 && e.nivel <=3){
-                e=bot(e,toupper(pecaBot[0]));
+                e=bot(e);
             }
             break;
         case 'Q':

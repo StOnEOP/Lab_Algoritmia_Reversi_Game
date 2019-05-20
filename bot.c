@@ -29,14 +29,13 @@ int peso[8][8]={
 }; // cria a tabela de pesos
 int bLinha=-1;int bColuna = -1;
 
-ESTADO bot(ESTADO e, char peca){    //gamestate, peca do bot, nivel do bot
-    VALOR pecaBot = charToValor(peca);
-    e.peca= VALOR_X;                    // quem joga 1o é o jogador com a peça X
+ESTADO bot(ESTADO e){    //gamestate, peca do bot, nivel do bot
+
    // while (isOver(e) != 1) {                //enquanto nao se chegar ao fim do jogo, ie, já nao ha mais jogadas
    //     while (validasJogada(e) != 0) {     //enquanto houver jogadas validas para a peça atual
-   if (e.peca == pecaBot) {
+   if (e.peca == e.pecaBot) {
        e = jogaBot(e);
-       //inverte(e.peca);
+       inverte(e.peca);
    }
    return e;
 }

@@ -5,7 +5,7 @@
 #ifndef LA_BOT_H
 #define LA_BOT_H
 
-ESTADO bot(ESTADO e, char peca);
+ESTADO bot(ESTADO e );
 ESTADO jogaBot (ESTADO e);
 int selectJogada (ESTADO e, int* bLinha, int* bColuna);
 int checkScore(ESTADO e,int l,int j);

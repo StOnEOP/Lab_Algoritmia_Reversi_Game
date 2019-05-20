@@ -19,8 +19,6 @@ ESTADO validasJogada(ESTADO e) { // recebe 1 estado e devolve um estado com joga
     // corre a funçao á procura de peças
     int i,j; VALOR inversa =inverte(e.peca);
     for (i = 0; i < 8; i++) {
-        //printf("Validas Linha %d\t",i);
-        //printa(e);
         for (j = 0; j < 8; j++){
             //printf("Validas Coluna %d\n",j);
             if(e.grelha[i][j]==inversa){ // procura peças inversa a nossa, ie locais onde sera possivel jogar

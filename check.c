@@ -16,7 +16,7 @@
 #include "check.h"
 
 
-int check(ESTADO e,int linha,int coluna){
+int check(ESTADO e,int linha,int coluna){//vai verificar em todas as direçoes se a jogada e valida caso seja retorna um valor >0
     int r=0;VALOR p;
     p = inverte(e.peca);
     r =   checkLinhadir    (e, linha, coluna,p)   + checkLinhaesq(e,linha,coluna,p)
@@ -27,7 +27,7 @@ int check(ESTADO e,int linha,int coluna){
     return r;
 }
 
-int checkLinhadir(ESTADO e,int linha,int coluna, VALOR p) {
+int checkLinhadir(ESTADO e,int linha,int coluna, VALOR p) {//verifica se a jogada e valida para a linha direita
     int c; int sc=0;
     if (e.grelha[linha][coluna + 1] == p) {
         for(c=coluna+2;c<8;c++){
@@ -40,7 +40,7 @@ int checkLinhadir(ESTADO e,int linha,int coluna, VALOR p) {
     return 0;
 }
 
-int checkLinhaesq(ESTADO e,int linha,int coluna,VALOR p){
+int checkLinhaesq(ESTADO e,int linha,int coluna,VALOR p){//verifica se a jogada e valida para a linha esquerda
     int c;int sc=0;
     if(e.grelha[linha][coluna-1]== p){
         for(c=coluna-2;c>=0;c--){
@@ -53,7 +53,7 @@ int checkLinhaesq(ESTADO e,int linha,int coluna,VALOR p){
     return 0;
 }
 
-int checkColunabaixo(ESTADO e,int linha, int coluna,VALOR p) {
+int checkColunabaixo(ESTADO e,int linha, int coluna,VALOR p) {//verifica se a jogada e valida na coluna para baixo
     int l;int sc=0;
     if (e.grelha[linha + 1][coluna] == p) {
         for (l = linha + 2; l < 8; l++) {
@@ -66,7 +66,7 @@ int checkColunabaixo(ESTADO e,int linha, int coluna,VALOR p) {
     return 0;
 }
 
-int checkColunacima(ESTADO e,int linha, int coluna,VALOR p){
+int checkColunacima(ESTADO e,int linha, int coluna,VALOR p){//verifica se a jogada e valida na coluna para cima
     int l;int sc=0;
     if(e.grelha[linha-1][coluna]== p) {
         for(l=linha-2;l>=0;l--) {
@@ -80,7 +80,7 @@ int checkColunacima(ESTADO e,int linha, int coluna,VALOR p){
 }
 
 
-int checkDiagDirbaixo(ESTADO e,int linha, int coluna,VALOR p) {
+int checkDiagDirbaixo(ESTADO e,int linha, int coluna,VALOR p) {//verifica se a jogada e valida na diagonal para baixo do lado direito
     int l,c;int sc=0;
     if (e.grelha[linha + 1][coluna + 1] == p) {
         for(l=linha+2,c=coluna+2; l<8 && c<8;l++,c++){
@@ -93,7 +93,7 @@ int checkDiagDirbaixo(ESTADO e,int linha, int coluna,VALOR p) {
     return 0;
 }
 
-int checkDiagDirCima(ESTADO e,int linha, int coluna,VALOR p) {
+int checkDiagDirCima(ESTADO e,int linha, int coluna,VALOR p) {//verifica se a jogada e valida na diagonal para cima do lado direito
     int c,l;int sc=0;
     if (e.grelha[linha -1][coluna +1] == p) {
         for(l=linha-2,c=coluna+2; l>=0  && c<8;l--,c++) {
@@ -108,7 +108,7 @@ int checkDiagDirCima(ESTADO e,int linha, int coluna,VALOR p) {
 }
 
 
-int checkDiagEsqbaixo(ESTADO e,int linha, int coluna,VALOR p) {
+int checkDiagEsqbaixo(ESTADO e,int linha, int coluna,VALOR p) {//verifica se a jogada e valida na diagonal para baixo do lado esquerdo
     int l,c;int sc=0;
     if (e.grelha[linha + 1][coluna - 1] == p) {
         for(l=linha+2,c=coluna-2;l < 8 && c>=0;l++,c--) {
@@ -120,7 +120,7 @@ int checkDiagEsqbaixo(ESTADO e,int linha, int coluna,VALOR p) {
     }
     return 0;
 }
-int checkDiagEsqcima(ESTADO e,int linha, int coluna,VALOR p) {
+int checkDiagEsqcima(ESTADO e,int linha, int coluna,VALOR p) {//verifica se a jogada e valida na diagonal para cima do lado esquerdo
     int l,c;int sc=0;
     if (e.grelha[linha - 1][coluna - 1] == p) {
         for(l=linha-2,c=coluna-2;l>=0 && c>=0;l--,c--){
@@ -133,10 +133,10 @@ int checkDiagEsqcima(ESTADO e,int linha, int coluna,VALOR p) {
     return 0;
 }
 
-ESTADO virapecas(ESTADO e,int linha , int coluna){
+ESTADO virapecas(ESTADO e,int linha , int coluna){//caso haja jogada valida vira  as peças
     int l ,c ;
     VALOR p = inverte(e.peca);
-    if (checkLinhadir(e,linha,coluna,p)){//fazer para os outros checks
+    if (checkLinhadir(e,linha,coluna,p)){
         for(c=coluna+1;e.grelha[linha][c]!=e.peca;c++){
             if(e.grelha[linha][c]==p){
                 e.grelha[linha][c]=e.peca;

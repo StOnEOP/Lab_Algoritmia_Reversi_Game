@@ -169,9 +169,9 @@ ESTADO sugereJogada(ESTADO e){    // como a sugestao imprime dentro da funçao, 
         }
 
     }
-    if (e.grelha[linha][coluna] != SUGESTAO) {   // se nao houver 1 sugestao
+    if (linha == -1 || coluna == -1) {   // se nao houver 1 sugestao
         printf("Não existem jogadas válidas\n");
-        abort();
+        exit(EXIT_FAILURE);
     }
     return e;
 }

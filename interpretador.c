@@ -104,6 +104,7 @@ ESTADO interpretar(ESTADO e, char *linha){
             printf("Comando Invalido!\n");
     }
     printa(e);
+    e=retiraValida(e);
     return e;
 }
 

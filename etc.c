@@ -32,11 +32,14 @@ VALOR inverte(VALOR p){
 }
 
 VALOR charToValor(char c){ // converte 1 char em Valor
-    if( c =='O')    return VALOR_O;
-    if( c =='X')    return VALOR_X;
-    if( c =='-')    return VAZIA;
-    if( c =='.')    return VALIDA;
+    VALOR ret;
+    if( toupper(c) =='O')    ret = VALOR_O;
+    if( toupper(c) =='X')    ret = VALOR_X;
+    if( c =='-')    ret = VAZIA;
+    if( c =='.')    ret = VALIDA;
+    if( c =='?')    ret = SUGESTAO;
     else printf("ERRO: charToValor INVALIDO!!\n");
+    return  ret;
 
 }
 char valorToChar(VALOR p){ // converte da variavel VALOR, para 1 char

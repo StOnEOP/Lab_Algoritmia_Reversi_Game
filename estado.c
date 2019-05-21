@@ -58,7 +58,6 @@ void printa(ESTADO e){
         }
         printf("\n");
     }
-    vencedor(e);
     score(e);
     printf("\n");
 

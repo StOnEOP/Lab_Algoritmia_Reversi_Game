@@ -61,17 +61,7 @@ ESTADO interpretar(ESTADO e, char *linha){
             printf("Jogar na posição lina: %d e coluna: %d\n",lin,col);
             lin--;
             col--;
-            if (e.modo == 'A' && e.peca == e.pecaBot){ // se estivermos em modo vsCPUo bot
-                printf("\nJogada do Bot\n\n");
-                e=bot(e);
-                break;
-            }
             e = jogar(e,lin,col);
-            if (e.modo == 'A' && e.peca == e.pecaBot){ // se estivermos em modo vsCPUo bot
-                printf("\nJogada do Bot\n\n");
-                e=bot(e);
-                break;
-            }
             break;
         case 'S':
             printf("Sugestão de jogadas\n");
@@ -101,6 +91,10 @@ ESTADO interpretar(ESTADO e, char *linha){
             printf("Comando Invalido!\n");
     }
     printa(e);
+    if (e.modo == 'A' && e.peca == e.pecaBot){ // se estivermos em modo vsCPUo bot
+        printf("\nJogada do Bot\n\n");
+        e=bot(e);
+    }
     e=retiraValida(e);
     return e;
 }

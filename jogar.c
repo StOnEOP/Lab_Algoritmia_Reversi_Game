@@ -20,7 +20,7 @@
 
 ESTADO jogar(ESTADO e,int linha,int coluna) {
     if (isover(e)==0){ // se jã nao houver jogadas possiveis
-    /*else*/ if(jogadaValida(e,linha,coluna)) { // se a jogada for valida
+    /*else*/ if(jogadaValida(e,linha,coluna)==1) { // se a jogada for valida
             e.grelha[linha][coluna] = e.peca;   // poe a peça na coordenada selecionada
             e=virapecas(e,linha,coluna);        // vira as peças apartir da coordenada
             addHjogada(e);    // adiciona a jogada ao historico
@@ -28,9 +28,12 @@ ESTADO jogar(ESTADO e,int linha,int coluna) {
          } else printf("Jogada Invalida\n");
 
         return e;
+    } else {
+        //printa(e);
+        printf("ENDGAME\n");
+        vencedor(e);
+       // exit(EXIT_SUCCESS);
     }
-
-
 }
 
 int jogadaValida(ESTADO e, int linha,int coluna){ //verifica se a jogada em questao e valida ou nao
@@ -105,7 +108,6 @@ int temvalidas(ESTADO e) {//corre o tabuleiro a procura de jogadas validas
 }
 
 void vencedor(ESTADO e){//ve quem e o vencedor no jogo
-    if(isover(e)){//se estuver em final de jogo vai ver qual dos jogadores tem mais peças
         int o=0,x=0;
         for(int i=0;i<8;i++) {   // muda linha
             for (int j = 0; j < 8; j++) { // muda coluna
@@ -125,7 +127,7 @@ void vencedor(ESTADO e){//ve quem e o vencedor no jogo
         }
 
     }
-}
+
 
 /*
  * TODO:
